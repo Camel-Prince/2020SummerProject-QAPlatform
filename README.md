@@ -53,7 +53,7 @@ mysql -uroot -proot-password
 create database QAplatform default character set utf8 collate utf8_unicode_ci;
 ```
 
-# 启动guestbook进入
+# 启动QAplatform进入
 ```bash
 docker start QAplatform
 docker exec -it QAplatform /bin/bash

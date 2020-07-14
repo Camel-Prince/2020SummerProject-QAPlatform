@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'QAplatform',
         'USER': 'root',
         'PASSWORD': 'root-password',
-        'HOST': '172.17.0.3',
+        'HOST': '172.17.0.2',
         'PORT': 3306,
     }
 }
@@ -130,7 +130,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-CORS_ALLOW_CREDENTIALS = True   
+MEDIA_URL = '/media/'  # 从服务器拿图片
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 给服务器给图片
+
+REST_FRAMEWORK = {
+
+}
+import datetime
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=30000),
+}
+
+CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ()
 

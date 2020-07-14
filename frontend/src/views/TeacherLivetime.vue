@@ -2,9 +2,9 @@
     <div>
         <homepage-header></homepage-header>
        <el-container>
-           <teacher-homepage-aside activeItemFromViews="1"></teacher-homepage-aside>
+           <teacher-homepage-aside activeItemFromViews="4"></teacher-homepage-aside>
            <el-main class="main">
-               main
+               Teacher-Live-Time;
            </el-main>
        </el-container>
     </div>
@@ -15,7 +15,7 @@ import homepageHeader from '../components/HomepageHeader.vue';
 import teacherHomepageAside from '../components/TeacherHomepageAside.vue';
 
 export default {
-  name: 'TeacherHomepage',
+  name: 'TeacherLivetime',
   components: {
     HomepageHeader: homepageHeader,
     TeacherHomepageAside: teacherHomepageAside,

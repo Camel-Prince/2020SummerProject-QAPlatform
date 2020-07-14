@@ -1,6 +1,6 @@
 <template>
     <el-aside class="aside">
-          <el-menu default-active="1" active-text-color="#409EFF">
+          <el-menu :default-active="activeItemFromViews" active-text-color="#409EFF">
             <el-menu-item index="1" @click="toHomePage">
                   <i class="el-icon-user"></i>
                  <span>
@@ -17,10 +17,10 @@
                   <i class="el-icon-video-camera"></i>
                   <span>近期直播</span>
               </el-menu-item>
-              <el-menu-item index="4" @click="toWeekLiveTime">
+              <el-menu-item index="4" @click="toLiveTime">
                   <i class="el-icon-notebook-2"></i>
                   <span>
-                     每周直播时长统计
+                    直播时长
                   </span>
               </el-menu-item>
           </el-menu>
@@ -30,6 +30,7 @@
 <script>
 export default {
   name: 'teacherHomepageAside',
+  props: ['activeItemFromViews'],
   methods: {
     toHomePage() {
       this.$router.push({
@@ -44,6 +45,11 @@ export default {
     toInformationPage() {
       this.$router.push({
         name: 'TeacherInformation',
+      });
+    },
+    toLiveTime() {
+      this.$router.push({
+        name: 'TeacherLivetime',
       });
     },
   },

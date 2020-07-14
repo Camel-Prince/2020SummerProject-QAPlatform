@@ -5,6 +5,7 @@
 <!--      <router-link to="/about">About</router-link>-->
 <!--    </div>-->
     <code-editor v-model="content"></code-editor>
+    <live-video></live-video>
 <!--    <router-view/>-->
   </div>
 </template>
@@ -33,10 +34,12 @@
 </style>
 <script>
 import CodeEditor from './components/CodeEditor.vue';
+import LiveVideo from './components/LiveVideo.vue';
 
 export default {
   components: {
     CodeEditor,
+    LiveVideo,
   },
   data() {
     return {

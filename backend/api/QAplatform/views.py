@@ -226,3 +226,21 @@ class OfficeHomeView(APIView):
             'status': 200,
             'msg': 'successfully delete'
         })
+
+
+#  教务处对于某一个课程可以进行老师、助教、学生的增删改查
+class OfficeRoomView(APIView):
+    #  对一个特定的房间查询它的老师、助教、学生的信息（当前所有的老师、助教、学生以及可供选择的老师、学生、助教信息）
+    def get(self, request, *args, **kwargs):
+        try:
+            room = models.Room.objects.get(pk=kwargs.get('pk'))
+        except:
+            return Response({
+                'status': 0,
+                'msg': 'no data'
+            })
+        return Response({
+            'status': 200,
+            'msg': 'successfully return the data of the room: %s' % room.pk,
+            'data': serializers.OfficeRoomSerializer(room).data
+        })

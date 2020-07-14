@@ -27,3 +27,9 @@ class OfficeHomeSerializer(ModelSerializer):
                 'msg': '课程号为' + value + '的课程已经存在，不能重复添加'
             })
         return value
+
+
+class OfficeRoomSerializer(ModelSerializer):
+    class Meta:
+        model = models.Room
+        fields = ('pk', 'course_id', 'name', 'desc', 'img', 'user_list')

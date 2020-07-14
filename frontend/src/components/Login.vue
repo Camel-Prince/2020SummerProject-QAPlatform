@@ -4,7 +4,7 @@
             <div class="title">
               <span class="t1">用户登录</span>
               <span class="t2"><el-link type="primary" :underline="false" @click="toRegister">
-                注册 &gt;</el-link></span>
+                注册  &gt;</el-link></span>
             </div>
             <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules"
                      label-width="80px" class="login_form">

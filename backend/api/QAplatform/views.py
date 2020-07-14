@@ -2,6 +2,7 @@ import smtplib
 import random
 from email.mime.text import MIMEText
 from email.header import Header
+import pytz
 from rest_framework.views import APIView, Response
 from rest_framework_jwt.serializers import jwt_payload_handler, jwt_encode_handler
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
@@ -9,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from . import serializers
 from . import models
+import datetime
 
 
 class RegisterView(APIView):
@@ -151,3 +153,47 @@ class HomeView(APIView):
             'status': 0,
             'msg': 'no data return'
         })
+
+    # 老师可以指定某一个课的时间
+    def post(self, request, *args, **kwargs):
+        if request.user.info.occupation != 1:
+            return Response({
+                'status': 0,
+                'msg': '身份信息校验有误'
+            })
+        try:
+            start_time = request.data.get('start_time')
+            end_time = request.data.get('end_time')
+        except:
+            return Response({
+                'status': 0,
+                'msg': '输入数据格式错误'
+            })
+        cmp_start = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
+        cmp_end = datetime.datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
+        for item in request.user.rooms.all():
+            for time_item in item.use_time.all():
+                if not (cmp_end <= time_item.start_time or cmp_start >= time_item.end_time):
+                    return Response({
+                        'status': 0,
+                        'msg': '当前时间段已经被占用，不可用'
+                    })
+        room_sepcified = models.Room.objects.filter(pk=request.data.get('room_pk')).first()
+        interval = models.UseTime.objects.create(start_time=start_time, end_time=end_time, room=room_sepcified)
+        return Response({
+            'status': 200,
+            'msg': '创建成功',
+            'data': {
+                'start_time': interval.start_time,
+                'end_time': interval.end_time
+            }
+        })
+
+    # 老师可以删除某一个课的时间,传过来时间段的主键就行
+    def delete(self, request, *args, **kwargs):
+        if models.UseTime.objects.filter(pk=request.data.get('time_pk')).delete():
+            return Response({
+                'status': 200,
+                'msg': 'successfully delete'
+            })
+        return Response()

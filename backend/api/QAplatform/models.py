@@ -60,6 +60,7 @@ class Room(models.Model):
             'ex_students': []
         }
         pks = []
+        #  课程的老师学生助教信息
         for item in user_info:
             temp = {
                 'pk': item['pk'],
@@ -69,16 +70,26 @@ class Room(models.Model):
             pks.append(item['pk'])
             if item['info__occupation'] == 1:  # teacher
                 list['teachers'].append(temp)
-            if item['info__occupation'] == 2:
+            if item['info__occupation'] == 2:  # student
                 if item['status__is_assistant']:
                     list['assistants'].append(temp)
                 else:
                     list['students'].append(temp)
-        print(pks)
-        # for item in User.values('pk', ''):
-        #     print(item['pk'])
+        #  不在课程的老师学生助教信息（可供前端选择进行增删）
+        for item in UserAddition.objects.all():
+            if item.user.pk in pks:
+                continue
+            temp = {
+                'pk': item.user.pk,
+                'id_card': item.id_card,
+                'name': item.name
+            }
+            if item.occupation == 1:  # teacher
+                list['ex_teachers'].append(temp)
+            if item.occupation == 2:  # student
+                list['ex_students'].append(temp)
+                list['ex_assistants'].append(temp)
         return list
-
 
 
 class Status(models.Model):
@@ -97,3 +108,4 @@ class UseTime(models.Model):
 class File(models.Model):
     file = models.FileField(upload_to='file')
     room = models.ForeignKey(to='Room', on_delete=models.CASCADE, related_name='file')
+

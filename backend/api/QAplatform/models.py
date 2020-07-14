@@ -79,21 +79,3 @@ class Room(models.Model):
         #     print(item['pk'])
         return list
 
-
-
-class Status(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='status')
-    room = models.ForeignKey('Room', on_delete=models.CASCADE)
-    #  用户和房间多对多关系的额外字段
-    is_assistant = models.BooleanField(default=False)
-
-
-class UseTime(models.Model):
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    room = models.ForeignKey(to='Room', on_delete=models.CASCADE, related_name='use_time')
-
-
-class File(models.Model):
-    file = models.FileField(upload_to='file')
-    room = models.ForeignKey(to='Room', on_delete=models.CASCADE, related_name='file')

@@ -45,6 +45,7 @@ npm install ace-builds --save
 
 - 添加了一个`CodeEditor`组件，在`App.vue`中展示了其应用效果
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ### 直播插件
 ---
@@ -54,5 +55,7 @@ npm install vue-video-player
 ---
 
 - 直播环境配置参靠上层readme
+=======
+>>>>>>> set header and aside as a component Ref #18
 =======
 >>>>>>> set header and aside as a component Ref #18

@@ -12,11 +12,7 @@
 
 <script>
 import homepageHeader from '../components/HomepageHeader.vue';
-<<<<<<< HEAD
 import teacherHomepageAside from '../components/TeacherHomepageAside.vue';
-=======
-import teacherHomepageAside from  '../components/TeacherHomepageAside.vue';
->>>>>>> header and aside components style Ref #18
 
 export default {
   name: 'TeacherHomepage',

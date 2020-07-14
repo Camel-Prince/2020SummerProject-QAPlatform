@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from . import serializers
 from . import models
 
+
 class RegisterView(APIView):
     #  用户注册发送邮箱验证码部分，用post，这时候就存了username(=email)|password|email|identifying_code
     def post(self, request, *args, **kwargs):
@@ -86,3 +87,31 @@ class RegisterView(APIView):
             'token': token,
             'occupation': user_obj.info.occupation
         })
+
+
+class LoginView(APIView):
+    def post(self, request, *args, **kwargs):
+        try:
+            username = request.data.get('username')
+            password = request.data.get('password')
+            user = User.objects.filter(username=username).first()
+            if user and user.check_password(password) and user.info.is_confirmed:
+                #  将来增加职业：教务处人员、教师、学生
+                #  手动签发token： user ==> payload ==> token
+                payload = jwt_payload_handler(user)
+                token = jwt_encode_handler(payload)
+                return Response({
+                    'status': 200,
+                    'msg': '登陆成功',
+                    'token': token,
+                    'occupation': user.info.occupation
+                })
+            return Response({
+                'status': 400,
+                'msg': '用户名或密码错误'
+            })
+        except:
+            return Response({
+                'status': 400,
+                'msg': '登陆异常'
+            })

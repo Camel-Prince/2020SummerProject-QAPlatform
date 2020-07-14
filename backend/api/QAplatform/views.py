@@ -197,3 +197,32 @@ class HomeView(APIView):
                 'msg': 'successfully delete'
             })
         return Response()
+
+
+#  教务处的view,操作有：对课程（房间）的增删改查，
+class OfficeHomeView(APIView):
+    #  主界面得到所有的房间信息
+    def get(self, request, *args, **kwargs):
+        rooms = models.Room.objects.all()
+        return Response({
+            'data': serializers.OfficeHomeSerializer(rooms, many=True).data
+        })
+
+    #  主界面可以添加房间
+    def post(self, request, *args, **kwargs):
+        room_serializer = serializers.OfficeHomeSerializer(data=request.data)
+        room_serializer.is_valid(raise_exception=True)
+        room_obj = room_serializer.save()
+        return Response({
+            'status': 200,
+            'msg': 'successfully add room',
+            'pk': room_obj.pk
+        })
+
+    #  主界面可以删除房间,只需要知道房间的pk就行
+    def delete(self, request, *args, **kwargs):
+        models.Room.objects.filter(pk=request.data.get('room_pk')).delete()
+        return Response({
+            'status': 200,
+            'msg': 'successfully delete'
+        })

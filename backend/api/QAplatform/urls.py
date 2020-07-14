@@ -6,4 +6,5 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view()),
     path('detail/', views.UserDetail.as_view()),
     path('home/', views.HomeView.as_view()),
+    path('office/', views.OfficeHomeView.as_view()),
 ]

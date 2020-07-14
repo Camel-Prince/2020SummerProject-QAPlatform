@@ -115,3 +115,17 @@ class LoginView(APIView):
                 'status': 400,
                 'msg': '登陆异常'
             })
+
+
+class UserDetail(APIView):
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        return Response({
+            'pk': request.user.pk,
+            'username': request.user.username,
+            'name': models.UserAddition.objects.filter(user=request.user).first().name,
+            'is_confirmed': models.UserAddition.objects.filter(user=request.user).first().is_confirmed,
+            'occupation': request.user.info.occupation
+        })

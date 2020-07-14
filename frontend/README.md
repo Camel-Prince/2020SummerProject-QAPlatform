@@ -47,6 +47,7 @@ npm install ace-builds --save
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ### 直播插件
 ---
@@ -56,6 +57,8 @@ npm install vue-video-player
 ---
 
 - 直播环境配置参靠上层readme
+=======
+>>>>>>> set header and aside as a component Ref #18
 =======
 >>>>>>> set header and aside as a component Ref #18
 =======

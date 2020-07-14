@@ -26,7 +26,7 @@ docker build -t "python:38" .
 
 ## 进入环境
 
-首次进入：
+首次进入：pwd跟换为本地仓库的地址
 
 ```bash
 docker run -it -p 8000:8000 -v `pwd`:/code --name QAplatform python:38
@@ -59,21 +59,23 @@ docker start QAplatform
 docker exec -it QAplatform /bin/bash
 pipenv install django
 pipenv install djangorestframework
-pipenb install mysqlclient
+pipenv install djangorestframework-jwt
+pipenv install mysqlclient
 pipenv install django-cors-headers
+pipenv install Pillow
 pipenv shell
 ```
 # 上述环境配置完成后
 ```bash
 启动docker中mysql服务
 
-docker start maiadb
+docker start mariadb
 
 docker exec -it mariadb /bin/bash
 
 mysql -uroot -proot-password
 ```
-启动guestbook
+启动QAplatform
 ```bash
 docker start QAplatform
 
@@ -81,29 +83,30 @@ docker exec -it QAplatform /bin/bash
 
 pipenv shell
 
-cd code
 ```
 数据库迁移
 ```bash
-./manage.py migrate
+cd backend
 
-./manage.py createsuperuser
+cd api
 
-./manage.py makemigrations QAplatform
+./manage.py migrate(or python manage.py migrate)
 
-./manage.py migrate QAplatform
+./manage.py createsuperuser(or python manage.py createsuperuser)
+
+./manage.py makemigrations QAplatform(or python manage.py makemigrations)
+
+./manage.py migrate QAplatform(or python manage.py migrate)
 ```
 启动
 ```bash
-./manage.py runserver 0:8000
+./manage.py runserver 0:8000(or python manage.py runserver 0.0.0.0:8000)
 ```
 进入项目文件中的fontend文件夹
  
 npm run serve
 
-# 完成上述步骤后可观察到项目最终成功
-留言，注册，登录，点赞等功能均已实现
-点赞等功能需要发送请求，当前页面的数据有时需要刷新页面才可以观察到变化 大部分时间均可以准确显示
+
 
 
 

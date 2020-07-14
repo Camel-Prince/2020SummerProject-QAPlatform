@@ -2,7 +2,7 @@
     <div>
         <homepage-header></homepage-header>
        <el-container>
-           <teacher-homepage-aside></teacher-homepage-aside>
+           <teacher-homepage-aside activeItemFromViews="3"></teacher-homepage-aside>
            <el-main class="main">
                Teacher-Recent-Live-Table;
            </el-main>
@@ -12,7 +12,7 @@
 
 <script>
 import homepageHeader from '../components/HomepageHeader.vue';
-import teacherHomepageAside from  '../components/TeacherHomepageAside.vue';
+import teacherHomepageAside from '../components/TeacherHomepageAside.vue';
 
 export default {
   name: 'TeacherRecentlive',

@@ -2,7 +2,7 @@
     <div>
         <homepage-header></homepage-header>
        <el-container>
-           <teacher-homepage-aside activeItemFromViews="3"></teacher-homepage-aside>
+           <teacher-homepage-aside></teacher-homepage-aside>
            <el-main class="main">
                Teacher-Recent-Live-Table;
            </el-main>

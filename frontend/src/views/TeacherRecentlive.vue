@@ -12,7 +12,7 @@
 
 <script>
 import homepageHeader from '../components/HomepageHeader.vue';
-import teacherHomepageAside from  '../components/TeacherHomepageAside.vue';
+import teacherHomepageAside from '../components/TeacherHomepageAside.vue';
 
 export default {
   name: 'TeacherRecentlive',

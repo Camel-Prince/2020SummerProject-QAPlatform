@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+<!--    <div id="nav">-->
+<!--      <router-link to="/">Home</router-link> |-->
+<!--      <router-link to="/about">About</router-link>-->
+<!--    </div>-->
+    <code-editor v-model="content"></code-editor>
+<!--    <router-view/>-->
   </div>
 </template>
 
@@ -30,3 +31,17 @@
   }
 }
 </style>
+<script>
+import CodeEditor from './components/CodeEditor.vue';
+
+export default {
+  components: {
+    CodeEditor,
+  },
+  data() {
+    return {
+      content: '',
+    };
+  },
+};
+</script>

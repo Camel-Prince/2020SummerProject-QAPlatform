@@ -4,7 +4,7 @@
        <el-container>
            <teacher-homepage-aside></teacher-homepage-aside>
            <el-main class="main">
-               main
+               Teacher-Recent-Live-Table;
            </el-main>
        </el-container>
     </div>
@@ -12,14 +12,10 @@
 
 <script>
 import homepageHeader from '../components/HomepageHeader.vue';
-<<<<<<< HEAD
-import teacherHomepageAside from '../components/TeacherHomepageAside.vue';
-=======
 import teacherHomepageAside from  '../components/TeacherHomepageAside.vue';
->>>>>>> header and aside components style Ref #18
 
 export default {
-  name: 'TeacherHomepage',
+  name: 'TeacherRecentlive',
   components: {
     HomepageHeader: homepageHeader,
     TeacherHomepageAside: teacherHomepageAside,

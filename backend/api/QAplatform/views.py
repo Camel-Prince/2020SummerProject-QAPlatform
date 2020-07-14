@@ -129,3 +129,25 @@ class UserDetail(APIView):
             'is_confirmed': models.UserAddition.objects.filter(user=request.user).first().is_confirmed,
             'occupation': request.user.info.occupation
         })
+
+
+#  主界面的view，老师和学生可以看到自己的所有课（给老师和学生用）
+class HomeView(APIView):
+    authentication_classes = [JSONWebTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    # 老师和学生得到自己的课
+    def get(self, request, *args, **kwargs):
+        rooms = models.Room.objects.filter(user=request.user)
+        status = models.Status.objects.filter(user=request.user)
+        if rooms:
+            return Response({
+                'status': 200,
+                'msg': 'successfully return the data of room',
+                'room_data': serializers.RoomModelSerializer(rooms, many=True).data,
+                'is_assistant_data': serializers.StatusModelSerializer(status, many=True).data
+            })
+        return Response({
+            'status': 0,
+            'msg': 'no data return'
+        })

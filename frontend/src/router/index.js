@@ -25,12 +25,12 @@ const routes = [
     component: TeacherRecentlive,
   },
   {
-    path: 'teacher/information',
+    path: '/teacher/information',
     name: 'TeacherInformation',
     component: TeacherInformation,
   },
   {
-    path: 'teacher/live-time',
+    path: '/teacher/live-time',
     name: 'TeacherLivetime',
     component: TeacherLivetime,
   },

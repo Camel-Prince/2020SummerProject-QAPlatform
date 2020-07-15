@@ -2,9 +2,9 @@
     <el-aside class="aside">
           <el-menu :default-active="activeItemFromViews" active-text-color="#409EFF">
             <el-menu-item index="1" @click="toHomePage">
-                  <i class="el-icon-user"></i>
+                  <i class="el-icon-s-home"></i>
                  <span>
-                     首&nbsp;&nbsp;页
+                     教师首页
                  </span>
               </el-menu-item>
               <el-menu-item index="2" @click="toInformationPage">
@@ -58,7 +58,7 @@ export default {
 
 <style lang="less" scoped>
 .aside {
-    background-color: grey;
+    background-color: white;
     height: 90vh;
 }
 </style>

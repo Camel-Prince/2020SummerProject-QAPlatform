@@ -107,10 +107,10 @@ cd api
 npm run serve
 
 ### 直播docker环境配置
----
+```
 docker pull alfg/nginx-rtmp  (建议拉取国内镜像)
 docker run -it -p 1935:1935 -p 8080:80 --rm alfg/nginx-rtmp
----
+```
 
 
 

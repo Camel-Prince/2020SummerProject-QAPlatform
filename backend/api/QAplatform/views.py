@@ -244,3 +244,39 @@ class OfficeRoomView(APIView):
             'msg': 'successfully return the data of the room: %s' % room.pk,
             'data': serializers.OfficeRoomSerializer(room).data
         })
+
+    #  可以增加老师、助教、学生,只需要知道pk就行
+    def post(self, request, *args, **kwargs):
+        room = models.Room.objects.filter(pk=kwargs.get('pk')).first()
+        choice = request.data.get('choice')
+        if choice == 0:
+            # 增加老师
+            teacher_pks = request.data.get('pks')
+            for pk in teacher_pks:
+                teacher = User.objects.filter(pk=pk).first()
+                models.Status.objects.create(user=teacher, room=room)
+        else:
+            student_pks = request.data.get('pks')
+            for pk in student_pks:
+                student = User.objects.filter(pk=pk).first()
+                if choice == 1:
+                    # 增加助教
+                    models.Status.objects.create(user=student, room=room, is_assistant=True)
+                elif choice == 2:
+                    # 增加学生
+                    models.Status.objects.create(user=student, room=room)
+        return Response({
+            'status': 200,
+            'msg': '增加成功'
+        })
+
+    #  可以删除老师、助教、学生，只需要知道pk就行
+    def delete(self, request, *args, **kwargs):
+        room = models.Room.objects.filter(pk=kwargs.get('pk')).first()
+        for pk in request.data.get('pks'):
+            user_del = User.objects.filter(pk=pk).first()
+            room.user.remove(user_del)
+        return Response({
+            'status': 200,
+            'msg': '删除成功'
+        })

@@ -3,7 +3,6 @@
     <el-button @click="toTeacherHomepage()">
       教师主页
     </el-button>
-    <img alt="Vue logo" src="../assets/logo.png">
   </div>
 </template>
 

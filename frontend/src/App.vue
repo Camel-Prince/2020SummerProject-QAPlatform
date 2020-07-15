@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-<!--    <div id="nav">-->
-<!--      <router-link to="/">Home</router-link> |-->
-<!--      <router-link to="/about">About</router-link>-->
-<!--    </div>-->
-    <code-editor v-model="content"></code-editor>
-    <live-video></live-video>
-<!--    <router-view/>-->
+   <router-view/>
   </div>
 </template>
 
+<script>
+export default {
+};
+</script>
+
 <style lang="scss">
+body {
+  margin: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -32,19 +35,3 @@
   }
 }
 </style>
-<script>
-import CodeEditor from './components/CodeEditor.vue';
-import LiveVideo from './components/LiveVideo.vue';
-
-export default {
-  components: {
-    CodeEditor,
-    LiveVideo,
-  },
-  data() {
-    return {
-      content: '',
-    };
-  },
-};
-</script>

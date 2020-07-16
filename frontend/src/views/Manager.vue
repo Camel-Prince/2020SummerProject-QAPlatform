@@ -12,11 +12,15 @@
             <br>
             <span>{{ value.course }}</span>
             <br>
-            <span>{{ value.teacher }}</span>
-            <el-button type="primary" class="button">更改</el-button>
+            <span>{{ value.description }}</span>
+            <el-button type="primary" class="button" @click="modifyRoom(value.roomNum)">
+              更改
+            </el-button>
             <div class="bottom">
               <time class="time">{{ value.time }}</time>
-              <el-button type="warning" class="button">删除</el-button>
+              <el-button type="warning" class="button" @click="deleteRoom(value.roomNum)">
+                删除
+              </el-button>
             </div>
           </div>
         </el-card>
@@ -34,62 +38,82 @@ export default {
         {
           roomNum: '1',
           course: '高数',
-          teacher: '张老师',
+          description: 'xxx',
           time: '周五晚8:00',
           picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         }, {
           roomNum: '2',
           course: '英语',
-          teacher: '王老师',
+          description: 'xxx',
           time: '周四晚7:00',
           picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         }, {
           roomNum: '1',
           course: '高数',
-          teacher: '张老师',
+          description: 'xxx',
           time: '周五晚8:00',
           picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         }, {
           roomNum: '1',
           course: '高数',
-          teacher: '张老师',
+          description: 'xxx',
           time: '周五晚8:00',
           picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         }, {
           roomNum: '1',
           course: '高数',
-          teacher: '张老师',
+          description: 'xxx',
           time: '周五晚8:00',
           picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         }, {
           roomNum: '1',
           course: '高数',
-          teacher: '张老师',
+          description: 'xxx',
           time: '周五晚8:00',
           picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         }, {
           roomNum: '1',
           course: '高数',
-          teacher: '张老师',
+          description: 'xxx',
           time: '周五晚8:00',
           picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         }, {
           roomNum: '1',
           course: '高数',
-          teacher: '张老师',
+          description: 'xxx',
           time: '周五晚8:00',
           picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         },
       ],
     };
   },
+  methods: {
+    deleteRoom(roomNum) {
+      this.$confirm(`确定要删除该房间？房间ID：${roomNum}`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!',
+        });
+        // 删除操作api
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除',
+        });
+      });
+    },
+    modifyRoom(roomNum) {
+      this.$router.push({ name: 'ModifyRoom', params: { roomNum } });
+    },
+  },
 };
 </script>
 
 <style scoped>
-  body {
-    background-color: ;
-  }
   .header {
     text-align: center;
     padding: 10px;

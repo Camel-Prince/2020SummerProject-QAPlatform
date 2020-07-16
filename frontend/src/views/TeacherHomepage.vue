@@ -4,10 +4,14 @@
        <el-container>
            <teacher-homepage-aside activeItemFromViews="1"></teacher-homepage-aside>
            <el-main class="main">
-               <el-table class="roomTable" :data="roomData" size="small">
+               <span class="tableTitle">教师{{teacherName}}好，您的直播课程表见下</span>
+               <el-table class="roomTable" :data="roomData" size="small" border="true">
                    <el-table-column type="expand">
                        <template slot-scope="scope">
-                           <el-table :data="scope.row.useTimeList">
+                           <el-table class="timeListTable" :data="scope.row.useTimeList"
+                           highlight-current-row border="true">
+                               <el-table-column label="Index" type="index" width="100">
+                               </el-table-column>
                                <el-table-column label="开始时间" width="180">
                                    <template slot-scope="innerScope">
                                        <p>{{innerScope.row.startTime}}</p>
@@ -18,16 +22,13 @@
                                        <p>{{innerScope.row.endTime}}</p>
                                    </template>
                                </el-table-column>
-                               <el-table-column label="编辑直播间信息">
+                               <el-table-column label="编辑直播间信息" width="180">
                                    <el-button @click="deleteLiveTime" type="danger" round>
                                        删除预定
                                    </el-button>
-                                   <el-button @click="editLiveTime" type="success" round>
-                                       修改预定
-                                   </el-button>
                                </el-table-column>
                            </el-table>
-                           <el-button @click="addDialogFormVisible = true" type="primary" plain>
+                           <el-button @click="addLiveTime" type="primary" plain>
                               添加
                             </el-button>
                             <el-dialog :title="'请为课程'+scope.row.name+'添加直播时间'"
@@ -94,7 +95,7 @@
                            <p>课程名称：{{scope.row.name}}</p>
                        </template>
                    </el-table-column>
-                   <el-table-column label="进入直播间">
+                   <el-table-column label="进入直播间" width="180">
                        <el-button @click="enterLiveRoom" type="success" plain>
                            进入
                        </el-button>
@@ -117,6 +118,7 @@ export default {
   },
   data() {
     return {
+      teacherName: '王子旭',
       addDialogFormVisible: false,
       editDialogFormVisible: false,
       form: {
@@ -211,8 +213,11 @@ export default {
   },
   methods: {
     addLiveTime() {
-      this.dialogFormVisible = true;
+      this.addDialogFormVisible = true;
     //   后端接口
+    },
+    editLiveTime() {
+      this.editDialogFormVisible = true;
     },
   },
 };
@@ -231,5 +236,30 @@ body {
 .courseImg {
     width: 100px;
     height: 100px;
+}
+.roomTable {
+    width: 848px;
+    position: relative;
+    left: 20%;
+}
+.timeListTable {
+    width: 640px;
+}
+.tableTitle {
+    width: 850px;
+    margin-left: 30px;
+    margin-right: 1330px;
+    color: black;
+    font-family:
+     "Helvetica Neue",
+     Helvetica,
+     "PingFang SC",
+     "Hiragino Sans GB",
+     "Microsoft YaHei",
+     "微软雅黑",
+     Arial,
+     sans-serif;
+    font-size: 40px;
+    float: left;
 }
 </style>

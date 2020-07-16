@@ -2,11 +2,13 @@
   <div id="student">
     this is student
     <el-button type="primary" @click="test">测试</el-button>
+    <uploadimg></uploadimg>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import UploadImg from './UploadImg.vue';
 
 export default {
   name: 'student.vue',
@@ -22,6 +24,9 @@ export default {
         console.log(response.data);
       });
     },
+  },
+  components: {
+    uploadimg: UploadImg,
   },
 };
 </script>

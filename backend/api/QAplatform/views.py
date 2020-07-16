@@ -280,3 +280,15 @@ class OfficeRoomView(APIView):
             'status': 200,
             'msg': '删除成功'
         })
+
+
+#  上传图片
+class OfficeUpLoadImg(APIView):
+    def post(self, request, *args, **kwargs):
+        ret = models.Room.objects.filter(pk=kwargs.get('pk')).first()
+        ret.img = request.FILES['file']
+        ret.save()
+        return Response({
+            'status': 200,
+            'msg': '图片上传成功'
+        })

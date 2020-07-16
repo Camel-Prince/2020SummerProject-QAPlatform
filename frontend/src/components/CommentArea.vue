@@ -122,6 +122,9 @@ export default {
   padding: 20px 5px;
   overflow-y: auto;
 }
+.mainbox {
+  overflow-y: auto;
+}
 .footer {
   background-color: white;
   height: 130px;

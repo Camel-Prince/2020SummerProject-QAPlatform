@@ -4,19 +4,22 @@
       <h3>答疑讨论区</h3>
     </el-header>
     <el-main class="main">
-      <div class="user-message">
-        <!-- v-for="(i,index) in list"
-        :key="index"> -->
-        <div class="portrait">
-          <i class="el-icon-s-custom"></i>
-        </div>
-        <div class="message-box">
-          <div class="username">
-          <!-- v-show="i.userId !== userId"> -->
-            王子旭
+      <div class="mainbox" ref="mainbox">
+        <div class="user-message"
+          v-for="(i,index) in list"
+          :key="index"
+          :style="i.userId === userId?'flex-direction:row-reverse':''">
+          <div :style="i.userId === userId?'background-color:#DDA0DD':''"
+            class="portrait">
+            <i :class="i.userId === userId?'el-icon-user-solid':'el-icon-s-custom'">
+            </i>
           </div>
-          <div class="bubble-left">
-            123456
+          <div class="message-box">
+            <div class="username"
+              v-show="i.userId !== userId">
+              {{ i.userName }}
+            </div>
+            <div :class="i.userId === userId?'bubble-right':'bubble-left'">{{ i.message }}</div>
           </div>
         </div>
       </div>
@@ -32,7 +35,7 @@
         v-model="textarea">
       </el-input>
       <div class="bottom">
-        <el-button id='submit' type='primary'>
+        <el-button id='submit' type='primary' @click="emitMessage">
           发送
         </el-button>
       </div>
@@ -44,10 +47,52 @@
 export default {
   data() {
     return {
-      userId: null,
-      list: [],
+      userId: 3,
+      num: 5,
       textarea: '',
+      list: [
+        {
+          userId: 0,
+          message: 'abc',
+          userName: '发言者',
+        },
+        {
+          userId: 1,
+          message: 'qwe',
+          userName: '发言者2',
+        },
+        {
+          userId: 2,
+          message: 'zxc',
+          userName: '发言者3',
+        },
+        {
+          userId: 3,
+          message: 'rty',
+          userName: '发言者4',
+        },
+      ],
     };
+  },
+  methods: {
+    scrollBottom() {
+      const scrollTop = this.$el.querySelector('.main');
+      scrollTop.scrollTop = scrollTop.scrollHeight;
+    },
+    emitMessage() {
+      if (this.textarea !== '') {
+        this.list[this.num - 1] = {
+          userId: this.userId,
+          message: this.textarea,
+          tuserName: '发言者4',
+        };
+        this.textarea = '';
+        this.num += 1;
+        setTimeout(() => {
+          this.scrollBottom();
+        }, 80);
+      }
+    },
   },
 };
 </script>
@@ -74,10 +119,11 @@ export default {
 }
 .main {
   background-color: #f0f1f1;
-  overflow-y: auto;
   padding: 20px 5px;
+  overflow-y: auto;
 }
 .footer {
+  background-color: white;
   height: 130px;
   box-shadow: 0px -5px 5px 0 rgba(0, 0, 0, 0.05);
   border-radius: 0 0 10px 10px;
@@ -96,17 +142,21 @@ export default {
   margin: 0 15px;
   width: 40px;
   height: 40px;
-  font-size: 40px;
+  font-size: 37px;
   background-color: aquamarine;
+  text-align: center;
 }
 .user-message {
   display: flex;
   flex-direction: row;
+  text-align: left;
   margin: 0;
+  margin: 15px 0;
+  white-space: pre;
 }
 .username {
   text-align: left;
-  font-size: 13px;
+  font-size: 12px;
   color: #909399;
 }
 .bubble-right {

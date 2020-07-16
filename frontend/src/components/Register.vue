@@ -2,9 +2,9 @@
     <div class="register_container">
         <div class="register_box">
             <div class="title">
-              <span class="t1">用户注册</span>
-              <span class="t2"><el-link type="primary" :underline="false" @click="toLogin">登录 &gt;
-              </el-link></span>
+                <span class="t1">用户注册</span>
+                <span class="t2"><el-link type="primary" :underline="false" @click="toLogin">登录 &gt;
+                </el-link></span>
             </div>
             <el-form ref="registerFormRef"
                      status-icon
@@ -13,32 +13,32 @@
                      label-width="100px"
                      class="register_form">
                 <el-form-item label="邮箱: " prop="email">
-                  <el-input v-model="registerForm.email"></el-input>
+                    <el-input v-model="registerForm.email"></el-input>
                 </el-form-item>
                 <el-form-item label="密码: " prop="password">
-                  <el-input v-model="registerForm.password" type="password"></el-input>
+                    <el-input v-model="registerForm.password" type="password"></el-input>
                 </el-form-item>
                 <el-form-item label="确认密码: " prop="password_confirm">
-                  <el-input v-model="registerForm.password_confirm" type="password"></el-input>
+                    <el-input v-model="registerForm.password_confirm" type="password"></el-input>
                 </el-form-item>
                 <el-form-item label="身份: " prop="radio">
-                  <el-radio-group v-model="registerForm.radio">
-                    <el-radio :label="2">学生</el-radio>
-                    <el-radio :label="1">老师</el-radio>
-                    <el-radio :label="0">教务</el-radio>
-                  </el-radio-group>
+                    <el-radio-group v-model="registerForm.radio">
+                        <el-radio :label="2">学生</el-radio>
+                        <el-radio :label="1">老师</el-radio>
+                        <el-radio :label="0">教务</el-radio>
+                    </el-radio-group>
                 </el-form-item>
                 <el-form-item label="验证码:" prop="identifying_code">
-                  <el-input v-model="registerForm.identifying_code"
+                    <el-input v-model="registerForm.identifying_code"
                             style="width: 150px;"></el-input>
-                  <el-button type="primary" @click="sendEmail"
+                    <el-button type="primary" @click="sendEmail"
                              class="email_btn"
                              :disabled="disable_btn"
                              v-text="msg"></el-button>
                 </el-form-item>
                 <el-form-item class="btns">
-                  <el-button type="primary" @click="register">注册</el-button>
-                  <el-button type="info" @click="resetRegisterForm">重置</el-button>
+                    <el-button type="primary" @click="register">注册</el-button>
+                    <el-button type="info" @click="resetRegisterForm">重置</el-button>
                 </el-form-item>
             </el-form>
         </div>

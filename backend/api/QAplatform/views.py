@@ -35,11 +35,11 @@ class RegisterView(APIView):
                 'msg': '该邮箱已经被占用'
             })
         smtp_server = 'smtp.qq.com'
-        randomLetters = '234567890qwertyuiopasdfghjkzxcvbnmQWEASDZXCRTYFGHVBNJKLUIO'
+        randomLetters = '234567890QWEASDZXCRTYFGHVBNJKLUIO'
         code = ''
         for i in range(6):
             code = code + random.choice(randomLetters)
-        msg = MIMEText('你正在注册...验证码：' + code, 'plain', 'utf-8')
+        msg = MIMEText('[QAplatform]验证码:' + code + '你正在注册成为QAplatform用户，感谢您的支持！', 'plain', 'utf-8')
         msg['From'] = Header(from_addr)
         msg['To'] = Header(to_addr)
         msg['Subject'] = Header('计发客count hair')

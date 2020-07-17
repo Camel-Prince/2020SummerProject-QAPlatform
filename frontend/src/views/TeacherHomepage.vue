@@ -5,7 +5,7 @@
            <teacher-homepage-aside activeItemFromViews="1"></teacher-homepage-aside>
            <el-main class="main">
                <span class="tableTitle">教师{{teacherName}}好，您的直播课程表见下</span>
-               <el-table class="roomTable" :data="roomData" size="small" border="true">
+               <el-table class="roomTable" :data="roomData" size="medium" border="true">
                    <el-table-column type="expand">
                        <template slot-scope="scope">
                            <el-table class="timeListTable" :data="scope.row.useTimeList"
@@ -80,8 +80,14 @@
                        </template>
                    </el-table-column>
                    <el-table-column label="课程名称"  width="180">
-                       <template slot-scope="scope">
-                           <h1>{{scope.row.name}}</h1>
+                        <template slot-scope="scope">
+                           <el-popover trigger="hover" placement="top">
+                               <p>课程id：{{scope.row.courseID}}</p>
+                               <p>课程描述：{{scope.row.desc}}</p>
+                               <div slot="reference" class="name-wrapper">
+                                 <h1>{{ scope.row.name }}</h1>
+                               </div>
+                           </el-popover>
                        </template>
                    </el-table-column>
                    <el-table-column label="图像" width="200">
@@ -92,7 +98,7 @@
                    <el-table-column label="课程信息" width="280">
                        <template slot-scope="scope">
                            <p>课程序号：{{scope.row.courseID}}</p>
-                           <p>课程名称：{{scope.row.name}}</p>
+                           <p>课程描述：{{scope.row.desc}}</p>
                        </template>
                    </el-table-column>
                    <el-table-column label="进入直播间" width="180">
@@ -120,7 +126,6 @@ export default {
     return {
       teacherName: '王子旭',
       addDialogFormVisible: false,
-      editDialogFormVisible: false,
       form: {
         date: '',
         startTime: '',
@@ -157,7 +162,7 @@ export default {
           courseID: '1001',
           name: '计算机组成原理',
           desc: '计算机方向专业的基础课程',
-          img: '../assets/lbj.png',
+          img: 'http://edu-image.nosdn.127.net/AE0974AF6E148500A0B32319BA56313A.png?imageView&thumbnail=510y288&quality=100',
           useTimeList: [
             {
               startTime: '2020-08-13 10:00:00',
@@ -176,9 +181,9 @@ export default {
         },
         {
           courseID: '1002',
-          name: 'Java编程思想',
-          desc: 'OOP语言--Java基础和高级',
-          img: '../assets/lbj.png',
+          name: 'Java',
+          desc: 'Java语言初高级课程',
+          img: 'http://edu-image.nosdn.127.net/E6930D201BB66A2053F97B5341C4064F.jpg?imageView&thumbnail=426y240&quality=100',
           useTimeList: [
             {
               startTime: '2020-08-13 10:00:00',
@@ -195,7 +200,7 @@ export default {
           courseID: '1003',
           name: '概率论和数理统计',
           desc: '计算机专业的数学基础课程',
-          img: '../assets/lbj.png',
+          img: 'http://edu-image.nosdn.127.net/B1793E3DCEB8C6489EB40510C6F8DEE9.jpg?imageView&thumbnail=510y288&quality=100',
           useTimeList: [
             {
               startTime: '2020-08-13 10:00:00',
@@ -211,13 +216,22 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.$http({
+      method: 'get',
+      url: 'http://localhost:8000/QAplatform/home/',
+      headers: {
+        Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+      },
+    }).then((response) => {
+      alert(response.data);
+      console.log(response.data);
+    });
+  },
   methods: {
     addLiveTime() {
       this.addDialogFormVisible = true;
-    //   后端接口
-    },
-    editLiveTime() {
-      this.editDialogFormVisible = true;
+    //   接口
     },
   },
 };
@@ -234,13 +248,14 @@ body {
 }
 
 .courseImg {
-    width: 100px;
+    width: 150px;
     height: 100px;
 }
 .roomTable {
     width: 848px;
     position: relative;
     left: 20%;
+    top: 40px;
 }
 .timeListTable {
     width: 640px;
@@ -261,5 +276,7 @@ body {
      sans-serif;
     font-size: 40px;
     float: left;
+    margin-left: 0;
+    text-align: left;
 }
 </style>

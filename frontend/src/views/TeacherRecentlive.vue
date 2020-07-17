@@ -30,12 +30,6 @@
                                <el-button>
                                    进入直播间
                                </el-button>
-                               <el-button>
-                                   关闭直播间
-                               </el-button>
-                               <el-button>
-                                   重设直播间
-                               </el-button>
                              </el-table-column>
                            </el-table>
                        </template>

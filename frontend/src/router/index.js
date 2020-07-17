@@ -5,6 +5,7 @@ import TeacherHomepage from '../views/TeacherHomepage.vue';
 import TeacherRecentlive from '../views/TeacherRecentlive.vue';
 import TeacherInformation from '../views/TeacherInformation.vue';
 import TeacherLivetime from '../views/TeacherLivetime.vue';
+import StudentHomepage from '../views/StudentHomepage.vue';
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/teacher/live-time',
     name: 'TeacherLivetime',
     component: TeacherLivetime,
+  },
+  {
+    path: '/student/homepage',
+    name: 'StudentHomepage',
+    component: StudentHomepage,
   },
 ];
 

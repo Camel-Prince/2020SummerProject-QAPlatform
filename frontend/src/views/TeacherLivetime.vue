@@ -4,7 +4,7 @@
        <el-container>
            <teacher-homepage-aside activeItemFromViews="4"></teacher-homepage-aside>
            <el-main class="main">
-               Teacher-Live-Time;
+               <h1>TBD</h1>
            </el-main>
        </el-container>
     </div>

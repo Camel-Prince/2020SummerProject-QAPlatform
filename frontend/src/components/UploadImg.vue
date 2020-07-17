@@ -41,7 +41,7 @@ export default {
   },
   mounted() {
     this.$http.get('office/room/3/').then((response) => {
-      this.imageUrl = `http://localhost:8000/QAplatform/${response.data.data.img}`;
+      this.imageUrl = `http://localhost:8000/QAplatform${response.data.data.img}`;
     });
   },
 };

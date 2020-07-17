@@ -125,11 +125,7 @@ class UserDetail(APIView):
 
     def get(self, request, *args, **kwargs):
         return Response({
-            'pk': request.user.pk,
-            'username': request.user.username,
-            'name': models.UserAddition.objects.filter(user=request.user).first().name,
-            'is_confirmed': models.UserAddition.objects.filter(user=request.user).first().is_confirmed,
-            'occupation': request.user.info.occupation
+            'data': serializers.UserSerializer(request.user.info).data
         })
 
 

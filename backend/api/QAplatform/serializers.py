@@ -33,3 +33,9 @@ class OfficeRoomSerializer(ModelSerializer):
     class Meta:
         model = models.Room
         fields = ('pk', 'course_id', 'name', 'desc', 'img', 'user_list')
+
+
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = models.UserAddition
+        fields = ('user_info', 'id_card', 'name', 'img', 'occupation')

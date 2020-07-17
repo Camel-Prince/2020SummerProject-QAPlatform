@@ -12,10 +12,17 @@ class UserAddition(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='info')
     identifying_code = models.CharField(max_length=10)
     id_card = models.CharField(max_length=10)
-    name = models.CharField(max_length=12)
+    name = models.CharField(max_length=12, default='未命名')
     img = models.ImageField(upload_to='img', default='img/default.jpg')
     is_confirmed = models.BooleanField(default=False)
     occupation = models.IntegerField(choices=OCCUPATION_CHOICES, default=2)
+
+    @property
+    def user_info(self):
+        return {
+            'pk': self.user.pk,
+            'username': self.user.username
+        }
 
 
 #  课程房间

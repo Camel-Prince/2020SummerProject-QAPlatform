@@ -6,6 +6,14 @@ import Register from '../components/Register.vue';
 import Student from '../components/Student.vue';
 import Teacher from '../components/Teacher.vue';
 import Office from '../components/Office.vue';
+import TeacherHomepage from '../views/TeacherHomepage.vue';
+import TeacherRecentlive from '../views/TeacherRecentlive.vue';
+import TeacherInformation from '../views/TeacherInformation.vue';
+import TeacherLivetime from '../views/TeacherLivetime.vue';
+import StudentHomepage from '../views/StudentHomepage.vue';
+
+import Manager from '../views/Manager.vue';
+import ModifyRoom from '../views/ModifyRoom.vue';
 
 Vue.use(VueRouter);
 
@@ -17,6 +25,42 @@ const router = new VueRouter({
     { path: '/student', component: Student },
     { path: '/teacher', component: Teacher },
     { path: '/office', component: Office },
+    {
+    // 教务处
+      path: '/manager',
+      name: 'Manager',
+      component: Manager,
+    }, {
+    // 修改房间信息界面
+      path: '/modifyRoom',
+      name: 'ModifyRoom',
+      component: ModifyRoom,
+    },
+    {
+      path: '/teacher/homepage',
+      name: 'TeacherHomepage',
+      component: TeacherHomepage,
+    },
+    {
+      path: '/teacher/recent-live',
+      name: 'TeacherRecentlive',
+      component: TeacherRecentlive,
+    },
+    {
+      path: '/teacher/information',
+      name: 'TeacherInformation',
+      component: TeacherInformation,
+    },
+    {
+      path: '/teacher/live-time',
+      name: 'TeacherLivetime',
+      component: TeacherLivetime,
+    },
+    {
+      path: '/student/homepage',
+      name: 'StudentHomepage',
+      component: StudentHomepage,
+    },
   ],
 });
 

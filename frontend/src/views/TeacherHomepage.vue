@@ -23,12 +23,16 @@
                                    </template>
                                </el-table-column>
                                <el-table-column label="编辑直播间信息" width="180">
-                                   <el-button @click="deleteLiveTime" type="danger" round>
+                                   <template slot-scope="innerScope">
+                                     <el-button
+                                    @click="deleteLiveTime(scope.row.pk, innerScope.row.timePk)"
+                                    type="danger" round>
                                        删除预定
-                                   </el-button>
+                                     </el-button>
+                                   </template>
                                </el-table-column>
                            </el-table>
-                           <el-button @click="addLiveTime" type="primary" plain>
+                           <el-button @click="addDialogFormVisible = true" type="primary" plain>
                               添加
                             </el-button>
                             <el-dialog :title="'请为课程'+scope.row.name+'添加直播时间'"
@@ -72,7 +76,7 @@
                                             取 消
                                         </el-button>
                                         <el-button type="primary"
-                                        @click="addDialogFormVisible = false">
+                                        @click="addLiveTime(scope.row.pk)">
                                             确 定
                                         </el-button>
                                 </div>
@@ -117,6 +121,8 @@ import homepageHeader from '../components/HomepageHeader.vue';
 import teacherHomepageAside from '../components/TeacherHomepageAside.vue';
 
 export default {
+  //  依赖注入
+  inject: ['reload'],
   name: 'TeacherHomepage',
   components: {
     HomepageHeader: homepageHeader,
@@ -159,20 +165,24 @@ export default {
       },
       roomData: [
         {
+          pk: '1',
           courseID: '1001',
           name: '计算机组成原理',
           desc: '计算机方向专业的基础课程',
           img: 'http://edu-image.nosdn.127.net/AE0974AF6E148500A0B32319BA56313A.png?imageView&thumbnail=510y288&quality=100',
           useTimeList: [
             {
+              timePk: '1',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
             {
+              timePk: '2',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
             {
+              timePk: '3',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
@@ -180,16 +190,19 @@ export default {
           fileList: [],
         },
         {
+          pk: '2',
           courseID: '1002',
           name: 'Java',
           desc: 'Java语言初高级课程',
           img: 'http://edu-image.nosdn.127.net/E6930D201BB66A2053F97B5341C4064F.jpg?imageView&thumbnail=426y240&quality=100',
           useTimeList: [
             {
+              timePk: '1',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
             {
+              timePk: '2',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
@@ -197,16 +210,19 @@ export default {
           fileList: [],
         },
         {
+          pk: 3,
           courseID: '1003',
           name: '概率论和数理统计',
           desc: '计算机专业的数学基础课程',
           img: 'http://edu-image.nosdn.127.net/B1793E3DCEB8C6489EB40510C6F8DEE9.jpg?imageView&thumbnail=510y288&quality=100',
           useTimeList: [
             {
+              timePk: '1',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
             {
+              timePk: '2',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
@@ -224,14 +240,48 @@ export default {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
       },
     }).then((response) => {
-      alert(response.data);
+      this.roomData = response.data;
       console.log(response.data);
     });
   },
   methods: {
-    addLiveTime() {
-      this.addDialogFormVisible = true;
-    //   接口
+    addLiveTime(roomPk) {
+      this.addDialogFormVisible = false;
+      alert(roomPk);
+      //   发送请求
+      this.$http({
+        method: 'post',
+        url: 'http://localhost:8000/QAplatform/home/',
+        headers: {
+          Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+        },
+        data: {
+          pk: roomPk,
+          start_time: this.form.date.getDate() + this.form.startTime,
+          end_time: this.form.date.getDate() + this.form.endTime,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          this.reload();
+        });
+    },
+    deleteLiveTime(roomPk, timePk) {
+      this.$http({
+        method: 'post',
+        url: 'http://localhost:8000/QAplatform/home/',
+        headers: {
+          Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+        },
+        data: {
+          pk: roomPk,
+          time_pk: timePk,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          this.reload();
+        });
     },
   },
 };

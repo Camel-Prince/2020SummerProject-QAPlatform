@@ -70,17 +70,14 @@ class InitView(APIView):
             students = User.objects.filter(username__in=rd_list).all()
             for i in students:
                 models.Status.objects.create(user=i, room=room)
-            print('1')
             #  随机添加一个老师
             rd = str(random.randint(180000, 180009)) + '@qq.com'
             teacher = User.objects.filter(username=rd).first()
             models.Status.objects.create(user=teacher ,room=room)
-            print('2')
             #  随机添加一个助教
             rd = str(random.randint(1813000, 1813099)) + '@qq.com'
             assistant = User.objects.filter(username=rd).first()
             models.Status.objects.create(user=assistant, room=room, is_assistant=True)
-            print('3')
         return Response({
             'status': 200,
             'msg': '数据初始化成功'

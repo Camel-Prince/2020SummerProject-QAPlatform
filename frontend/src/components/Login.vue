@@ -1,26 +1,27 @@
 <template>
-    <div class="login_container">
-        <div class="login_box">
-            <div class="title">
-                <span class="t1">用户登录</span>
-                <span class="t2"><el-link type="primary" :underline="false" @click="toRegister">
-                注册  &gt;</el-link></span>
-            </div>
-            <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules"
-                     label-width="80px" class="login_form">
-                <el-form-item label="邮箱: " prop="username">
-                    <el-input v-model="loginForm.username"></el-input>
-                </el-form-item>
-                <el-form-item label="密码: " prop="password">
-                    <el-input v-model="loginForm.password" type="password"></el-input>
-                </el-form-item>
-                <el-form-item class="btns">
-                    <el-button type="primary" @click="login">登录</el-button>
-                    <el-button type="info" @click="resetLoginForm">重置</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
+  <div class="login_container">
+    <el-button type="primary" @click="init">初始化数据(测试用)</el-button>
+    <div class="login_box">
+      <div class="title">
+        <span class="t1">用户登录</span>
+        <span class="t2"><el-link type="primary" :underline="false" @click="toRegister">
+        注册  &gt;</el-link></span>
+      </div>
+      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules"
+               label-width="80px" class="login_form">
+        <el-form-item label="邮箱: " prop="username">
+          <el-input v-model="loginForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码: " prop="password">
+          <el-input v-model="loginForm.password" type="password"></el-input>
+        </el-form-item>
+        <el-form-item class="btns">
+          <el-button type="primary" @click="login">登录</el-button>
+          <el-button type="info" @click="resetLoginForm">重置</el-button>
+        </el-form-item>
+      </el-form>
     </div>
+  </div>
 </template>
 
 <script>
@@ -55,6 +56,11 @@ export default {
     };
   },
   methods: {
+    init() {
+      this.$http.get('init/').then((response) => {
+        console.log(response.data);
+      });
+    },
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
     },

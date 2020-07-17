@@ -4,7 +4,7 @@
       教务处管理界面
     </el-header>
     <el-row>
-      <el-col :span="3" v-for="(value, index) in rooms" :key="index" offset="2">
+      <el-col :span="3" v-for="(value, index) in rooms" :key="index" :offset=2>
         <el-card class="card" :body-style="{ padding: '0' }" shadow="hover">
           <img :src=value.picture class="image">
           <div style="padding: 10px;">

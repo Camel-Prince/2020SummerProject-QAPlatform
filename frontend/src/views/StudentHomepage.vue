@@ -4,36 +4,36 @@
         </homepage-header>
         <el-container>
             <el-main>
-                    <span class="tableTitle">{{studentName}}同学，你的课程如下</span>
+                    <span class="table-title">{{studentName}}同学，你的课程如下</span>
                     <el-form>
                         <el-form-item label="课程学期">
-                            <el-button class="termButton" @click="selectTerm(202001)" type="text">
+                            <el-button class="term-button" @click="selectTerm(202001)" type="text">
                                 202001
                             </el-button>
-                            <el-button class="termButton" @click="selectTerm(202002)" type="text">
+                            <el-button class="term-button" @click="selectTerm(202002)" type="text">
                                 202002
                             </el-button>
-                            <el-button class="termButton" @click="selectTerm(202003)" type="text">
+                            <el-button class="term-button" @click="selectTerm(202003)" type="text">
                                 202003
                             </el-button>
                         </el-form-item>
                         <el-form-item label="课程分类">
-                            <el-button class="termButton" @click="selectAllCourse" type="text">
+                            <el-button class="term-button" @click="selectAllCourse" type="text">
                                 全部
                             </el-button>
-                            <el-button class="termButton"
+                            <el-button class="term-button"
                              @click="selectRecommandedCourse" type="text">
                                 首页推荐
                             </el-button>
                         </el-form-item>
                         <el-form-item label="课程状态">
-                            <el-button class="termButton" type="text">
+                            <el-button class="term-button" type="text">
                                 已结束
                             </el-button>
-                            <el-button class="termButton" type="text">
+                            <el-button class="term-button" type="text">
                                 正在直播
                             </el-button>
-                            <el-button class="termButton" type="text">
+                            <el-button class="term-button" type="text">
                                 即将开始
                             </el-button>
                         </el-form-item>
@@ -46,8 +46,8 @@
                     </el-table-column>
                     <el-table-column width="700">
                         <template slot-scope="scope">
-                            <h2 class="courseName">{{scope.row.name}}</h2>
-                            <h3 class="courseDesc">{{scope.row.desc}}</h3>
+                            <h2 class="course-name">{{scope.row.name}}</h2>
+                            <h3 class="course-desc">{{scope.row.desc}}</h3>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -147,15 +147,15 @@ export default {
 .main {
     height: 90vh;
 }
-.courseName {
+.course-name {
     font-weight: bolder;
 }
-.formTitle {
+.form-title {
     font-size: 30px;
     color: darkgrey;
     float: left;
 }
-.tableTitle {
+.table-title {
     width: 850px;
     margin-left: 30px;
     margin-right: 1330px;
@@ -174,12 +174,12 @@ export default {
     margin-left: 0;
     text-align: left;
 }
-.courseTable {
+.course-table {
     width: 1080px;
     margin-left: 10%;
     margin-right: 10%;
 }
-.termButton {
+.term-button {
     float: left;
 }
 </style>

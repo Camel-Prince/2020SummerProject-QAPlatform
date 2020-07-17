@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import CommentArea from './components/CommentArea.vue';
-
 export default {
   name: 'app',
   provide() {

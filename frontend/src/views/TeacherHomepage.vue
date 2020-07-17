@@ -4,11 +4,11 @@
        <el-container>
            <teacher-homepage-aside activeItemFromViews="1"></teacher-homepage-aside>
            <el-main class="main">
-               <span class="tableTitle">教师{{teacherName}}好，您的直播课程表见下</span>
-               <el-table class="roomTable" :data="roomData" size="medium" border="true">
+               <span class="table-title">教师{{teacherName}}好，您的直播课程表见下</span>
+               <el-table class="room-table" :data="roomData" size="medium" border="true">
                    <el-table-column type="expand">
                        <template slot-scope="scope">
-                           <el-table class="timeListTable" :data="scope.row.useTimeList"
+                           <el-table class="time-list-table" :data="scope.row.useTimeList"
                            highlight-current-row border="true">
                                <el-table-column label="Index" type="index" width="100">
                                </el-table-column>
@@ -96,7 +96,7 @@
                    </el-table-column>
                    <el-table-column label="图像" width="200">
                        <template slot-scope="scope">
-                           <el-image class="courseImg" :src="scope.row.img"></el-image>
+                           <el-image class="course-img" :src="scope.row.img"></el-image>
                        </template>
                    </el-table-column>
                    <el-table-column label="课程信息" width="280">
@@ -297,20 +297,20 @@ body {
     height: 90vh;
 }
 
-.courseImg {
+.course-img {
     width: 150px;
     height: 100px;
 }
-.roomTable {
+.room-table {
     width: 848px;
     position: relative;
     left: 20%;
     top: 40px;
 }
-.timeListTable {
+.time-list-table {
     width: 640px;
 }
-.tableTitle {
+.table-title {
     width: 850px;
     margin-left: 30px;
     margin-right: 1330px;

@@ -6,7 +6,6 @@ import TeacherRecentlive from '../views/TeacherRecentlive.vue';
 import TeacherInformation from '../views/TeacherInformation.vue';
 import TeacherLivetime from '../views/TeacherLivetime.vue';
 import StudentHomepage from '../views/StudentHomepage.vue';
-
 import Manager from '../views/Manager.vue';
 import ModifyRoom from '../views/ModifyRoom.vue';
 
@@ -23,6 +22,7 @@ const routes = [
     path: '/modifyRoom',
     name: 'ModifyRoom',
     component: ModifyRoom,
+  }, {
     path: '/',
     name: 'Home',
     component: Home,

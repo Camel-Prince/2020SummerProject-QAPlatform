@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'app',
   provide() {
@@ -16,6 +15,7 @@ export default {
   data() {
     return {
       isRouterAlive: true,
+      is_login: window.sessionStorage.getItem('token'),
     };
   },
   methods: {

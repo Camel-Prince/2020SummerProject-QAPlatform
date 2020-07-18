@@ -4,6 +4,7 @@ import ElementUI from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import 'element-ui/lib/theme-chalk/index.css';
+import './registerServiceWorker';
 
 axios.defaults.withCredentials = true;
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';

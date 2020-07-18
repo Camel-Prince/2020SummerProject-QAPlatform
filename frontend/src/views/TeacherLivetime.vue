@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <homepage-header></homepage-header>
-       <el-container>
-           <teacher-homepage-aside activeItemFromViews="4"></teacher-homepage-aside>
-           <el-main class="main">
-               <h1>TBD</h1>
-           </el-main>
-       </el-container>
-    </div>
+  <div>
+    <homepage-header></homepage-header>
+    <el-container>
+      <teacher-homepage-aside activeItemFromViews="4"></teacher-homepage-aside>
+      <el-main class="main">
+        <h1>TBD</h1>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
 <script>
@@ -25,11 +25,11 @@ export default {
 
 <style scoped>
 body {
-    margin: 0;
+  margin: 0;
 }
 
 .main {
-    background-color: white;
-    height: 90vh;
+  background-color: white;
+  height: 90vh;
 }
 </style>

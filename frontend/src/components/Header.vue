@@ -1,21 +1,21 @@
 <template>
-    <div class="header">
-        <img src="../assets/QAlogo.png" class="qalogo">
-        <el-dropdown trigger="click" class="btn">
-            <span class="el-dropdown-link">
-              {{name}}<i class="el-icon-caret-bottom el-icon--right"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item class="clearfix">
-                    <el-button class="btn2">个人信息</el-button>
-                </el-dropdown-item>
-                <el-dropdown-item class="clearfix">
-                    <el-button class="btn2" @click="logout">退出账号</el-button>
-                </el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
-        <img :src=userlogo class="userlogo">
-    </div>
+  <div class="header">
+    <img src="../assets/QAlogo.png" class="qalogo">
+      <el-dropdown trigger="click" class="btn">
+        <span class="el-dropdown-link">
+          {{name}}<i class="el-icon-caret-bottom el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item class="clearfix">
+            <el-button class="btn2">个人信息</el-button>
+          </el-dropdown-item>
+          <el-dropdown-item class="clearfix">
+            <el-button class="btn2" @click="logout">退出账号</el-button>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    <img :src=userlogo class="userlogo">
+  </div>
 </template>
 
 <script>

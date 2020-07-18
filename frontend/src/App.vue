@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-   <router-view v-if="isRouterAlive"></router-view>
+    <upload-img></upload-img>
   </div>
 </template>
 
 <script>
 export default {
   name: 'app',
+  components: {
+    UploadImg,
+  },
   provide() {
     return {
       reload: this.reload,

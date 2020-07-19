@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    <upload-img></upload-img>
+    <barrage></barrage>
   </div>
 </template>
 
 <script>
+import Barrage from './components/Barrage.vue';
+
 export default {
   name: 'app',
   components: {
-    UploadImg,
+    Barrage,
   },
   provide() {
     return {

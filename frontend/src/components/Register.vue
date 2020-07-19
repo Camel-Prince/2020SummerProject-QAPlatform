@@ -108,14 +108,20 @@ export default {
     },
     register() {
       this.$refs.registerFormRef.validate(async (valid) => {
-        if (!valid) return;
+        if (!valid) {
+           return;
+        }
         await this.$http.put('register/', {
           username: this.registerForm.email,
           password: this.registerForm.password,
           identifying_code: this.registerForm.identifying_code,
         }).then((response) => {
-          if (response.data.status === 400) return this.$message.error('注册失败，当是否没有请求发送邮箱验证码');
-          if (response.data.status === 0) return this.$message.error('注册失败，邮箱验证码输入错误');
+          if (response.data.status === 400) {
+            return this.$message.error('注册失败，当是否没有请求发送邮箱验证码');
+          }
+          if (response.data.status === 0) {
+            return this.$message.error('注册失败，邮箱验证码输入错误');
+          }
           this.$message.success('注册成功');
           window.sessionStorage.setItem('token', response.data.token);
           const urls = ['/manager', '/teacher/homepage', '/student/homepage'];
@@ -139,9 +145,15 @@ export default {
                     occupation: this.registerForm.radio,
                   }).then((response) => {
                     console.log(response);
-                    if (response.data.status === 400) return this.$message.error('请输入用户名和密码');
-                    if (response.data.status === 0) return this.$message.error('注册失败，该邮箱已经被占用');
-                    if (response.data.status === 200) return this.$message.success('验证码发送成功，请在邮箱中查看');
+                    if (response.data.status === 400) {
+                       return this.$message.error('请输入用户名和密码');
+                    }
+                    if (response.data.status === 0) {
+                      return this.$message.error('注册失败，该邮箱已经被占用');
+                    }
+                    if (response.data.status === 200) {
+                      return this.$message.success('验证码发送成功，请在邮箱中查看');
+                    }
                     return 0;
                   });
                   this.disable_btn = true;

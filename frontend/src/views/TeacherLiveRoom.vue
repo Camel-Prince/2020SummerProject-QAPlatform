@@ -1,7 +1,7 @@
 <template>
   <el-container
     class="container"
-    :style="codeEditorShow || whiteBoardShow == true ?'heigth:100%':'height:754px'">
+    :style="codeEditorShow || whiteBoardShow || BarrageShow == true ?'heigth:100%':'height:754px'">
     <div class="homepage-header">
       <h1 class="mainTitle">
         直播间

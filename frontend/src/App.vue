@@ -1,15 +1,18 @@
 <template>
   <div id="app">
-    <upload-img></upload-img>
+    <router-view v-if="isRouterAlive"></router-view>
+    <!-- <upload-img></upload-img> -->
   </div>
 </template>
 
 <script>
+// import UploadImg from 'components/UploadImg.vue';
+
 export default {
   name: 'app',
-  components: {
-    UploadImg,
-  },
+  // components: {
+  //   UploadImg,
+  // },
   provide() {
     return {
       reload: this.reload,

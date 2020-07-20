@@ -10,6 +10,8 @@ django = "*"
 djangorestframework = "*"
 mysqlclient = "*"
 django-cors-headers = "*"
+djangorestframework-jwt = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"

@@ -21,7 +21,6 @@ export default {
 .mainTitle {
   width: 250px;
   margin-left: 30px;
-  margin-right: 1330px;
   color: white;
   font-family:
   "Helvetica Neue",

@@ -5,27 +5,29 @@
       <teacher-homepage-aside activeItemFromViews="1"></teacher-homepage-aside>
       <el-main class="main">
         <span class="table-title">教师{{teacherName}}好，您的直播课程表见下</span>
-        <el-table class="room-table" :data="roomData" size="medium" border="true">
+        <el-table class="room-table" :data="mainTableData" size="medium" :border="border"
+        highlight-current-row>
           <el-table-column type="expand">
             <template slot-scope="scope">
-              <el-table class="time-list-table" :data="scope.row.useTimeList"
-              highlight-current-row border="true">
+              <p>{{scope.row.userTimeList}}</p>
+              <el-table class="time-list-table" :data="scope.row.use_time_list"
+              highlight-current-row :border="border">
                 <el-table-column label="Index" type="index" width="100">
                 </el-table-column>
                 <el-table-column label="开始时间" width="180">
                   <template slot-scope="innerScope">
-                    <p>{{innerScope.row.startTime}}</p>
+                    <p>{{innerScope.row.start_time}}</p>
                   </template>
                 </el-table-column>
                 <el-table-column label="结束时间" width="180">
                   <template slot-scope="innerScope">
-                    <p>{{innerScope.row.endTime}}</p>
+                    <p>{{innerScope.row.end_time}}</p>
                   </template>
                 </el-table-column>
                 <el-table-column label="编辑直播间信息" width="180">
                   <template slot-scope="innerScope">
                     <el-button
-                    @click="deleteLiveTime(scope.row.pk, innerScope.row.timePk)"
+                    @click="deleteLiveTime(innerScope.row.time_pk)"
                     type="danger" round>
                       删除预定
                     </el-button>
@@ -117,6 +119,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import homepageHeader from '../components/HomepageHeader.vue';
 import teacherHomepageAside from '../components/TeacherHomepageAside.vue';
 
@@ -132,6 +135,7 @@ export default {
     return {
       teacherName: '王子旭',
       addDialogFormVisible: false,
+      border: true,
       form: {
         date: '',
         startTime: '',
@@ -163,7 +167,7 @@ export default {
           },
         }],
       },
-      roomData: [
+      mainTableData: [
         {
           pk: '1',
           courseID: '1001',
@@ -233,48 +237,66 @@ export default {
     };
   },
   mounted() {
-    this.$http({
+    axios({
       method: 'get',
       url: 'http://localhost:8000/QAplatform/home/',
       headers: {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
       },
     }).then((response) => {
-      this.roomData = response.data;
-      console.log(response.data);
+      this.mainTableData = response.data.room_data;
+      for (let i = 0; i < this.mainTableData.length;) {
+        this.mainTableData[i].img = `http://localhost:8000${this.mainTableData[i].img}`;
+        i += 1;
+      }
+      console.log(this.mainTableData);
     });
   },
   methods: {
     addLiveTime(roomPk) {
       this.addDialogFormVisible = false;
-      alert(roomPk);
+      const year = this.form.date.getFullYear();
+      let month = this.form.date.getMonth() + 1;
+      let date = this.form.date.getDate();
+      if (month < 10) {
+        month = `0${month}`;
+      }
+      if (date < 10) {
+        date = `0${date}`;
+      }
+      console.log(`start: ${year}-${month}-${date} ${this.form.startTime}:00`);
+      console.log(`end: ${year}-${month}-${date} ${this.form.endTime}:00`);
       //   发送请求
-      this.$http({
+      axios({
         method: 'post',
         url: 'http://localhost:8000/QAplatform/home/',
         headers: {
           Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
         },
         data: {
-          pk: roomPk,
-          start_time: this.form.date.getDate() + this.form.startTime,
-          end_time: this.form.date.getDate() + this.form.endTime,
+          room_pk: roomPk,
+          start_time: `${year}-${month}-${date} ${this.form.startTime}:00`,
+          end_time: `${year}-${month}-${date} ${this.form.endTime}:00`,
         },
       })
         .then((response) => {
           console.log(response);
           this.reload();
+          // this.mounted();
         });
     },
-    deleteLiveTime(roomPk, timePk) {
-      this.$http({
-        method: 'post',
+    deleteLiveTime(timePk) {
+      alert(timePk);
+      // console.log(`课程号： ${this.mainTableData[roomPk].name} \n
+      // 开始时间：${this.mainTableData[roomPk].useTimeList[timePk].startTime} \n
+      // 结束时间：${this.mainTableData[roomPk].userTimeList[timePk].endTime} \n`);
+      axios({
+        method: 'delete',
         url: 'http://localhost:8000/QAplatform/home/',
         headers: {
           Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
         },
         data: {
-          pk: roomPk,
           time_pk: timePk,
         },
       })
@@ -282,6 +304,9 @@ export default {
           console.log(response);
           this.reload();
         });
+    },
+    enterLiveRoom() {
+      console.log('进入直播间');
     },
   },
 };

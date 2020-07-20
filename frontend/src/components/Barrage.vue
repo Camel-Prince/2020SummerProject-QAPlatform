@@ -41,32 +41,7 @@ export default {
         {
           id: 1,
           msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 2,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 3,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 4,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 5,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 6,
-          msg: this.msg,
-          time: 5,
+          time: 6,
         },
       ];
       list.forEach((v) => {

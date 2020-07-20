@@ -44,6 +44,5 @@ export default {
   .videoDiv,.video-js{
     width: 700px;
     height: 500px;
-    margin: 0 auto;
   }
 </style>

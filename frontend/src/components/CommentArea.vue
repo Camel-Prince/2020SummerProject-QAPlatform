@@ -102,8 +102,8 @@ export default {
   margin: 0 auto;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  width: 420px;
-  height: 650px;
+  width: 400px;
+  height: 500px;
 }
 .divider {
   margin: 0;

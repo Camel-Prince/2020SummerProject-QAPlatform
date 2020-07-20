@@ -1,32 +1,32 @@
 <template>
   <div class="component menu">
     <template v-for="(toolName, index) in toolNames">
-      <div 
-        class="menu-item" 
-        :key="index" 
+      <div
+        class="menu-item"
+        :key="index"
         @click="clickedTool(toolName)"
         :class="{ selected: toolSelected === toolName }"
         :style="`z-index: ${100 - index};`"
       >
-        <div 
-          class="menu-icon"           
-          :class="[toolName, { 
-            selected: toolSelected === toolName, 
+        <div
+          class="menu-icon"
+          :class="[toolName, {
+            selected: toolSelected === toolName,
           }]"
         >
-          <div 
-            v-if="toolName === tools.StrokeColor" 
+          <div
+            v-if="toolName === tools.StrokeColor"
             class="color-picker stroke"
             :style="`border: 4px ${strokeColor} solid;`"
           ></div>
 
-          <div 
-            v-if="toolName === tools.FillColor" 
+          <div
+            v-if="toolName === tools.FillColor"
             class="color-picker fill"
             :style="`background-color: ${fillColor};`"
           ></div>
 
-          <div 
+          <div
             v-if="toolName === tools.Stroke"
             class="stroke-line" :style="`height: ${strokeWidth * 1.2}px;`"
           ></div>
@@ -38,20 +38,20 @@
 
         <p class="tool-name">{{ toolNameMap[toolName] }}</p>
 
-        <div 
-          class="submenu" 
-          :class="[toolName, { 
-            open: selectorOpen && 
-              toolSelected === toolName && 
+        <div
+          class="submenu"
+          :class="[toolName, {
+            open: selectorOpen &&
+              toolSelected === toolName &&
               !(toolName === tools.Math && isMobile),
           }]"
           @click.stop="() => {}"
           :key="index"
         >
-          <div 
+          <div
             v-if="toolsWithDropdown.includes(toolName)"
             class="submenu-content"
-            :class="[toolName, { 
+            :class="[toolName, {
               open: selectorOpen && toolSelected === toolName
             }]">
             <template v-if="toolName === tools.Rooms">
@@ -64,8 +64,8 @@
               <color-picker :value="colors" @input="updateColor"></color-picker>
             </template>
 
-            <template 
-              v-else-if="toolName === tools.Stroke" 
+            <template
+              v-else-if="toolName === tools.Stroke"
               v-for="(size, index) in strokeWidths"
             >
                 <div class="menu-item" @click="changeStrokeWidth(size)" :key="index">
@@ -73,13 +73,13 @@
                 </div>
             </template>
 
-            <template 
+            <template
               v-else-if="toolName === tools.Select"
               v-for="(clipToolName, index) in clipToolNames"
             >
               <div class="menu-item" :key="index">
-                <div 
-                  class="menu-icon" 
+                <div
+                  class="menu-icon"
                   :class="clipToolName"
                   @click="clickedClipTool(clipToolName)"
                 >
@@ -90,9 +90,9 @@
             </template>
 
             <template v-else-if="toolName === tools.Math && !isMobile">
-              <a 
-                class="menu-text math-instructions" 
-                href="https://mathlive.io/reference_shortcuts.html" 
+              <a
+                class="menu-text math-instructions"
+                href="https://mathlive.io/reference_shortcuts.html"
                 target="_blank"
               >
                 How to use math typing
@@ -100,13 +100,13 @@
             </template>
 
             <template v-else-if="toolName === tools.Polygon">
-              <p 
+              <p
                 class="menu-text"
               >
-              {{ 
-                isMobile 
-                  ? 'Tap to add a point, long press to finish' 
-                  : 'Click to add a point, double click to finish' 
+              {{
+                isMobile
+                  ? 'Tap to add a point, long press to finish'
+                  : 'Click to add a point, double click to finish'
               }}
               </p>
             </template>
@@ -193,7 +193,7 @@ export default class Menu extends Vue {
   private readonly isMobile?: boolean;
 
   private created() {
-    this.potentialRoomName = this.$route.params.room || ''; 
+    this.potentialRoomName = this.$route.params.room || '';
   }
 
   private mounted() {
@@ -330,55 +330,55 @@ export default class Menu extends Vue {
           background-image: url('../assets/pen.svg');
         }
         &.line {
-          background-image: url('../assets/line.svg');              
+          background-image: url('../assets/line.svg');
         }
         &.arrow {
-          background-image: url('../assets/arrow.svg');              
+          background-image: url('../assets/arrow.svg');
         }
         &.rectangle {
-          background-image: url('../assets/rectangle.svg');              
+          background-image: url('../assets/rectangle.svg');
         }
         &.ellipse {
-          background-image: url('../assets/ellipse.svg');              
+          background-image: url('../assets/ellipse.svg');
         }
         &.polygon {
-          background-image: url('../assets/polygon.svg');              
+          background-image: url('../assets/polygon.svg');
         }
         &.text {
-          background-image: url('../assets/text.svg');             
+          background-image: url('../assets/text.svg');
         }
         &.select {
-          background-image: url('../assets/select.svg');              
+          background-image: url('../assets/select.svg');
         }
         &.pan {
-          background-image: url('../assets/pan.svg');              
+          background-image: url('../assets/pan.svg');
         }
         &.clear {
-          background-image: url('../assets/clear.svg');              
+          background-image: url('../assets/clear.svg');
         }
         &.undo {
-          background-image: url('../assets/undo.svg');              
+          background-image: url('../assets/undo.svg');
         }
         &.redo {
-          background-image: url('../assets/redo.svg');              
+          background-image: url('../assets/redo.svg');
         }
         &.math {
-          background-image: url('../assets/math.svg');              
+          background-image: url('../assets/math.svg');
         }
         &.image {
-          background-image: url('../assets/image.svg');              
+          background-image: url('../assets/image.svg');
         }
         &.cut {
           background-image: url('../assets/cut.svg');
         }
         &.copy {
-          background-image: url('../assets/copy.svg');             
+          background-image: url('../assets/copy.svg');
         }
         &.paste {
           background-image: url('../assets/paste.svg');
         }
         &.delete {
-          background-image: url('../assets/delete.svg');             
+          background-image: url('../assets/delete.svg');
         }
       }
       .submenu {

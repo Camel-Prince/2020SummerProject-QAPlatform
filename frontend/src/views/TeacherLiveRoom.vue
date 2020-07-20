@@ -6,6 +6,7 @@
       <h1 class="mainTitle">
         直播间
       </h1>
+      <el-button type="primary" @click="open">开始直播</el-button>
     </div>
     <div class="video-chat">
       <live-video class="video"></live-video>
@@ -73,6 +74,15 @@ export default {
       codeEditorShow: false,
     };
   },
+  methods: {
+    open() {
+      this.$alert('<strong>URL</strong>:rtmp://192.168.99.100:1935/stream <br> <strong>密钥</strong>:test',
+        '直播地址(打开直播软件按照如下地址推流)', {
+          confirmButtonText: '确定',
+          dangerouslyUseHTMLString: true,
+        });
+    },
+  },
 };
 </script>
 
@@ -84,6 +94,8 @@ export default {
 }
 
 .homepage-header{
+  display: flex;
+  justify-content: space-between;
   background-color: rgb(245, 248, 248);
   height: 10vh;
   box-shadow: 0 3px 15px #cfcece;

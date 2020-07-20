@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <barrage></barrage>
+   <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
 
 <script>
-import Barrage from './components/Barrage.vue';
 
 export default {
   name: 'app',
-  components: {
-    Barrage,
-  },
   provide() {
     return {
       reload: this.reload,
@@ -20,7 +16,6 @@ export default {
   data() {
     return {
       isRouterAlive: true,
-      is_login: window.sessionStorage.getItem('token'),
     };
   },
   methods: {

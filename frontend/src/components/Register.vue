@@ -109,7 +109,7 @@ export default {
     register() {
       this.$refs.registerFormRef.validate(async (valid) => {
         if (!valid) {
-           return;
+          return;
         }
         await this.$http.put('register/', {
           username: this.registerForm.email,
@@ -146,7 +146,7 @@ export default {
                   }).then((response) => {
                     console.log(response);
                     if (response.data.status === 400) {
-                       return this.$message.error('请输入用户名和密码');
+                      return this.$message.error('请输入用户名和密码');
                     }
                     if (response.data.status === 0) {
                       return this.$message.error('注册失败，该邮箱已经被占用');

@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 // import axios from 'axios';
-import Home from '../views/Home.vue';
-// import Login from '../components/Login.vue';
-// import Register from '../components/Register.vue';
+// import Home from '../views/Home.vue';
+import Login from '../components/Login.vue';
+import Register from '../components/Register.vue';
 import Student from '../components/Student.vue';
 import Teacher from '../components/Teacher.vue';
 import Office from '../components/Office.vue';
@@ -20,17 +20,17 @@ import ModifyRoom from '../views/ModifyRoom.vue';
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
-  // { path: '/', redirect: 'login' },
-  // { path: '/login', component: Login },
-  // { path: '/register', component: Register },
+  { path: '/', redirect: 'login' },
+  { path: '/login', component: Login },
+  { path: '/register', component: Register },
   { path: '/student', component: Student },
   { path: '/teacher', component: Teacher },
   { path: '/office', component: Office },
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-  },
+  // {
+  //   path: '/',
+  //   name: 'Home',
+  //   component: Home,
+  // },
   {
     path: '/:room',
     name: 'Whiteboard',

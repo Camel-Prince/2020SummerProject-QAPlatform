@@ -9,8 +9,8 @@ module.exports = {
   ],
   parserOptions: {
     parser: 'babel-eslint',
-    ecmaFeatures:{
-      legacyDecorators: true,
+    ecmaFeatures: {
+      legacyDecorators: true
     },
   },
   rules: {

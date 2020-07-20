@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import axios from 'axios';
+// import axios from 'axios';
 import Home from '../views/Home.vue';
 import Login from '../components/Login.vue';
 import Register from '../components/Register.vue';
@@ -33,7 +33,7 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/:room',
-    name: 'Whiteboard',
+    name: 'WhiteBoard',
     component: WhiteBoard,
   },
   {
@@ -85,22 +85,22 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.path === '/login' || to.path === '/register') return next();
-  const token = window.sessionStorage.getItem('token');
-  if (!token) {
-    return next('/login');
-  }
-  axios({
-    method: 'get',
-    url: 'http://localhost:8000/QAplatform/detail/',
-    headers: {
-      Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
-    },
-  }).then((response) => {
-    console.log(response.data.occupation);
-  });
-  return next();
-});
+// router.beforeEach((to, from, next) => {
+//   if (to.path === '/login' || to.path === '/register') return next();
+//   const token = window.sessionStorage.getItem('token');
+//   if (!token) {
+//     return next('/login');
+//   }
+//   axios({
+//     method: 'get',
+//     url: 'http://localhost:8000/QAplatform/detail/',
+//     headers: {
+//       Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+//     },
+//   }).then((response) => {
+//     console.log(response.data.occupation);
+//   });
+//   return next();
+// });
 
 export default router;

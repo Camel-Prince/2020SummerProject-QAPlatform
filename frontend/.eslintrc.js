@@ -9,6 +9,9 @@ module.exports = {
   ],
   parserOptions: {
     parser: 'babel-eslint',
+    ecmaFeatures: {
+      legacyDecorators: true
+    },
   },
   rules: {
     'linebreak-style': ["error", "windows"],

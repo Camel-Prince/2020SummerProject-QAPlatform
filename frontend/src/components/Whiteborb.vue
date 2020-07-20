@@ -1,6 +1,6 @@
 <template>
   <div class="component whiteborb" :style="toolSelected === tools.Pan ? 'cursor: move;' : ''">
-    <action-menu 
+    <action-menu
       :selector-open="selectorOpen"
       :tool-selected="toolSelected"
       :stroke-color="strokeColor"
@@ -340,7 +340,7 @@ export default class Whiteborb extends Vue {
       this.sendCanvas();
     });
   }
-  
+
   // ADDING SHAPES
 
   private createNewShape(options: any) {
@@ -559,8 +559,8 @@ export default class Whiteborb extends Vue {
   private clickedTool(tool: string) {
     this.canvas.selection = (tool === Tools.Select);
 
-    if (tool !== Tools.Stroke && 
-        tool !== Tools.FillColor && 
+    if (tool !== Tools.Stroke &&
+        tool !== Tools.FillColor &&
         tool !== Tools.StrokeColor
     ) {
       this.toggleObjectsSelectable(tool === Tools.Select);

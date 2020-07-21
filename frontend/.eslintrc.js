@@ -14,9 +14,9 @@ module.exports = {
     ecmaFeatures: {
       legacyDecorators: true
     },
-    sourceType: 'module',
+    sourseType: 'module',
   },
-  parser: "vue-eslint-parser",
+  // parser: "vue_eslint-parser",
   rules: {
     'linebreak-style': [0, "error", "windows"],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

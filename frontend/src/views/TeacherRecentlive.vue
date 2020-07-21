@@ -2,9 +2,9 @@
   <div>
     <homepage-header></homepage-header>
     <el-container>
-      <teacher-homepage-aside></teacher-homepage-aside>
+      <teacher-homepage-aside activeItemFromViews="3"></teacher-homepage-aside>
       <el-main class="main">
-        <el-table :data="room_data">
+        <el-table :data="tableData">
           <el-table-column label="课程名称" width="180">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
@@ -16,22 +16,18 @@
               </el-popover>
             </template>
           </el-table-column>
-          <el-table-column label="开课时间表" width="280">
-            <template slot-scope="outterScope">
-              <el-table :data="outterScope.row.use_time_list">
-                <el-table-column label="详细时间" width="280">
-                  <template slot-scope="innerScope">
-                    <p>日期：{{innerScope.row.date}}</p>
-                    <p>开始：{{innerScope.row.start_time}}</p>
-                    <p>结束：{{innerScope.row.end_time}}</p>
-                  </template>
-                </el-table-column>
-                <el-table-column label="选择">
-                  <el-button>
-                     进入直播间
-                  </el-button>
-                </el-table-column>
-              </el-table>
+          <el-table-column label="最近直播时间">
+            <template slot-scope="scope">
+              <p>日期：{{scope.row.use_time_list.date}}</p>
+              <p>开始时间：{{scope.row.use_time_list.start_time}}</p>
+              <p>结束时间：{{scope.row.use_time_list.end_time}}</p>
+            </template>
+          </el-table-column>
+          <el-table-column>
+            <template slot-scope="scope">
+            <el-button @click="enterLiveRoom(scope.row.course_id)" type="success" plain>
+              进入直播间
+            </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -41,59 +37,75 @@
 </template>
 
 <script>
+import axios from 'axios';
 import homepageHeader from '../components/HomepageHeader.vue';
 import teacherHomepageAside from '../components/TeacherHomepageAside.vue';
 
 export default {
   name: 'TeacherRecentlive',
-  data() {
-    return {
-      room_data: [
-        {
-          course_id: '1001',
-          name: 'Java',
-          desc: 'OOP语言Java基础和部分高级用法',
-          img: '',
-          use_time_list: [
-            {
-              date: '2020-8-12',
-              start_time: '10:00:00',
-              end_time: '11:30:00:00',
-            },
-          ],
-        },
-        {
-          course_id: '1002',
-          name: 'C++',
-          desc: 'OOP语言C++基础和部分高级用法',
-          img: '',
-          use_time_list: [
-            {
-              date: '2020-8-13',
-              start_time: '09:00:00',
-              end_time: '10:30:00:00',
-            },
-          ],
-        },
-        {
-          course_id: '1003',
-          name: '数据库',
-          desc: '数据库作业解析',
-          img: '',
-          use_time_list: [
-            {
-              date: '2020-9-01',
-              start_time: '13:00:00',
-              end_time: '15:30:00:00',
-            },
-          ],
-        },
-      ],
-    };
-  },
   components: {
     HomepageHeader: homepageHeader,
     TeacherHomepageAside: teacherHomepageAside,
+  },
+  data() {
+    return {
+      // 放在表中的、各个学科的最近一次直播的信息
+      tableData: [],
+      // 从后端得到的数据
+      roomData: [],
+    };
+  },
+  methods: {
+    getRecentLive() {
+      const roomNumber = this.roomData.length;
+      for (let i = 0; i < roomNumber; i += 1) {
+        const timeList = this.roomData[i].use_time_list;
+        const timeListLength = timeList.length;
+        let recentTimeIndex = 0;
+        let recentStartTime = new Date(timeList[recentTimeIndex].start_time);
+        let recentEndTime = new Date(timeList[recentTimeIndex].end_time);
+        for (recentTimeIndex = 1; recentTimeIndex < timeListLength; recentTimeIndex += 1) {
+          const tempStartTime = new Date(timeList[recentTimeIndex].start_time);
+          if (tempStartTime - recentStartTime < 0) {
+            recentStartTime = tempStartTime;
+            recentEndTime = new Date(timeList[recentTimeIndex].end_time);
+          }
+        }
+        this.tableData.push({
+          course_id: this.roomData[i].course_id,
+          name: this.roomData[i].name,
+          desc: this.roomData[i].desc,
+          img: this.roomData[i].img,
+          use_time_list: {
+            date: `${recentStartTime.getFullYear()}-${recentStartTime.getMonth() + 1}-${recentStartTime.getDate()}`,
+            start_time: `${recentStartTime.getHours()}时${recentStartTime.getMinutes()}分`,
+            end_time: `${recentEndTime.getHours()}时${recentEndTime.getMinutes()}分`,
+          },
+        });
+      }
+    },
+    enterLiveRoom(courseID) {
+      console.log(`Enter Live Room ${courseID}`);
+    },
+  },
+  mounted() {
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/QAplatform/home/',
+      headers: {
+        Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+      },
+    }).then((response) => {
+      // console.log(response);
+      this.roomData = response.data.room_data;
+      for (let i = 0; i < this.roomData.length;) {
+        this.roomData[i].img = `http://localhost:8000${this.roomData[i].img}`;
+        i += 1;
+      }
+      console.log(this.roomData);
+      this.getRecentLive();
+      console.log(this.tableData);
+    });
   },
 };
 </script>

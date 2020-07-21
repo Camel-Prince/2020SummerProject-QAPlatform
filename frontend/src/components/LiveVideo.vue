@@ -16,12 +16,12 @@ import 'vue-video-player/src/custom-theme.css';
 import 'videojs-flash';
 
 export default {
-  props: ['courseName'],
   data() {
     return {
       name: 'video.js',
       options: {
-        url: `rtmp://192.168.99.100:1935/stream/${this.courseName}`, // 需要自行设定拉流地址
+        url: 'rtmp://192.168.99.100:1935/stream/test', // 需要自行设定拉流地址
+        type: 'rtmp/flv',
       },
       isVideo: true,
       player: null,
@@ -44,5 +44,6 @@ export default {
   .videoDiv,.video-js{
     width: 700px;
     height: 500px;
+    margin: 0 auto;
   }
 </style>

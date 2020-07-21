@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-// import axios from 'axios';
+import axios from 'axios';
 import Home from '../views/Home.vue';
 import Login from '../components/Login.vue';
 import Register from '../components/Register.vue';
@@ -12,9 +12,8 @@ import TeacherRecentlive from '../views/TeacherRecentlive.vue';
 import TeacherInformation from '../views/TeacherInformation.vue';
 import TeacherLivetime from '../views/TeacherLivetime.vue';
 import StudentHomepage from '../views/StudentHomepage.vue';
-import WhiteBoard from '../views/WhiteBoard.vue';
-import TeacherLiveRoom from '../views/TeacherLiveRoom.vue';
-import StudentLiveRoom from '../views/StudentLiveRoom.vue';
+import Whiteboard from '../views/Whiteboard.vue';
+
 import Manager from '../views/Manager.vue';
 import ModifyRoom from '../views/ModifyRoom.vue';
 
@@ -34,8 +33,8 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/:room',
-    name: 'WhiteBoard',
-    component: WhiteBoard,
+    name: 'Whiteboard',
+    component: Whiteboard,
   },
   {
     // 教务处
@@ -73,16 +72,6 @@ const routes: RouteConfig[] = [
     name: 'StudentHomepage',
     component: StudentHomepage,
   },
-  {
-    path: '/teacher/room/:room',
-    name: 'TeacherLiveRoom',
-    component: TeacherLiveRoom,
-  },
-  {
-    path: '/student/room/:room',
-    name: 'StudentLiveRoom',
-    component: StudentLiveRoom,
-  },
 ];
 
 const router = new VueRouter({
@@ -91,22 +80,22 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path === '/login' || to.path === '/register') return next();
-//   const token = window.sessionStorage.getItem('token');
-//   if (!token) {
-//     return next('/login');
-//   }
-//   axios({
-//     method: 'get',
-//     url: 'http://localhost:8000/QAplatform/detail/',
-//     headers: {
-//       Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
-//     },
-//   }).then((response) => {
-//     console.log(response.data.occupation);
-//   });
-//   return next();
-// });
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login' || to.path === '/register') return next();
+  const token = window.sessionStorage.getItem('token');
+  if (!token) {
+    return next('/login');
+  }
+  axios({
+    method: 'get',
+    url: 'http://localhost:8000/QAplatform/detail/',
+    headers: {
+      Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+    },
+  }).then((response) => {
+    console.log(response.data.occupation);
+  });
+  return next();
+});
 
 export default router;

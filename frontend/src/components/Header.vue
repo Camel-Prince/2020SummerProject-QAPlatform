@@ -43,6 +43,7 @@ export default {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
       },
     }).then((response) => {
+      console.log(response.data);
       this.userlogo = `http://localhost:8000/QAplatform${response.data.data.img}`;
       this.name = response.data.data.name;
     });

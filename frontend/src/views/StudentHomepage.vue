@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import homepageHeader from '../components/HomepageHeader.vue';
 
 export default {
@@ -69,6 +70,7 @@ export default {
       studentName: '马斓轩',
       tableData: [
         {
+          pk: '1',
           courseID: '1001',
           name: '计算机组成原理',
           desc: '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课'
@@ -77,14 +79,17 @@ export default {
           img: '../assets/lbj.png',
           useTimeList: [
             {
+              timePk: '1',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
             {
+              timePk: '2',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
             {
+              timePk: '3',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
@@ -92,6 +97,7 @@ export default {
           fileList: [],
         },
         {
+          pk: '2',
           courseID: '1001',
           name: '计算机组成原理',
           desc: '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课'
@@ -100,37 +106,17 @@ export default {
           img: '../assets/lbj.png',
           useTimeList: [
             {
+              timePk: '4',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
             {
+              timePk: '5',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
             {
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-          ],
-          fileList: [],
-        },
-        {
-          courseID: '1001',
-          name: '计算机组成原理',
-          desc: '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课'
-           + '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程'
-           + '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程',
-          img: '../assets/lbj.png',
-          useTimeList: [
-            {
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
+              timePk: '6',
               startTime: '2020-08-13 10:00:00',
               endTime: '2020-08-13 12:00:00',
             },
@@ -139,6 +125,34 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/QAplatform/detail/',
+      headers: {
+        Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        this.studentName = response.data.data.name;
+      });
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/QAplatform/home/',
+      headers: {
+        Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.room_data);
+        this.tableData = response.data.room_data;
+        for (let i = 0; i < this.tableData.length;) {
+          this.tableData[i].img = `http://localhost:8000${this.tableData[i].img}`;
+          i += 1;
+        }
+      });
   },
 };
 </script>

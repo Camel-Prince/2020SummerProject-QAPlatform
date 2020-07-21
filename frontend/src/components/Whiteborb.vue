@@ -748,7 +748,6 @@ export default class Whiteborb extends Vue {
 }
 </script>
 
-
 <style scoped lang="less">
 .component {
   &.whiteborb {

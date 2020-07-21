@@ -1,23 +1,15 @@
 <template>
-  <div>
-    <div class="barrages-drop">
-      <vue-baberrage
-        :isShow="barrageIsShow"
-        :barrageList="barrageList"
-        :maxWordCount="maxWordCount"
-        :throttleGap="throttleGap"
-        :loop="barrageLoop"
-        :boxHeight="boxHeight"
-        :messageHeight="messageHeight"
-      >
-      </vue-baberrage>
-    </div>
-    <div class="send-barrage">
-      发送弹幕
-      <el-input v-model="msg" placeholder="请输入内容"></el-input>
-      <el-button type="primary" @click="addTolist">发送</el-button>
-    </div>
-    <el-divider></el-divider>
+  <div class="barrages-drop">
+    <vue-baberrage
+      :isShow="barrageIsShow"
+      :barrageList="barrageList"
+      :maxWordCount="maxWordCount"
+      :throttleGap="throttleGap"
+      :loop="barrageLoop"
+      :boxHeight="boxHeight"
+      :messageHeight="messageHeight"
+    >
+    </vue-baberrage>
   </div>
 </template>
 
@@ -30,28 +22,61 @@ export default {
   name: 'Barrages',
   data() {
     return {
-      num: 1,
-      msg: '',
+      msg: '前方高能',
       barrageIsShow: true,
       messageHeight: 35,
-      boxHeight: 255,
+      boxHeight: 700,
       barrageLoop: false,
-      maxWordCount: 15,
+      maxWordCount: 3,
       throttleGap: 600,
       barrageList: [],
     };
   },
+  mounted() {
+    this.addToList();
+  },
   methods: {
-    addTolist() {
-      if (this.msg !== '') {
-        this.barrageList.push({
-          id: this.num,
+    addToList() {
+      const list = [
+        {
+          id: 1,
           msg: this.msg,
-          time: 6,
+          time: 5,
+        },
+        {
+          id: 2,
+          msg: this.msg,
+          time: 5,
+        },
+        {
+          id: 3,
+          msg: this.msg,
+          time: 5,
+        },
+        {
+          id: 4,
+          msg: this.msg,
+          time: 5,
+        },
+        {
+          id: 5,
+          msg: this.msg,
+          time: 5,
+        },
+        {
+          id: 6,
+          msg: this.msg,
+          time: 5,
+        },
+      ];
+      list.forEach((v) => {
+        this.barrageList.push({
+          id: v.id,
+          msg: v.msg,
+          time: v.time,
           type: MESSAGE_TYPE.NORMAL,
         });
-        this.num += 1;
-      }
+      });
     },
   },
 };
@@ -86,13 +111,5 @@ export default {
     top: 0;
     margin-top: 130px;
   }
-}
-</style>
-
-<style>
-.send-barrage {
-  margin: -20px auto 10px;
-  display: flex;
-  width: 25%;
 }
 </style>

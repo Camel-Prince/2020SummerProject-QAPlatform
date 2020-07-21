@@ -39,3 +39,9 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = models.UserAddition
         fields = ('user_info', 'id_card', 'name', 'img', 'occupation')
+
+
+class MessageSerializer(ModelSerializer):
+    class Meta:
+        model = models.Message
+        fields = ('msg', 'user_info')

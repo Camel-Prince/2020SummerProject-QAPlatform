@@ -12,6 +12,7 @@ from . import serializers
 from . import models
 import datetime
 
+
 class InitView(APIView):
     def get(self, request, *args, **kwargs):
         User.objects.all().delete()
@@ -74,7 +75,7 @@ class InitView(APIView):
             #  随机添加一个老师
             rd = str(random.randint(180000, 180009)) + '@qq.com'
             teacher = User.objects.filter(username=rd).first()
-            models.Status.objects.create(user=teacher ,room=room)
+            models.Status.objects.create(user=teacher, room=room)
             print('2')
             #  随机添加一个助教
             rd = str(random.randint(1813000, 1813099)) + '@qq.com'
@@ -361,4 +362,29 @@ class OfficeUpLoadImg(APIView):
         return Response({
             'status': 200,
             'msg': '图片上传成功'
+        })
+
+
+#  房间内的消息记录
+class MsgView(APIView):
+    def get(self, request, *args, **kwargs):
+        room = models.Room.objects.filter(pk=request.data.get('room_pk')).first()
+        messages = models.Message.objects.filter(room=room).all()
+        return Response({
+            'data': serializers.MessageSerializer(messages, many=True).data
+        })
+
+    def post(self, request, *agrs, **kwargs):
+        user = User.objects.filter(pk=request.data.get('user_pk')).first()
+        room = models.Room.objects.filter(pk=request.data.get('room_pk')).first()
+        msg = request.data.get('msg')
+        if user and room and msg:
+            models.Message.objects.create(msg=msg, user=user, room=room)
+            return Response({
+                'status': 200,
+                'msg': '消息发送成功'
+            })
+        return Response({
+            'status': 0,
+            'msg': '数据有误'
         })

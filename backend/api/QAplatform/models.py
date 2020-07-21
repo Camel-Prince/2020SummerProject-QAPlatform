@@ -116,3 +116,16 @@ class File(models.Model):
     file = models.FileField(upload_to='file')
     room = models.ForeignKey(to='Room', on_delete=models.CASCADE, related_name='file')
 
+
+class Message(models.Model):
+    msg = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE ,related_name='message')
+    room = models.ForeignKey(to='Room', on_delete=models.CASCADE, related_name='message')
+
+    @property
+    def user_info(self):
+        info = {}
+        info['user_pk'] = self.user.pk
+        info['name'] = self.user.info.name
+        info['occupation'] = self.user.info.occupation
+        return info

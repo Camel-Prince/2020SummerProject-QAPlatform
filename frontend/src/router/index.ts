@@ -14,6 +14,7 @@ import TeacherLivetime from '../views/TeacherLivetime.vue';
 import StudentHomepage from '../views/StudentHomepage.vue';
 import WhiteBoard from '../views/WhiteBoard.vue';
 import TeacherLiveRoom from '../views/TeacherLiveRoom.vue';
+import StudentLiveRoom from '../views/StudentLiveRoom.vue';
 import Manager from '../views/Manager.vue';
 import ModifyRoom from '../views/ModifyRoom.vue';
 
@@ -76,6 +77,11 @@ const routes: RouteConfig[] = [
     path: '/teacher/room/:room',
     name: 'TeacherLiveRoom',
     component: TeacherLiveRoom,
+  },
+  {
+    path: '/student/room/:room',
+    name: 'StudentLiveRoom',
+    component: StudentLiveRoom,
   },
 ];
 

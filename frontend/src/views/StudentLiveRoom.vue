@@ -4,10 +4,11 @@
     :style="codeEditorShow || whiteBoardShow || BarrageShow == true ?'heigth:100%':'height:754px'">
     <div class="homepage-header">
       <h1 class="mainTitle">
-        直播间
+        教学直播间
       </h1>
       <div>
-        <el-button type="primary" @click="open">开始直播</el-button>
+        <el-button type="primary" @click="open">开始答疑</el-button>
+        <el-button type="primary" @click="cancel">取消排队</el-button>
       </div>
     </div>
     <div class="video-chat">
@@ -78,11 +79,16 @@ export default {
   },
   methods: {
     open() {
-      this.$alert('<strong>URL</strong>:rtmp://192.168.99.100:1935/stream <br> <strong>密钥</strong>:test',
-        '直播地址(打开直播软件按照如下地址推流)', {
-          confirmButtonText: '确定',
-          dangerouslyUseHTMLString: true,
-        });
+      this.$alert('进入排队状态', '提示', {
+        confirmButtonText: '确定',
+        dangerouslyUseHTMLString: true,
+      });
+    },
+    cancel() {
+      this.$alert('取消排队状态', '提示', {
+        confirmButtonText: '确定',
+        dangerouslyUseHTMLString: true,
+      });
     },
   },
 };
@@ -91,7 +97,7 @@ export default {
 <style scoped>
 .container {
   display: block;
-  background-image: url("../image/star.png");
+  background-image: url("../image/star1.png");
   background-repeat: repeat-y;
 }
 

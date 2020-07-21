@@ -1,7 +1,9 @@
 module.exports = {
   root: true,
   env: {
+    browser: true,
     node: true,
+    es6: true,
   },
   extends: [
     'plugin:vue/essential',
@@ -12,11 +14,14 @@ module.exports = {
     ecmaFeatures: {
       legacyDecorators: true
     },
+    sourceType: 'module',
   },
+  parser: "vue-eslint-parser",
   rules: {
-    'linebreak-style': ["error", "windows"],
+    'linebreak-style': [0, "error", "windows"],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-console': 'off',
   },
   overrides: [
     {

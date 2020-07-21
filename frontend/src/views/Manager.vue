@@ -2,6 +2,7 @@
   <el-container>
     <el-header class="header">
       教务处管理界面
+      <el-button type="success" class="add">新增房间</el-button>
     </el-header>
     <el-row>
       <el-col :span="3" v-for="(value, index) in rooms" :key="index" :offset=2>
@@ -11,7 +12,7 @@
             <span>{{ value.course_id }}</span>
             <br>
             <span>{{ value.name }}</span>
-            <el-button type="primary" class="button" @click="modifyRoom(value.pk)">
+            <el-button type="primary" class="button" @click="modifyRoom(value.pk, value.name)">
               更改
             </el-button>
             <div class="bottom">
@@ -57,8 +58,8 @@ export default {
         });
       });
     },
-    modifyRoom(roomNum) {
-      this.$router.push({ name: 'ModifyRoom', params: { roomNum } });
+    modifyRoom(roomNum, roomName) {
+      this.$router.push({ name: 'ModifyRoom', params: { roomNum, roomName } });
     },
   },
   mounted() {
@@ -75,6 +76,12 @@ export default {
     text-align: center;
     padding: 10px;
     font-size: 30px;
+  }
+
+  .add {
+    float: right;
+    margin-top: 10px;
+    margin-right: 50px;
   }
 
   .card {

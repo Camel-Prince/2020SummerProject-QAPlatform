@@ -1,11 +1,11 @@
 <template>
   <el-container>
     <el-header class="header">
-      房间{{ roomNum }} 修改界面
+      {{ roomName }} 修改界面
     </el-header>
     <el-tabs tab-position="left">
       <el-tab-pane label="修改老师">
-        <room-teacher></room-teacher>
+        <room-teacher :room_pk="roomNum"></room-teacher>
       </el-tab-pane>
       <el-tab-pane label="修改时间">
         <room-time></room-time>
@@ -34,12 +34,15 @@ export default {
   data() {
     return {
       roomNum: '',
+      roomName: '',
     };
   },
   mounted() {
     this.roomNum = this.$route.params.roomNum;
-  },
-  methods: {
+    this.roomName = this.$route.params.roomName;
+    if (this.roomNum === undefined) {
+      this.$router.push('/manager');
+    }
   },
 };
 </script>

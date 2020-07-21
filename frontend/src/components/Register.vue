@@ -118,6 +118,7 @@ export default {
           if (response.data.status === 0) return this.$message.error('注册失败，邮箱验证码输入错误');
           this.$message.success('注册成功');
           window.sessionStorage.setItem('token', response.data.token);
+          window.sessionStorage.setItem('user_pk', response.data.user_pk);
           const urls = ['/office', '/teacher', 'student'];
           return this.$router.push({ path: urls[response.data.occupation] });
         });

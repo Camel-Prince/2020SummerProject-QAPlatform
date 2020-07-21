@@ -162,7 +162,8 @@ class RegisterView(APIView):
             'status': 200,
             'msg': '注册成功',
             'token': token,
-            'occupation': user_obj.info.occupation
+            'occupation': user_obj.info.occupation,
+            'user_pk': user_obj.pk
         })
 
 
@@ -181,7 +182,8 @@ class LoginView(APIView):
                     'status': 200,
                     'msg': '登陆成功',
                     'token': token,
-                    'occupation': user.info.occupation
+                    'occupation': user.info.occupation,
+                    'user_pk': user.pk
                 })
             return Response({
                 'status': 400,
@@ -375,16 +377,18 @@ class MsgView(APIView):
         })
 
     def post(self, request, *agrs, **kwargs):
-        user = User.objects.filter(pk=request.data.get('user_pk')).first()
-        room = models.Room.objects.filter(pk=request.data.get('room_pk')).first()
-        msg = request.data.get('msg')
-        if user and room and msg:
-            models.Message.objects.create(msg=msg, user=user, room=room)
+        try:
+            user = User.objects.filter(pk=request.data.get('user_pk')).first()
+            room = models.Room.objects.filter(pk=request.data.get('room_pk')).first()
+            msg = request.data.get('msg')
+            if user and room and msg:
+                models.Message.objects.create(msg=msg, user=user, room=room)
+                return Response({
+                    'status': 200,
+                    'msg': '消息发送成功'
+                })
+        except:
             return Response({
-                'status': 200,
-                'msg': '消息发送成功'
+                'status': 0,
+                'msg': '数据有误'
             })
-        return Response({
-            'status': 0,
-            'msg': '数据有误'
-        })

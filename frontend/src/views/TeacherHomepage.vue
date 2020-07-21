@@ -278,7 +278,6 @@ export default {
       if (date < 10) {
         date = `0${date}`;
       }
-      //   发送请求
       axios({
         method: 'post',
         url: 'http://localhost:8000/QAplatform/home/',

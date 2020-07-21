@@ -12,8 +12,9 @@ import TeacherRecentlive from '../views/TeacherRecentlive.vue';
 import TeacherInformation from '../views/TeacherInformation.vue';
 import TeacherLivetime from '../views/TeacherLivetime.vue';
 import StudentHomepage from '../views/StudentHomepage.vue';
-import Whiteboard from '../views/Whiteboard.vue';
-
+import WhiteBoard from '../views/WhiteBoard.vue';
+import TeacherLiveRoom from '../views/TeacherLiveRoom.vue';
+import StudentLiveRoom from '../views/StudentLiveRoom.vue';
 import Manager from '../views/Manager.vue';
 import ModifyRoom from '../views/ModifyRoom.vue';
 
@@ -32,20 +33,20 @@ const routes: RouteConfig[] = [
     component: Home,
   },
   {
-    path: '/:room',
-    name: 'Whiteboard',
-    component: Whiteboard,
-  },
-  {
     // 教务处
     path: '/manager',
     name: 'Manager',
     component: Manager,
   }, {
     // 修改房间信息界面
-    path: '/modifyRoom',
+    path: '/manager/modifyRoom',
     name: 'ModifyRoom',
     component: ModifyRoom,
+  },
+  {
+    path: '/:room',
+    name: 'WhiteBoard',
+    component: WhiteBoard,
   },
   {
     path: '/teacher/homepage',
@@ -71,6 +72,16 @@ const routes: RouteConfig[] = [
     path: '/student/homepage',
     name: 'StudentHomepage',
     component: StudentHomepage,
+  },
+  {
+    path: '/teacher/room/:room',
+    name: 'TeacherLiveRoom',
+    component: TeacherLiveRoom,
+  },
+  {
+    path: '/student/room/:room',
+    name: 'StudentLiveRoom',
+    component: StudentLiveRoom,
   },
 ];
 

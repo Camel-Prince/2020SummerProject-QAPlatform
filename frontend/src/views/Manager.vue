@@ -11,12 +11,12 @@
             <span>{{ value.course_id }}</span>
             <br>
             <span>{{ value.name }}</span>
-            <el-button type="primary" class="button" @click="modifyRoom(value.roomNum)">
+            <el-button type="primary" class="button" @click="modifyRoom(value.pk)">
               更改
             </el-button>
             <div class="bottom">
               <time class="time">{{  }}</time>
-              <el-button type="warning" class="button" @click="deleteRoom(value.roomNum)">
+              <el-button type="warning" class="button" @click="deleteRoom(value.pk)">
                 删除
               </el-button>
             </div>
@@ -37,16 +37,19 @@ export default {
   },
   methods: {
     deleteRoom(roomNum) {
-      this.$confirm(`确定要删除该房间？房间ID：${roomNum}`, '提示', {
+      this.$confirm('确定要删除该房间？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!',
-        });
-        // 删除操作api
+        this.$http.delete('office/', { data: { room_pk: roomNum } })
+          .then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            });
+            this.$router.go(0);
+          });
       }).catch(() => {
         this.$message({
           type: 'info',

@@ -5,19 +5,17 @@
     </el-header>
     <el-row>
       <el-col :span="3" v-for="(value, index) in rooms" :key="index" :offset=2>
-        <el-card class="card" :body-style="{ padding: '0' }" shadow="hover">
-          <img :src=value.picture class="image">
+        <el-card class="card" :body-style="{ padding: '0px' }" shadow="hover">
+          <img :src="`http://localhost:8000/QAplatform${value.img}`" class="image">
           <div style="padding: 10px;">
-            <span>{{ value.roomNum }}</span>
+            <span>{{ value.course_id }}</span>
             <br>
-            <span>{{ value.course }}</span>
-            <br>
-            <span>{{ value.description }}</span>
+            <span>{{ value.name }}</span>
             <el-button type="primary" class="button" @click="modifyRoom(value.roomNum)">
               更改
             </el-button>
             <div class="bottom">
-              <time class="time">{{ value.time }}</time>
+              <time class="time">{{  }}</time>
               <el-button type="warning" class="button" @click="deleteRoom(value.roomNum)">
                 删除
               </el-button>
@@ -34,57 +32,7 @@ export default {
   name: 'Manager',
   data() {
     return {
-      rooms: [
-        {
-          roomNum: '1',
-          course: '高数',
-          description: 'xxx',
-          time: '周五晚8:00',
-          picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        }, {
-          roomNum: '2',
-          course: '英语',
-          description: 'xxx',
-          time: '周四晚7:00',
-          picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        }, {
-          roomNum: '1',
-          course: '高数',
-          description: 'xxx',
-          time: '周五晚8:00',
-          picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        }, {
-          roomNum: '1',
-          course: '高数',
-          description: 'xxx',
-          time: '周五晚8:00',
-          picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        }, {
-          roomNum: '1',
-          course: '高数',
-          description: 'xxx',
-          time: '周五晚8:00',
-          picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        }, {
-          roomNum: '1',
-          course: '高数',
-          description: 'xxx',
-          time: '周五晚8:00',
-          picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        }, {
-          roomNum: '1',
-          course: '高数',
-          description: 'xxx',
-          time: '周五晚8:00',
-          picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        }, {
-          roomNum: '1',
-          course: '高数',
-          description: 'xxx',
-          time: '周五晚8:00',
-          picture: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
-        },
-      ],
+      rooms: [],
     };
   },
   methods: {
@@ -110,6 +58,12 @@ export default {
       this.$router.push({ name: 'ModifyRoom', params: { roomNum } });
     },
   },
+  mounted() {
+    this.$http.get('office/')
+      .then((response) => {
+        this.rooms = response.data.data;
+      });
+  },
 };
 </script>
 
@@ -121,8 +75,9 @@ export default {
   }
 
   .card {
+    text-align: left;
     width: 200px;
-    height: 280px;
+    height: 265px;
     margin: 10px 0;
   }
 

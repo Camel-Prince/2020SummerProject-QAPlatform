@@ -4,7 +4,7 @@
     <el-container>
       <teacher-homepage-aside activeItemFromViews="1"></teacher-homepage-aside>
       <el-main class="main">
-        <span class="table-title">教师{{teacherName}}好，您的直播课程表见下</span>
+        <span class="table-title">教师{{teacherName}}的直播课程表见下</span>
         <el-table class="room-table" :data="mainTableData" size="medium" :border="border"
         highlight-current-row>
           <el-table-column type="expand">
@@ -88,7 +88,7 @@
           <el-table-column label="课程名称"  width="180">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top">
-                <p>课程id：{{scope.row.courseID}}</p>
+                <p>课程id：{{scope.row.course_id}}</p>
                 <p>课程描述：{{scope.row.desc}}</p>
                 <div slot="reference" class="name-wrapper">
                   <h1>{{ scope.row.name }}</h1>
@@ -103,14 +103,16 @@
           </el-table-column>
           <el-table-column label="课程信息" width="280">
             <template slot-scope="scope">
-              <p>课程序号：{{scope.row.courseID}}</p>
+              <p>课程序号：{{scope.row.course_id}}</p>
               <p>课程描述：{{scope.row.desc}}</p>
             </template>
           </el-table-column>
           <el-table-column label="进入直播间" width="180">
-            <el-button @click="enterLiveRoom" type="success" plain>
-              进入
-            </el-button>
+            <template slot-scope="scope">
+              <el-button @click="enterLiveRoom(scope.row.course_id)" type="success" plain>
+                进入
+              </el-button>
+            </template>
           </el-table-column>
         </el-table>
       </el-main>
@@ -239,6 +241,16 @@ export default {
   mounted() {
     axios({
       method: 'get',
+      url: 'http://localhost:8000/QAplatform/detail/',
+      headers: {
+        Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => {
+        this.teacherName = response.data.data.name;
+      });
+    axios({
+      method: 'get',
       url: 'http://localhost:8000/QAplatform/home/',
       headers: {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
@@ -249,10 +261,12 @@ export default {
         this.mainTableData[i].img = `http://localhost:8000${this.mainTableData[i].img}`;
         i += 1;
       }
-      console.log(this.mainTableData);
     });
   },
   methods: {
+    enterLiveRoom(courseID) {
+      console.log(`Enter Live Room ${courseID}`);
+    },
     addLiveTime(roomPk) {
       this.addDialogFormVisible = false;
       const year = this.form.date.getFullYear();
@@ -264,8 +278,6 @@ export default {
       if (date < 10) {
         date = `0${date}`;
       }
-      console.log(`start: ${year}-${month}-${date} ${this.form.startTime}:00`);
-      console.log(`end: ${year}-${month}-${date} ${this.form.endTime}:00`);
       //   发送请求
       axios({
         method: 'post',
@@ -280,16 +292,15 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
+          if (response.data.status === 0) {
+            alert('时间冲突，请重新设置');
+          } else {
+            alert('设置成功～');
+          }
           this.reload();
-          // this.mounted();
         });
     },
     deleteLiveTime(timePk) {
-      alert(timePk);
-      // console.log(`课程号： ${this.mainTableData[roomPk].name} \n
-      // 开始时间：${this.mainTableData[roomPk].useTimeList[timePk].startTime} \n
-      // 结束时间：${this.mainTableData[roomPk].userTimeList[timePk].endTime} \n`);
       axios({
         method: 'delete',
         url: 'http://localhost:8000/QAplatform/home/',
@@ -304,9 +315,6 @@ export default {
           console.log(response);
           this.reload();
         });
-    },
-    enterLiveRoom() {
-      console.log('进入直播间');
     },
   },
 };

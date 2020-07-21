@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="video-chat">
-      <live-video class="video"></live-video>
+      <live-video class="video" :courseName="courseName"></live-video>
       <comment-area class="chat"></comment-area>
     </div>
     <div class="switch-barrage">
@@ -71,6 +71,7 @@ export default {
   },
   data() {
     return {
+      courseName: 'C',
       BarrageShow: true,
       whiteBoardShow: false,
       codeEditorShow: false,
@@ -78,7 +79,7 @@ export default {
   },
   methods: {
     open() {
-      this.$alert('<strong>URL</strong>:rtmp://192.168.99.100:1935/stream <br> <strong>密钥</strong>:test',
+      this.$alert(`<strong>URL</strong>:rtmp://192.168.99.100:1935/stream <br> <strong>密钥</strong>:${this.courseName}`,
         '直播地址(打开直播软件按照如下地址推流)', {
           confirmButtonText: '确定',
           dangerouslyUseHTMLString: true,

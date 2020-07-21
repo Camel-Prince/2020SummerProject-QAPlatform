@@ -8,18 +8,19 @@
         <div class="user-message"
           v-for="(i,index) in list"
           :key="index"
-          :style="i.userId === userId?'flex-direction:row-reverse':''">
-          <div :style="i.userId === userId?'background-color:#DDA0DD':''"
+          :style="i.user_info.user_pk == userId?'flex-direction:row-reverse':''">
+          <div :style="i.user_info.user_pk == userId?'background-color:#DDA0DD':''"
             class="portrait">
-            <i :class="i.userId === userId?'el-icon-user-solid':'el-icon-s-custom'">
+            <i :class="i.user_info.occupation == 2?'el-icon-user-solid':'el-icon-s-custom'">
             </i>
           </div>
           <div class="message-box">
             <div class="username"
-              v-show="i.userId !== userId">
-              {{ i.userName }}
+              v-show="i.user_info.user_pk != userId">
+              {{ i.user_info.name }}
             </div>
-            <div :class="i.userId === userId?'bubble-right':'bubble-left'">{{ i.message }}</div>
+            <div
+              :class="i.user_info.user_pk == userId?'bubble-right':'bubble-left'">{{ i.msg }}</div>
           </div>
         </div>
       </div>
@@ -47,32 +48,21 @@
 export default {
   data() {
     return {
-      userId: 3,
-      num: 5,
+      userId: null,
       textarea: '',
-      list: [
-        {
-          userId: 0,
-          message: 'abc',
-          userName: '发言者',
-        },
-        {
-          userId: 1,
-          message: 'qwe',
-          userName: '发言者2',
-        },
-        {
-          userId: 2,
-          message: 'zxc',
-          userName: '发言者3',
-        },
-        {
-          userId: 3,
-          message: 'rty',
-          userName: '发言者4',
-        },
-      ],
+      list: [],
+      timer: null,
     };
+  },
+  mounted() {
+    this.userId = window.sessionStorage.getItem('user_pk');
+    this.timer = setInterval(() => {
+      this.getList();
+    }, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+    this.timer = null;
   },
   methods: {
     scrollBottom() {
@@ -81,17 +71,22 @@ export default {
     },
     emitMessage() {
       if (this.textarea !== '') {
-        this.list[this.num - 1] = {
-          userId: this.userId,
-          message: this.textarea,
-          tuserName: '发言者4',
-        };
+        this.$http.post('msg/21/', {
+          user_pk: this.userId,
+          msg: this.textarea,
+        }).then(() => {
+          this.getList();
+        });
         this.textarea = '';
-        this.num += 1;
         setTimeout(() => {
           this.scrollBottom();
         }, 80);
       }
+    },
+    getList() {
+      this.$http.get('msg/21/').then((response) => {
+        this.list = response.data.data;
+      });
     },
   },
 };

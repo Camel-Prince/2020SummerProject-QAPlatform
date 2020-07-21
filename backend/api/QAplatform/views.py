@@ -370,7 +370,7 @@ class OfficeUpLoadImg(APIView):
 #  房间内的消息记录
 class MsgView(APIView):
     def get(self, request, *args, **kwargs):
-        room = models.Room.objects.filter(pk=request.data.get('room_pk')).first()
+        room = models.Room.objects.filter(pk=kwargs.get('room_pk')).first()
         messages = models.Message.objects.filter(room=room).all()
         return Response({
             'data': serializers.MessageSerializer(messages, many=True).data
@@ -379,7 +379,7 @@ class MsgView(APIView):
     def post(self, request, *agrs, **kwargs):
         try:
             user = User.objects.filter(pk=request.data.get('user_pk')).first()
-            room = models.Room.objects.filter(pk=request.data.get('room_pk')).first()
+            room = models.Room.objects.filter(pk=kwargs.get('room_pk')).first()
             msg = request.data.get('msg')
             if user and room and msg:
                 models.Message.objects.create(msg=msg, user=user, room=room)

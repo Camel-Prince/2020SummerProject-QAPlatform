@@ -37,7 +37,7 @@ export default {
         });
     },
     submit() {
-      this.$http.post(`office/room/${this.room_pk}/`, { desc: this.description })
+      this.$http.post(`office/room/${this.room_pk}/`, { choice: 3, desc: this.description })
         .then(() => this.$message({
           type: 'success',
           message: '更改成功!',

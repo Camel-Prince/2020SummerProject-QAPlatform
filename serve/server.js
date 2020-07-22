@@ -9,7 +9,7 @@ wss.on('connection', function (ws) {
     ws.on('message', function (e) {
         let resData = JSON.parse(e)
         console.log('接收到来自client的消息：' + resData.msg)
-        wss.broadcast(JSON.stringify({ msg: resData.msg })); 
+        wss.broadcast(JSON.stringify({ msg: resData.msg, roomId: resData.roomId })); 
     });
     ws.on('close', function (e) {
         console.log('长连接已关闭')

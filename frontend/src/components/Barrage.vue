@@ -1,15 +1,23 @@
 <template>
-  <div class="barrages-drop">
-    <vue-baberrage
-      :isShow="barrageIsShow"
-      :barrageList="barrageList"
-      :maxWordCount="maxWordCount"
-      :throttleGap="throttleGap"
-      :loop="barrageLoop"
-      :boxHeight="boxHeight"
-      :messageHeight="messageHeight"
-    >
-    </vue-baberrage>
+  <div>
+    <div class="barrages-drop">
+      <vue-baberrage
+        :isShow="barrageIsShow"
+        :barrageList="barrageList"
+        :maxWordCount="maxWordCount"
+        :throttleGap="throttleGap"
+        :loop="barrageLoop"
+        :boxHeight="boxHeight"
+        :messageHeight="messageHeight"
+      >
+      </vue-baberrage>
+    </div>
+    <div class="send-barrage">
+      发送弹幕
+      <el-input v-model="msg" placeholder="请输入内容"></el-input>
+      <el-button type="primary" @click="addTolist">发送</el-button>
+    </div>
+    <el-divider></el-divider>
   </div>
 </template>
 
@@ -22,61 +30,58 @@ export default {
   name: 'Barrages',
   data() {
     return {
-      msg: '前方高能',
+      roomId: 1,
+      ws: null,
+      msg: '',
       barrageIsShow: true,
       messageHeight: 35,
-      boxHeight: 700,
+      boxHeight: 255,
       barrageLoop: false,
-      maxWordCount: 3,
+      maxWordCount: 15,
       throttleGap: 600,
       barrageList: [],
     };
   },
   mounted() {
-    this.addToList();
+    this.initWebSocket();
   },
   methods: {
-    addToList() {
-      const list = [
-        {
-          id: 1,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 2,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 3,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 4,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 5,
-          msg: this.msg,
-          time: 5,
-        },
-        {
-          id: 6,
-          msg: this.msg,
-          time: 5,
-        },
-      ];
-      list.forEach((v) => {
-        this.barrageList.push({
-          id: v.id,
-          msg: v.msg,
-          time: v.time,
-          type: MESSAGE_TYPE.NORMAL,
-        });
-      });
+    addTolist() {
+      const params = {
+        roomId: this.roomId,
+        msg: this.msg,
+      };
+      this.ws.send(JSON.stringify(params));
+      this.msg = '';
+    },
+    initWebSocket() {
+      if (window.WebSocket) {
+        const rThis = this;
+        const ws = new WebSocket('ws://localhost:8181');
+        rThis.ws = ws;
+        ws.onopen = function () {
+          console.log('服务器连接成功');
+        };
+        ws.onclose = function () {
+          console.log('服务器连接关闭');
+        };
+        ws.onerror = function () {
+          console.log('服务器连接出错');
+        };
+        ws.onmessage = function (e) {
+          const resData = JSON.parse(e.data);
+          if (resData.roomId !== this.roomId) {
+            return;
+          }
+          if (resData.msg !== '') {
+            rThis.barrageList.push({
+              msg: resData.msg,
+              time: 6,
+              type: MESSAGE_TYPE.NORMAL,
+            });
+          }
+        };
+      }
     },
   },
 };
@@ -111,5 +116,13 @@ export default {
     top: 0;
     margin-top: 130px;
   }
+}
+</style>
+
+<style>
+.send-barrage {
+  margin: -20px auto 10px;
+  display: flex;
+  width: 25%;
 }
 </style>

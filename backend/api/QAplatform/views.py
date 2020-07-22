@@ -322,7 +322,16 @@ class OfficeRoomView(APIView):
     def post(self, request, *args, **kwargs):
         room = models.Room.objects.filter(pk=kwargs.get('pk')).first()
         choice = request.data.get('choice')
-        if choice == 0:
+        if choice == 3:
+            # 更改描述
+            desc = request.data.get('desc')
+            room.desc = desc
+            room.save()
+            return Response({
+                'room_pk': room.pk,
+                'desc': room.desc
+            })
+        elif choice == 0:
             # 增加老师
             teacher_pks = request.data.get('pks')
             for pk in teacher_pks:
@@ -342,6 +351,7 @@ class OfficeRoomView(APIView):
             'status': 200,
             'msg': '增加成功'
         })
+
 
     #  可以删除老师、助教、学生，只需要知道pk就行
     def delete(self, request, *args, **kwargs):

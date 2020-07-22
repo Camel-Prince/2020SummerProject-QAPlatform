@@ -18,7 +18,7 @@ class StatusModelSerializer(ModelSerializer):
 class OfficeHomeSerializer(ModelSerializer):
     class Meta:
         model = models.Room
-        fields = ('pk', 'course_id', 'name', 'img')
+        fields = ('pk', 'course_id', 'name', 'desc', 'img')
 
     def validate_course_id(self, value):
         if models.Room.objects.filter(course_id=value):

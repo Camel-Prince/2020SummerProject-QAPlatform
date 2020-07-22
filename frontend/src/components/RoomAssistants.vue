@@ -4,14 +4,14 @@
       style="text-align: left; display: inline-block"
       v-model="value"
       filterable
-      filter-placeholder="请输入学生名称"
-      :titles="['可增加的学生', '已有的学生']"
+      filter-placeholder="请输入助教名称"
+      :titles="['可增加的助教', '已有的助教']"
       :button-texts="['到左边', '到右边']"
       :format="{
         noChecked: '${total}',
         hasChecked: '${checked}/${total}'
       }"
-      :data="students">
+      :data="assistants">
       <!-- <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>  自定义列表项样式-->
       <el-button class="transfer-footer" slot="left-footer" size="small" @click="replace">
         重置
@@ -25,49 +25,49 @@
 
 <script>
 export default {
-  name: 'RoomStudents',
+  name: 'RoomAssistants',
   props: {
     room_pk: null,
   },
   data() {
     return {
-      exStudents: '',
-      nowStudents: '',
+      exAssistants: '',
+      nowAssistants: '',
       value: [],
     };
   },
   computed: {
-    students() {
+    assistants() {
       const data = [];
-      for (let i = 0; i < this.nowStudents.length; i += 1) {
+      for (let i = 0; i < this.nowAssistants.length; i += 1) {
         data.push({
           key: i,
-          label: this.nowStudents[i].name,
+          label: this.nowAssistants[i].name,
           disabled: false,
         });
       }
-      for (let i = 0; i < this.exStudents.length; i += 1) {
+      for (let i = 0; i < this.exAssistants.length; i += 1) {
         data.push({
-          key: this.nowStudents.length + i,
-          label: this.exStudents[i].name,
+          key: this.nowAssistants.length + i,
+          label: this.exAssistants[i].name,
           disabled: false,
         });
       }
       return data;
     },
-    studentPK() {
+    assistantsPK() {
       const data = [];
-      for (let i = 0; i < this.nowStudents.length; i += 1) {
-        data.push(this.nowStudents[i].pk);
+      for (let i = 0; i < this.nowAssistants.length; i += 1) {
+        data.push(this.nowAssistants[i].pk);
       }
-      for (let i = 0; i < this.exStudents.length; i += 1) {
-        data.push(this.exStudents[i].pk);
+      for (let i = 0; i < this.exAssistants.length; i += 1) {
+        data.push(this.exAssistants[i].pk);
       }
       return data;
     },
     initValue() {
       const data = [];
-      for (let i = 0; i < this.nowStudents.length; i += 1) {
+      for (let i = 0; i < this.nowAssistants.length; i += 1) {
         data.push(i);
       }
       return data;
@@ -80,14 +80,14 @@ export default {
     submit() {
       const initPks = [];
       for (let i = 0; i < this.initValue.length; i += 1) {
-        initPks.push(this.studentPK[this.initValue[i]]);
+        initPks.push(this.assistantsPK[this.initValue[i]]);
       }
       const pks = [];
       for (let i = 0; i < this.value.length; i += 1) {
-        pks.push(this.studentPK[this.value[i]]);
+        pks.push(this.assistantsPK[this.value[i]]);
       }
       this.$http.delete(`office/room/${this.room_pk}/`, { data: { pks: initPks } })
-        .then(() => this.$http.post(`office/room/${this.room_pk}/`, { choice: 2, pks })
+        .then(() => this.$http.post(`office/room/${this.room_pk}/`, { choice: 1, pks })
           .then(() => this.$message({
             type: 'success',
             message: '更改成功!',
@@ -98,8 +98,8 @@ export default {
     room_pk() {
       this.$http.get(`office/room/${this.room_pk}/`)
         .then((response) => {
-          this.exStudents = response.data.data.user_list.ex_students;
-          this.nowStudents = response.data.data.user_list.students;
+          this.exAssistants = response.data.data.user_list.ex_assistants;
+          this.nowAssistants = response.data.data.user_list.assistants;
         });
     },
     initValue() {

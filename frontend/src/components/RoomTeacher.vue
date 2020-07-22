@@ -5,8 +5,6 @@
       v-model="value"
       filterable
       filter-placeholder="请输入老师名称"
-      :left-default-checked="[2, 3]"
-      :right-default-checked="[1]"
       :titles="['可增加的老师', '已有的老师']"
       :button-texts="['到左边', '到右边']"
       :format="{

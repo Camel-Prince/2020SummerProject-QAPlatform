@@ -10,6 +10,9 @@
       <el-tab-pane label="修改学生">
         <room-students :room_pk="roomNum"></room-students>
       </el-tab-pane>
+      <el-tab-pane label="修改助教">
+        <room-assistants :room_pk="roomNum"></room-assistants>
+      </el-tab-pane>
       <el-tab-pane label="修改时间">
         <room-time></room-time>
       </el-tab-pane>
@@ -25,6 +28,7 @@
 
 <script>
 import RoomStudents from '@/components/RoomStudents.vue';
+import RoomAssistants from '@/components/RoomAssistants.vue';
 import RoomTeacher from '../components/RoomTeacher.vue';
 import RoomTime from '../components/RoomTime.vue';
 import RoomDescription from '../components/RoomDescription.vue';
@@ -33,7 +37,12 @@ import RoomPicture from '../components/RoomPicture.vue';
 export default {
   name: 'ModifyRoom',
   components: {
-    RoomPicture, RoomDescription, RoomTime, RoomTeacher, RoomStudents,
+    RoomAssistants,
+    RoomPicture,
+    RoomDescription,
+    RoomTime,
+    RoomTeacher,
+    RoomStudents,
   },
   data() {
     return {

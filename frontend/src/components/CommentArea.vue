@@ -71,6 +71,7 @@ export default {
     },
     emitMessage() {
       if (this.textarea !== '') {
+        console.log(this.userId);
         this.$http.post('msg/21/', {
           user_pk: this.userId,
           msg: this.textarea,
@@ -87,6 +88,7 @@ export default {
       this.$http.get('msg/21/').then((response) => {
         this.list = response.data.data;
       });
+      this.scrollBottom();
     },
   },
 };

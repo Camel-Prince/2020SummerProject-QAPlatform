@@ -40,9 +40,6 @@ import 'ace-builds/src-noconflict/snippets/text';
 
 export default {
   name: 'CodeEditor',
-  props: {
-    value: String,
-  },
   data() {
     return {
       aceEditor: null,
@@ -88,7 +85,15 @@ export default {
       enableLiveAutocompletion: true,
       enableBasicAutocompletion: true,
     });
-    this.aceEditor.getSession().on('change', this.change);
+    this.getCode();
+    this.aceEditor.getSession().on('change', this.change); // w+r
+    // this.timer = setInterval(this.getCode, 500);// read
+    // this.aceEditor.setReadOnly(true);// read
+    this.aceEditor.setReadOnly(true);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+    this.timer = null;
   },
   methods: {
     toggleConfigPanel() {
@@ -96,9 +101,17 @@ export default {
     },
     change() {
       this.$emit('input', this.aceEditor.getSession().getValue());
+      this.$http.post('code/115/', { // 115
+        code: this.aceEditor.getSession().getValue(),
+      });
     },
     handleModelPathChange(modelPath) {
       this.aceEditor.getSession().setMode(modelPath);
+    },
+    getCode() {
+      this.$http.get('code/115/').then((response) => { // 115
+        this.aceEditor.getSession().setValue(response.data.data.code);
+      });
     },
   },
 };

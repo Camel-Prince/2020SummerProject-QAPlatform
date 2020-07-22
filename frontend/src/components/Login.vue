@@ -75,7 +75,7 @@ export default {
           this.$message.success('登陆成功');
           window.sessionStorage.setItem('token', response.data.token);
           window.sessionStorage.setItem('user_pk', response.data.user_pk);
-          const urls = ['/office', '/teacher/homepage', '/student/homepage'];
+          const urls = ['/manager', '/teacher/homepage', '/student/homepage'];
           return this.$router.push({ path: urls[response.data.occupation] });
         });
       });

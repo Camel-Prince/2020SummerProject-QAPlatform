@@ -31,6 +31,7 @@ class Room(models.Model):
     name = models.CharField(max_length=20)
     desc = models.TextField(null=True, blank=True)
     img = models.ImageField(upload_to='img', default='img/default.png')
+    code = models.TextField(default='')
     user = models.ManyToManyField(User, related_name='rooms', through='Status')
 
     @property

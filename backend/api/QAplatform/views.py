@@ -402,3 +402,18 @@ class MsgView(APIView):
                 'status': 0,
                 'msg': '数据有误'
             })
+
+
+#  代码编辑器
+class CodeView(APIView):
+    def get(self ,request, *args, **kwargs):
+        room = models.Room.objects.filter(pk=kwargs.get('room_pk')).first()
+        return Response({
+            'data': serializers.CodeSerializer(room).data
+        })
+
+    def post(self, request, *args, **kwargs):
+        code = request.data.get('code')
+        models.Room.objects.filter(pk=kwargs.get('room_pk')).update(code=code)
+        return Response()
+

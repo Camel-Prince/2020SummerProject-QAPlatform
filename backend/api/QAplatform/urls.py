@@ -9,6 +9,7 @@ urlpatterns = [
     path('home/', views.HomeView.as_view()),
     path('office/', views.OfficeHomeView.as_view()),
     re_path(r'msg/(?P<room_pk>.*)/$', views.MsgView.as_view()),
+    re_path(r'code/(?P<room_pk>.*)/$', views.CodeView.as_view()),
     re_path(r'^office/room/(?P<pk>.*)/upload', views.OfficeUpLoadImg.as_view()),
     re_path(r'^office/room/(?P<pk>.*)/$', views.OfficeRoomView.as_view()),
 ]

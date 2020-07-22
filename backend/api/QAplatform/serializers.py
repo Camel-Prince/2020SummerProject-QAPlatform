@@ -45,3 +45,9 @@ class MessageSerializer(ModelSerializer):
     class Meta:
         model = models.Message
         fields = ('msg', 'user_info')
+
+
+class CodeSerializer(ModelSerializer):
+    class Meta:
+        model = models.Room
+        fields = ('code', )

@@ -72,6 +72,8 @@ export default {
   },
   data() {
     return {
+      ws: null,
+      userId: 1,
       courseName: 'C',
       BarrageShow: true,
       whiteBoardShow: false,
@@ -79,21 +81,51 @@ export default {
     };
   },
   mounted() {
-    this.courseName  = this.$route.params.room;
+    // this.userId = window.sessionStorage.getItem('user_pk');
+    this.courseName = this.$route.params.room;
     console.log(`Successfully Enter Room: ${this.courseName}`);
+    this.initWebsocket();
   },
   methods: {
+    initWebsocket() {
+      if (window.WebSocket) {
+        const rThis = this;
+        const ws = new WebSocket('ws://localhost:8282');
+        rThis.ws = ws;
+        ws.onopen = function () {
+          console.log('服务器连接成功');
+        };
+        ws.onclose = function () {
+          console.log('服务器连接关闭');
+        };
+        ws.onerror = function () {
+          console.log('服务器连接出错');
+        };
+        ws.onmessage = function (e) {
+          const resData = JSON.parse(e.data);
+          if (resData.userId === rThis.userId) {
+            alert(`当前位置：${resData.index}`);
+          }
+        };
+      }
+    },
     open() {
-      this.$alert('进入排队状态', '提示', {
-        confirmButtonText: '确定',
-        dangerouslyUseHTMLString: true,
-      });
+      const params = {
+        msg: 'open',
+        userId: this.userId,
+      };
+      this.ws.send(JSON.stringify(params));
     },
     cancel() {
       this.$alert('取消排队状态', '提示', {
         confirmButtonText: '确定',
         dangerouslyUseHTMLString: true,
       });
+      const params = {
+        msg: 'close',
+        userId: this.userId,
+      };
+      this.ws.send(JSON.stringify(params));
     },
   },
 };

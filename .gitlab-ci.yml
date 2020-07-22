@@ -1,0 +1,18 @@
+stages:
+    - backendtest
+    - backendlint
+
+test: 
+    stage: backendtest
+    script:
+         - pip3 install coverage --quiet
+         - python -m coverage run --source="." manage.py test
+         - python -m coverage report
+
+lint:
+    stage: backendlint
+    script: 
+        - pip install pylint=1.7.5 --quiet
+        - pip install pylint-django --quiet
+        - pylint --generate-rcfile
+    allow_failure: false

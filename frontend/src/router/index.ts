@@ -12,7 +12,7 @@ import TeacherRecentlive from '../views/TeacherRecentlive.vue';
 import TeacherInformation from '../views/TeacherInformation.vue';
 import TeacherLivetime from '../views/TeacherLivetime.vue';
 import StudentHomepage from '../views/StudentHomepage.vue';
-import Whiteboard from '../views/Whiteboard.vue';
+import Whiteboard from '../views/WhiteBoard.vue';
 
 import Manager from '../views/Manager.vue';
 import ModifyRoom from '../views/ModifyRoom.vue';

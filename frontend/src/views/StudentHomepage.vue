@@ -58,11 +58,13 @@
 
 <script>
 import axios from 'axios';
-import homepageHeader from '../components/HomepageHeader.vue';
+// import homepageHeader from '../components/HomepageHeader.vue';
+import homepageHeader from '../components/Header.vue';
 
 export default {
   name: 'StudentHomepage',
   components: {
+    // HomepageHeader: homepageHeader,
     HomepageHeader: homepageHeader,
   },
   data() {

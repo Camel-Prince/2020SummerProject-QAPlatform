@@ -1,70 +1,108 @@
 <template>
   <div>
     <div class="time">
-      <span>星期：</span>
-      <el-select v-model="weekDay" placeholder="请选择">
-        <el-option
-          v-for="item in weekDayOptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
+      <el-form :model="form">
+        <el-form-item label="直播日期">
+          <el-date-picker
+            v-model="form.date"
+            align="right"
+            type="date"
+            placeholder="选择日期"
+            :picker-options="datePickerOptions">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="开始时间">
+          <el-time-select
+            placeholder="开始时间"
+            v-model="form.startTime"
+            :picker-options="{
+                    start: '08:30',
+                    step: '00:15',
+                    end: '18:30'
+                    }">
+          </el-time-select>
+        </el-form-item>
+        <el-form-item label="结束时间">
+          <el-time-select
+            placeholder="结束时间"
+            v-model="form.endTime"
+            :picker-options="{
+                    start: '08:30',
+                    step: '00:15',
+                    end: '18:30',
+                    minTime: form.startTime
+                    }">
+          </el-time-select>
+        </el-form-item>
+      </el-form>
     </div>
-    <div class="time">
-      <span>时间：</span>
-      <el-time-picker
-        is-range
-        v-model="time"
-        range-separator="至"
-        start-placeholder="开始时间"
-        end-placeholder="结束时间"
-        placeholder="选择时间范围">
-      </el-time-picker>
-    </div>
-    <div class="time">
-      <el-button type="primary">重置</el-button>
-      <el-button type="primary">确定</el-button>
+    <div class="time-button">
+      <el-button type="info" @click="onClear">重置</el-button>
+      <el-button type="primary" @click="onSubmit">确定</el-button>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'RoomTime',
+  props: {
+    room_pk: null,
+  },
   data() {
     return {
-      weekDayOptions: [{
-        value: '周一',
-        label: '周一',
-      }, {
-        value: '周二',
-        label: '周二',
-      }, {
-        value: '周三',
-        label: '周三',
-      }, {
-        value: '周四',
-        label: '周四',
-      }, {
-        value: '周五',
-        label: '周五',
-      }, {
-        value: '周六',
-        label: '周六',
-      }, {
-        value: '周日',
-        label: '周日',
-      }],
-      weekDay: '',
-      time: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
+      content: '111',
+      form: {
+        date: '',
+        startTime: '',
+        endTime: '',
+      },
+      datePickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now();
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date());
+          },
+        }, {
+          text: '明天',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24);
+            picker.$emit('pick', date);
+          },
+        }, {
+          text: '一周后',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', date);
+          },
+        }],
+      },
     };
+  },
+  methods: {
+    onClear() {
+      this.form.date = '';
+      this.form.startTime = '';
+      this.form.endTime = '';
+    },
+    onSubmit() {
+    },
   },
 };
 </script>
 
 <style scoped>
   .time {
-    margin: 50px;
+    margin: auto;
+    width: 300px;
+  }
+  .time-button {
+    margin-right: 20vh;
   }
 </style>

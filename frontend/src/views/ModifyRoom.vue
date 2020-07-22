@@ -14,7 +14,7 @@
         <room-assistants :room_pk="roomNum"></room-assistants>
       </el-tab-pane>
       <el-tab-pane label="修改时间">
-        <room-time></room-time>
+        <room-time :room_pk="roomNum"></room-time>
       </el-tab-pane>
       <el-tab-pane label="更改描述">
         <room-description :room_pk="roomNum"></room-description>

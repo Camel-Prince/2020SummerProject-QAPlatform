@@ -6,7 +6,7 @@
       <el-main>
         <span class="table-title">{{studentName}}同学，你的课程如下</span>
         <el-form>
-          <el-form-item label="课程学期">
+          <!-- <el-form-item label="课程学期">
             <el-button class="term-button" @click="selectTerm(202001)" type="text">
               202001
             </el-button>
@@ -16,29 +16,49 @@
             <el-button class="term-button" @click="selectTerm(202003)" type="text">
               202003
             </el-button>
-          </el-form-item>
-          <el-form-item label="课程分类">
-            <el-button class="term-button" @click="selectAllCourse" type="text">
+          </el-form-item> -->
+          <!-- <el-form-item label="课程分类">
+            <el-button class="term-button" @click="selectAllCourses" type="text">
               全部
             </el-button>
             <el-button class="term-button"
             @click="selectRecommandedCourse" type="text">
               首页推荐
             </el-button>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="课程状态">
-            <el-button class="term-button" type="text">
-              已结束
+            <el-button @click="selectAllCourses" class="term-button" type="text">
+              全部课程
             </el-button>
-            <el-button class="term-button" type="text">
+            <el-button @click="selectNoLiveCourses" class="term-button" type="text">
+              暂无直播安排
+            </el-button>
+            <el-button @click="selectLivingCourses" class="term-button" type="text">
               正在直播
             </el-button>
-            <el-button class="term-button" type="text">
+            <el-button @click="selectOncomingCourses" class="term-button" type="text">
               即将开始
             </el-button>
           </el-form-item>
         </el-form>
-        <el-table :data="tableData" size="small" class="courseTable">
+        <el-table :data="selectedData" size="small" class="courseTable">
+          <el-table-column type="expand">
+            <template slot-scope="scope">
+              <p>直播时间列表</p>
+              <el-table :data="scope.row.use_time_list" helight-current-row>
+                <el-table-column label="开始时间" width="180">
+                  <template slot-scope="innerScope">
+                    {{innerScope.row.start_time}}
+                  </template>
+                </el-table-column>
+                <el-table-column label="结束时间" width="180">
+                  <template slot-scope="innerScope">
+                    {{innerScope.row.end_time}}
+                  </template>
+                </el-table-column>
+              </el-table>
+            </template>
+          </el-table-column>
           <el-table-column width="380">
             <template slot-scope="scope">
               <img :src="scope.row.img"/>
@@ -50,6 +70,13 @@
               <h3 class="course-desc">{{scope.row.desc}}</h3>
             </template>
           </el-table-column>
+          <el-table-column>
+            <template slot-scope="scope" width="180">
+                <el-button @click="enterLiveRoom(scope.row.course_id)" type="success" plain>
+                  进入
+                </el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </el-main>
     </el-container>
@@ -58,19 +85,18 @@
 
 <script>
 import axios from 'axios';
-// import homepageHeader from '../components/HomepageHeader.vue';
 import homepageHeader from '../components/Header.vue';
 
 export default {
+  inject: ['reload'],
   name: 'StudentHomepage',
   components: {
-    // HomepageHeader: homepageHeader,
     HomepageHeader: homepageHeader,
   },
   data() {
     return {
       studentName: '马斓轩',
-      tableData: [
+      roomData: [
         {
           pk: '1',
           courseID: '1001',
@@ -126,6 +152,7 @@ export default {
           fileList: [],
         },
       ],
+      selectedData: [],
     };
   },
   mounted() {
@@ -137,7 +164,6 @@ export default {
       },
     })
       .then((response) => {
-        console.log(response.data);
         this.studentName = response.data.data.name;
       });
     axios({
@@ -148,13 +174,68 @@ export default {
       },
     })
       .then((response) => {
-        console.log(response.data.room_data);
-        this.tableData = response.data.room_data;
-        for (let i = 0; i < this.tableData.length;) {
-          this.tableData[i].img = `http://localhost:8000${this.tableData[i].img}`;
+        this.roomData = response.data.room_data;
+        for (let i = 0; i < this.roomData.length;) {
+          this.roomData[i].img = `http://localhost:8000${this.roomData[i].img}`;
           i += 1;
         }
+        this.selectedData = this.roomData;
+        console.log(this.selectedData);
       });
+  },
+  methods: {
+    enterLiveRoom(courseID) {
+      console.log(`进入课程：${courseID}`);
+    },
+    selectAllCourses() {
+      this.selectedData = this.roomData;
+      console.log('Select All Courses');
+    },
+    selectNoLiveCourses() {
+      console.log('select courses with no live');
+      this.selectedData = [];
+      const allCourses = this.roomData;
+      for (let i = 0; i < allCourses.length; i += 1) {
+        const timeList = allCourses[i].use_time_list;
+        if (timeList.length === 0) {
+          this.selectedData.push(allCourses[i]);
+        }
+      }
+      console.log(this.selectedData);
+    },
+    selectLivingCourses() {
+      console.log('select courses which are living');
+      this.selectedData = [];
+      const allCourses = this.roomData;
+      for (let i = 0; i < allCourses.length; i += 1) {
+        const timeList = allCourses[i].use_time_list;
+        const now = new Date();
+        for (let j = 0; j < timeList.length; j += 1) {
+          const courseStartTime = new Date(timeList[j].start_time);
+          const courseEndTime = new Date(timeList[j].end_time);
+          if (courseStartTime < now && now < courseEndTime) {
+            this.selectedData.push(allCourses[i]);
+            break;
+          }
+        }
+      }
+    },
+    selectOncomingCourses() {
+      console.log('select courses on coming');
+      this.selectedData = [];
+      const allCourses = this.roomData;
+      for (let i = 0; i < allCourses.length; i += 1) {
+        const timeList = allCourses[i].use_time_list;
+        const now = new Date();
+        for (let j = 0; j < timeList.length; j += 1) {
+          const courseStartTime = new Date(timeList[j].start_time);
+          if (courseStartTime > now) {
+            this.selectedData.push(allCourses[i]);
+            break;
+          }
+        }
+      }
+    },
   },
 };
 </script>

@@ -9,7 +9,6 @@
         highlight-current-row>
           <el-table-column type="expand">
             <template slot-scope="scope">
-              <p>{{scope.row.userTimeList}}</p>
               <el-table class="time-list-table" :data="scope.row.use_time_list"
               highlight-current-row :border="border">
                 <el-table-column label="Index" type="index" width="100">
@@ -169,73 +168,7 @@ export default {
           },
         }],
       },
-      mainTableData: [
-        {
-          pk: '1',
-          courseID: '1001',
-          name: '计算机组成原理',
-          desc: '计算机方向专业的基础课程',
-          img: 'http://edu-image.nosdn.127.net/AE0974AF6E148500A0B32319BA56313A.png?imageView&thumbnail=510y288&quality=100',
-          useTimeList: [
-            {
-              timePk: '1',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              timePk: '2',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              timePk: '3',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-          ],
-          fileList: [],
-        },
-        {
-          pk: '2',
-          courseID: '1002',
-          name: 'Java',
-          desc: 'Java语言初高级课程',
-          img: 'http://edu-image.nosdn.127.net/E6930D201BB66A2053F97B5341C4064F.jpg?imageView&thumbnail=426y240&quality=100',
-          useTimeList: [
-            {
-              timePk: '1',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              timePk: '2',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-          ],
-          fileList: [],
-        },
-        {
-          pk: 3,
-          courseID: '1003',
-          name: '概率论和数理统计',
-          desc: '计算机专业的数学基础课程',
-          img: 'http://edu-image.nosdn.127.net/B1793E3DCEB8C6489EB40510C6F8DEE9.jpg?imageView&thumbnail=510y288&quality=100',
-          useTimeList: [
-            {
-              timePk: '1',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              timePk: '2',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-          ],
-          fileList: [],
-        },
-      ],
+      mainTableData: [],
     };
   },
   mounted() {

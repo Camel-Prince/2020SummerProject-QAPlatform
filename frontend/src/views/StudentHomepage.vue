@@ -185,6 +185,12 @@ export default {
   },
   methods: {
     enterLiveRoom(courseID) {
+      this.$router.push({
+        name: 'StudentLiveRoom',
+        params: {
+          room: courseID,
+        },
+      });
       console.log(`进入课程：${courseID}`);
     },
     selectAllCourses() {

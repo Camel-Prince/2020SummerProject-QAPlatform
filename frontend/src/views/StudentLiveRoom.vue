@@ -78,6 +78,10 @@ export default {
       codeEditorShow: false,
     };
   },
+  mounted() {
+    this.courseName  = this.$route.params.room;
+    console.log(`Successfully Enter Room: ${this.courseName}`);
+  },
   methods: {
     open() {
       this.$alert('进入排队状态', '提示', {

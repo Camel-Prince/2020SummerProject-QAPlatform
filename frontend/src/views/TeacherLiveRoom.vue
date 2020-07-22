@@ -62,6 +62,7 @@ import LiveVideo from '../components/LiveVideo.vue';
 import WhiteBoard from './WhiteBoard.vue';
 
 export default {
+  name: 'TeacherLiveRoom',
   components: {
     Barrage,
     CodeEditor,
@@ -76,6 +77,10 @@ export default {
       whiteBoardShow: false,
       codeEditorShow: false,
     };
+  },
+  mounted() {
+    this.courseName = this.$route.params.room;
+    console.log(this.courseName);
   },
   methods: {
     open() {

@@ -137,6 +137,7 @@ export default {
       teacherName: '王子旭',
       addDialogFormVisible: false,
       border: true,
+      // form为添加时的对话框中的表单信息
       form: {
         date: '',
         startTime: '',
@@ -199,6 +200,12 @@ export default {
   methods: {
     enterLiveRoom(courseID) {
       console.log(`Enter Live Room ${courseID}`);
+      this.$router.push({
+        name: 'TeacherLiveRoom',
+        params: {
+          room: courseID,
+        },
+      });
     },
     addLiveTime(roomPk) {
       this.addDialogFormVisible = false;

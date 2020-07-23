@@ -108,7 +108,7 @@
           </el-table-column>
           <el-table-column label="进入直播间" width="180">
             <template slot-scope="scope">
-              <el-button @click="enterLiveRoom(scope.row.course_id)" type="success" plain>
+              <el-button @click="enterLiveRoom(scope.row.pk)" type="success" plain>
                 进入
               </el-button>
             </template>
@@ -175,7 +175,7 @@ export default {
   mounted() {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/QAplatform/detail/',
+      url: 'http://192.168.99.100:8000/QAplatform/detail/',
       headers: {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
       },
@@ -185,14 +185,14 @@ export default {
       });
     axios({
       method: 'get',
-      url: 'http://localhost:8000/QAplatform/home/',
+      url: 'http://192.168.99.100:8000/QAplatform/home/',
       headers: {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
       },
     }).then((response) => {
       this.mainTableData = response.data.room_data;
       for (let i = 0; i < this.mainTableData.length;) {
-        this.mainTableData[i].img = `http://localhost:8000${this.mainTableData[i].img}`;
+        this.mainTableData[i].img = `http://192.168.99.100:8000${this.mainTableData[i].img}`;
         i += 1;
       }
     });
@@ -220,7 +220,7 @@ export default {
       }
       axios({
         method: 'post',
-        url: 'http://localhost:8000/QAplatform/home/',
+        url: 'http://192.168.99.100:8000/QAplatform/home/',
         headers: {
           Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
         },
@@ -242,7 +242,7 @@ export default {
     deleteLiveTime(timePk) {
       axios({
         method: 'delete',
-        url: 'http://localhost:8000/QAplatform/home/',
+        url: 'http://192.168.99.100:8000/QAplatform/home/',
         headers: {
           Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
         },

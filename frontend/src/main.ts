@@ -13,7 +13,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios.create({
-  baseURL: 'http://localhost:8000/QAplatform/',
+  baseURL: 'http://192.168.99.100:8000/QAplatform/',
 });
 
 new Vue({

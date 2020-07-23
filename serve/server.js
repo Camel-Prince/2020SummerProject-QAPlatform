@@ -34,7 +34,17 @@ wss1.on('connection', function (ws) {
             wss1.broadcast(JSON.stringify({ type: 'teacher', dataList: list }));
             console.log('进入成功')
         }
-       else {
+        else if (resData.msg === 'start') {
+            list.splice(list.indexOf(resData.userId), 1);
+            wss1.broadcast(JSON.stringify({ msg:'start', userId:resData.userId }));
+        }
+        else if (resData.msg === 'openAccess') {
+            wss1.broadcast(JSON.stringify({ msg:'openAccess', userId:resData.userId }));
+        }
+        else if (resData.msg === 'closeAccess') {
+            wss1.broadcast(JSON.stringify({ msg:'closeAccess', userId:resData.userId }));
+        }
+        else {
            list.splice(list.indexOf(resData.userId), 1);
            wss1.broadcast(JSON.stringify({ type: 'teacher', dataList: list }));
            console.log('推出成功')

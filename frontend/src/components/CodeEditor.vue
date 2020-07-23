@@ -46,6 +46,7 @@ export default {
   },
   data() {
     return {
+      timer: null,
       aceEditor: null,
       themePath: 'ace/theme/monokai', // 不导入 webpack-resolver，该模块路径会报错
       modePath: 'ace/mode/c_cpp', // 同上
@@ -91,14 +92,12 @@ export default {
     });
     setTimeout(this.getCode, 1000);
     if (this.Access === false) {
-      this.aceEditor.getSession().on('change', this.getCode);
+      // this.aceEditor.getSession().on('change', this.change);
       this.timer = setInterval(this.getCode, 500);
       this.aceEditor.setReadOnly(true);
     } else {
       alert('你可以写了');
-      clearInterval(this.timer);
       this.aceEditor.getSession().on('change', this.change); // w+r
-      this.aceEditor.setReadOnly(false);
     }
   },
   beforeDestroy() {
@@ -108,14 +107,15 @@ export default {
   watch: {
     Access(val) {
       if (val === false) {
+        this.getCode();
         console.log('教师变成false');
-        this.aceEditor.getSession().on('change', this.getCode);
         this.timer = setInterval(this.getCode, 500);
         this.aceEditor.setReadOnly(true);
       } else {
         alert('你可以写了');
         this.getCode();
         clearInterval(this.timer);
+        this.timer = null;
         this.aceEditor.getSession().on('change', this.change); // w+r
         this.aceEditor.setReadOnly(false);
       }
@@ -126,11 +126,14 @@ export default {
       this.toggle = !this.toggle;
     },
     change() {
+      console.log('change!!!!!!!!!');
       console.log(this.aceEditor.getSession().getValue());
       this.$emit('input', this.aceEditor.getSession().getValue());
-      this.$http.post(`code/${this.roomId}/`, { // 115
-        code: this.aceEditor.getSession().getValue(),
-      });
+      if (this.Access) {
+        this.$http.post(`code/${this.roomId}/`, { // 115
+          code: this.aceEditor.getSession().getValue(),
+        });
+      }
     },
     handleModelPathChange(modelPath) {
       this.aceEditor.getSession().setMode(modelPath);

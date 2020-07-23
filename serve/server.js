@@ -36,7 +36,7 @@ wss1.on('connection', function (ws) {
         }
         else if (resData.msg === 'start') {
             list.splice(list.indexOf(resData.userId), 1);
-            wss1.broadcast(JSON.stringify({ msg:'start', userId:resData.userId }));
+            wss1.broadcast(JSON.stringify({ type: 'teacher', msg:'start', userId:resData.userId, dataList: list }));
         }
         else if (resData.msg === 'openAccess') {
             wss1.broadcast(JSON.stringify({ msg:'openAccess', userId:resData.userId }));

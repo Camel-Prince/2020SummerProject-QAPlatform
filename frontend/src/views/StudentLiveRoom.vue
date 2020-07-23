@@ -82,7 +82,7 @@ export default {
     };
   },
   mounted() {
-    // this.userId = window.sessionStorage.getItem('user_pk');
+    this.userId = window.sessionStorage.getItem('user_pk');
     this.courseName = this.$route.params.room;
     console.log(`Successfully Enter Room: ${this.courseName}`);
     this.initWebsocket();

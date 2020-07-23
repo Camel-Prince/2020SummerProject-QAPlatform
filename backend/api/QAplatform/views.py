@@ -3,6 +3,7 @@ import random
 from email.mime.text import MIMEText
 from email.header import Header
 import pytz
+from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView, Response
 from rest_framework_jwt.serializers import jwt_payload_handler, jwt_encode_handler
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
@@ -283,14 +284,20 @@ class OfficeHomeView(APIView):
 
     #  主界面可以添加房间
     def post(self, request, *args, **kwargs):
-        room_serializer = serializers.OfficeHomeSerializer(data=request.data)
-        room_serializer.is_valid(raise_exception=True)
-        room_obj = room_serializer.save()
-        return Response({
-            'status': 200,
-            'msg': 'successfully add room',
-            'pk': room_obj.pk
-        })
+        try:
+            room_serializer = serializers.OfficeHomeSerializer(data=request.data)
+            room_serializer.is_valid(raise_exception=True)
+            room_obj = room_serializer.save()
+            return Response({
+                'status': 200,
+                'msg': 'successfully add room',
+                'pk': room_obj.pk
+            })
+        except ValidationError as e:
+            return Response({
+                'status': 0,
+                'msg': '课程号为' + request.data.get('course_id') + '的课程已经存在，不能重复添加'
+            })
 
     #  主界面可以删除房间,只需要知道房间的pk就行
     def delete(self, request, *args, **kwargs):

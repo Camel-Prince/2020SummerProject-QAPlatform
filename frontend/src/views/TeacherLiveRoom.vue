@@ -8,6 +8,7 @@
       </h1>
       <div>
         <el-button type="primary" @click="open">开始直播</el-button>
+        <el-button type="primary" @click="start">开始答疑</el-button>
       </div>
     </div>
     <div class="video-chat">
@@ -72,7 +73,9 @@ export default {
   },
   data() {
     return {
+      ws: null,
       courseName: 'C',
+      list: [],
       BarrageShow: true,
       whiteBoardShow: false,
       codeEditorShow: false,
@@ -81,8 +84,38 @@ export default {
   mounted() {
     this.courseName = this.$route.params.room;
     console.log(this.courseName);
+    this.initWebsocket();
   },
   methods: {
+    initWebsocket() {
+      if (window.WebSocket) {
+        const rThis = this;
+        const ws = new WebSocket('ws://localhost:8282');
+        rThis.ws = ws;
+        ws.onopen = function () {
+          console.log('服务器连接成功');
+        };
+        ws.onclose = function () {
+          console.log('服务器连接关闭');
+        };
+        ws.onerror = function () {
+          console.log('服务器连接出错');
+        };
+        ws.onmessage = function (e) {
+          const resData = JSON.parse(e.data);
+          if (resData.type === 'teacher') {
+            rThis.list = resData.dataList;
+          }
+        };
+      }
+    },
+    start() {
+      if (this.list.length === 0) {
+        alert('当前没有学生在排队');
+      } else {
+        console.log(this.list[0]);
+      }
+    },
     open() {
       this.$alert(`<strong>URL</strong>:rtmp://192.168.99.100:1935/stream <br> <strong>密钥</strong>:${this.courseName}`,
         '直播地址(打开直播软件按照如下地址推流)', {

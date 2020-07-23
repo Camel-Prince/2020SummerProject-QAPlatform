@@ -70,7 +70,7 @@ export default {
         };
         ws.onmessage = function (e) {
           const resData = JSON.parse(e.data);
-          if (resData.roomId !== this.roomId) {
+          if (resData.roomId !== rThis.roomId) {
             return;
           }
           if (resData.msg !== '') {

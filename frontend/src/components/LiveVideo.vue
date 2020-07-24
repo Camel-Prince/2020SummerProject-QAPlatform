@@ -30,10 +30,14 @@ export default {
       player: null,
     };
   },
+  mounted() {
+    this.initVideo();
+  },
   watch: {
     roomId() {
       this.options.url = `rtmp://192.168.99.100:1935/stream/${this.roomId}`;
-      this.initVideo();
+      this.player.src(this.options.url);
+      this.player.load(this.options.url);
     },
   },
   methods: {

@@ -158,7 +158,7 @@ export default {
   mounted() {
     axios({
       method: 'get',
-      url: 'http://192.168.99.100:8000/QAplatform/detail/',
+      url: 'http://localhost:8000/QAplatform/detail/',
       headers: {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
       },
@@ -168,7 +168,7 @@ export default {
       });
     axios({
       method: 'get',
-      url: 'http://192.168.99.100:8000/QAplatform/home/',
+      url: 'http://localhost:8000/QAplatform/home/',
       headers: {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
       },
@@ -176,7 +176,7 @@ export default {
       .then((response) => {
         this.roomData = response.data.room_data;
         for (let i = 0; i < this.roomData.length;) {
-          this.roomData[i].img = `http://192.168.99.100:8000${this.roomData[i].img}`;
+          this.roomData[i].img = `http://localhost:8000${this.roomData[i].img}`;
           i += 1;
         }
         this.selectedData = this.roomData;

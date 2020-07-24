@@ -1,18 +1,40 @@
+image: python:latest
+cache:
+  paths:
+    - pip-cache
+  key: $BACKEND_PROJECT_ID
 stages:
-    - backendtest
-    - backendlint
-
-test: 
-    stage: backendtest
-    script:
-         - pip3 install coverage --quiet
-         - python -m coverage run --source="." manage.py test
-         - python -m coverage report
-
+  - backendtest
+  - backendlint
+test:
+  tags:
+    - backend
+  stage: backendtest
+  script:
+    - pwd
+    - export PIP_CACHE_DIR="pip-cache"
+    - pip install django -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install djangorestframework -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install mysqlclient -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install django-cors-headers -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install coverage --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install qcloudsms-py --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install xlrd --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install xlwt --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install requests --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - cd backend/backend
+    - python manage.py makemigrations --settings=backend.settings-gitlab
+    - python manage.py migrate --settings=backend.settings-gitlab
+    - python -m coverage run --source="." manage.py test apps.teacher apps.user apps.super apps.wechat apps.manager --settings=backend.settings-gitlab
+    - python -m coverage report
 lint:
-    stage: backendlint
-    script: 
-        - pip install pylint=1.7.5 --quiet
-        - pip install pylint-django --quiet
-        - pylint --generate-rcfile
-    allow_failure: false
+  tags:
+    - backend
+  stage: backendlint
+  script:
+    - export PIP_CACHE_DIR="pip-cache"
+    - pip install pylint==1.7.5 --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install pylint-django --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - cd backend/backend
+    - pylint --rcfile=./.pylintrc backend apps --load-plugins=pylint_django --disable=all
+  allow_failure: true

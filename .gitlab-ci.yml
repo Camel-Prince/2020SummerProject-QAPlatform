@@ -17,12 +17,15 @@ test:
     - pip install djangorestframework -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install mysqlclient -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install django-cors-headers -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # python 测试覆盖率宝
     - pip install coverage --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # 腾讯云语音、短信通讯服务
     - pip install qcloudsms-py --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # Extract data from Excel spreadsheets 
     - pip install xlrd --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install xlwt --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install requests --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    - cd backend/backend
+    - cd backend/api
     - python manage.py makemigrations --settings=backend.settings-gitlab
     - python manage.py migrate --settings=backend.settings-gitlab
     - python -m coverage run --source="." manage.py test apps.teacher apps.user apps.super apps.wechat apps.manager --settings=backend.settings-gitlab

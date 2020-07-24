@@ -46,6 +46,9 @@
 
 <script>
 export default {
+  props: {
+    roomId: null,
+  },
   data() {
     return {
       userId: null,
@@ -72,7 +75,7 @@ export default {
     emitMessage() {
       if (this.textarea !== '') {
         console.log(this.userId);
-        this.$http.post('msg/21/', {
+        this.$http.post(`msg/${this.roomId}/`, {
           user_pk: this.userId,
           msg: this.textarea,
         }).then(() => {
@@ -85,7 +88,7 @@ export default {
       }
     },
     getList() {
-      this.$http.get('msg/21/').then((response) => {
+      this.$http.get(`msg/${this.roomId}/`).then((response) => {
         this.list = response.data.data;
       });
       this.scrollBottom();

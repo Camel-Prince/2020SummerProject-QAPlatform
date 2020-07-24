@@ -9,11 +9,13 @@
       <div>
         <el-button type="primary" @click="open">开始直播</el-button>
         <el-button type="primary" @click="start">开始答疑</el-button>
+        <el-button type="primary" @click="giveAccess">赋予权限</el-button>
+        <el-button type="primary" @click="closeAccess">关闭权限</el-button>
       </div>
     </div>
     <div class="video-chat">
-      <live-video class="video" :courseName="courseName"></live-video>
-      <comment-area class="chat"></comment-area>
+      <live-video class="video" :roomId="this.courseName"></live-video>
+      <comment-area class="chat" :roomId="this.courseName"></comment-area>
     </div>
     <div class="switch-barrage">
       <el-switch
@@ -23,7 +25,7 @@
       </el-switch>
     </div>
     <div class="barrage"  v-show="BarrageShow == true">
-      <barrage></barrage>
+      <barrage :roomId="this.courseName"></barrage>
     </div>
     <div class="board"  v-show="whiteBoardShow == true">
       <h1 class="mainTitle">
@@ -31,11 +33,11 @@
       </h1>
       <white-board></white-board>
     </div>
-    <div  v-show="codeEditorShow == true">
+    <div v-show="codeEditorShow == true">
       <h1 class="mainTitle">
         代码编辑器
       </h1>
-      <code-editor></code-editor>
+      <code-editor :roomId="this.courseName" :Access="this.access"></code-editor>
     </div>
     <div>
     </div>
@@ -73,8 +75,10 @@ export default {
   },
   data() {
     return {
+      firstStudentId: null,
+      access: true,
       ws: null,
-      courseName: 'C',
+      courseName: null,
       list: [],
       BarrageShow: true,
       whiteBoardShow: false,
@@ -109,11 +113,32 @@ export default {
         };
       }
     },
+    giveAccess() {
+      this.access = false;
+      const params = {
+        msg: 'openAccess',
+        userId: this.firstStudentId,
+      };
+      this.ws.send(JSON.stringify(params));
+    },
+    closeAccess() {
+      this.access = true;
+      const params = {
+        msg: 'closeAccess',
+        userId: this.firstStudentId,
+      };
+      this.ws.send(JSON.stringify(params));
+    },
     start() {
       if (this.list.length === 0) {
         alert('当前没有学生在排队');
       } else {
-        console.log(this.list[0]);
+        const params = {
+          msg: 'start',
+          userId: this.list[0],
+        };
+        this.firstStudentId = params.userId;
+        this.ws.send(JSON.stringify(params));
       }
     },
     open() {

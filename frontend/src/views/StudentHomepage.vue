@@ -72,7 +72,7 @@
           </el-table-column>
           <el-table-column>
             <template slot-scope="scope" width="180">
-                <el-button @click="enterLiveRoom(scope.row.course_id)" type="success" plain>
+                <el-button @click="enterLiveRoom(scope.row.pk)" type="success" plain>
                   进入
                 </el-button>
             </template>

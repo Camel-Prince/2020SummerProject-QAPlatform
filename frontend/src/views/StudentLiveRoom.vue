@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="video-chat">
-      <live-video class="video"></live-video>
-      <comment-area class="chat"></comment-area>
+      <live-video class="video" :roomId="this.courseName"></live-video>
+      <comment-area class="chat" :roomId="this.courseName"></comment-area>
     </div>
     <div class="switch-barrage">
       <el-switch
@@ -23,7 +23,7 @@
       </el-switch>
     </div>
     <div class="barrage"  v-show="BarrageShow == true">
-      <barrage></barrage>
+      <barrage :roomId="this.courseName"></barrage>
     </div>
     <div class="board"  v-show="whiteBoardShow == true">
       <h1 class="mainTitle">
@@ -35,7 +35,7 @@
       <h1 class="mainTitle">
         代码编辑器
       </h1>
-      <code-editor></code-editor>
+      <code-editor :roomId="this.courseName" :Access="this.Access"></code-editor>
     </div>
     <div>
     </div>
@@ -72,16 +72,17 @@ export default {
   },
   data() {
     return {
+      Access: false,
       ws: null,
       userId: 1,
-      courseName: 'C',
+      courseName: null,
       BarrageShow: true,
       whiteBoardShow: false,
       codeEditorShow: false,
     };
   },
   mounted() {
-    // this.userId = window.sessionStorage.getItem('user_pk');
+    this.userId = window.sessionStorage.getItem('user_pk');
     this.courseName = this.$route.params.room;
     console.log(`Successfully Enter Room: ${this.courseName}`);
     this.initWebsocket();
@@ -104,7 +105,15 @@ export default {
         ws.onmessage = function (e) {
           const resData = JSON.parse(e.data);
           if (resData.userId === rThis.userId) {
-            alert(`当前位置：${resData.index}`);
+            if (resData.msg === 'start') {
+              alert('当前轮到你答疑');
+            } else if (resData.msg === 'openAccess') {
+              rThis.Access = true;
+            } else if (resData.msg === 'closeAccess') {
+              rThis.Access = false;
+            } else {
+              alert(`当前位置：${resData.index}`);
+            }
           }
         };
       }

@@ -40,8 +40,13 @@ import 'ace-builds/src-noconflict/snippets/text';
 
 export default {
   name: 'CodeEditor',
+  props: {
+    roomId: String,
+    Access: Boolean,
+  },
   data() {
     return {
+      timer: null,
       aceEditor: null,
       themePath: 'ace/theme/monokai', // 不导入 webpack-resolver，该模块路径会报错
       modePath: 'ace/mode/c_cpp', // 同上
@@ -85,31 +90,56 @@ export default {
       enableLiveAutocompletion: true,
       enableBasicAutocompletion: true,
     });
-    this.getCode();
-    this.aceEditor.getSession().on('change', this.change); // w+r
-    // this.timer = setInterval(this.getCode, 500);// read
-    // this.aceEditor.setReadOnly(true);// read
-    this.aceEditor.setReadOnly(true);
+    setTimeout(this.getCode, 1000);
+    if (this.Access === false) {
+      // this.aceEditor.getSession().on('change', this.change);
+      this.timer = setInterval(this.getCode, 500);
+      this.aceEditor.setReadOnly(true);
+    } else {
+      alert('你可以写了');
+      this.aceEditor.getSession().on('change', this.change); // w+r
+    }
   },
   beforeDestroy() {
     clearInterval(this.timer);
     this.timer = null;
+  },
+  watch: {
+    Access(val) {
+      if (val === false) {
+        this.getCode();
+        console.log('教师变成false');
+        this.timer = setInterval(this.getCode, 500);
+        this.aceEditor.setReadOnly(true);
+      } else {
+        alert('你可以写了');
+        this.getCode();
+        clearInterval(this.timer);
+        this.timer = null;
+        this.aceEditor.getSession().on('change', this.change); // w+r
+        this.aceEditor.setReadOnly(false);
+      }
+    },
   },
   methods: {
     toggleConfigPanel() {
       this.toggle = !this.toggle;
     },
     change() {
+      console.log('change!!!!!!!!!');
+      console.log(this.aceEditor.getSession().getValue());
       this.$emit('input', this.aceEditor.getSession().getValue());
-      this.$http.post('code/115/', { // 115
-        code: this.aceEditor.getSession().getValue(),
-      });
+      if (this.Access) {
+        this.$http.post(`code/${this.roomId}/`, { // 115
+          code: this.aceEditor.getSession().getValue(),
+        });
+      }
     },
     handleModelPathChange(modelPath) {
       this.aceEditor.getSession().setMode(modelPath);
     },
     getCode() {
-      this.$http.get('code/115/').then((response) => { // 115
+      this.$http.get(`code/${this.roomId}/`).then((response) => { // 115
         this.aceEditor.getSession().setValue(response.data.data.code);
       });
     },

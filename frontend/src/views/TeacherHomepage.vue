@@ -108,7 +108,7 @@
           </el-table-column>
           <el-table-column label="进入直播间" width="180">
             <template slot-scope="scope">
-              <el-button @click="enterLiveRoom(scope.row.course_id)" type="success" plain>
+              <el-button @click="enterLiveRoom(scope.row.pk)" type="success" plain>
                 进入
               </el-button>
             </template>

@@ -28,9 +28,11 @@ import { vueBaberrage, MESSAGE_TYPE } from 'vue-baberrage';
 Vue.use(vueBaberrage);
 export default {
   name: 'Barrages',
+  props: {
+    roomId: null,
+  },
   data() {
     return {
-      roomId: 1,
       ws: null,
       msg: '',
       barrageIsShow: true,

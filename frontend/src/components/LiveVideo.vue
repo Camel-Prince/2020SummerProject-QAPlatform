@@ -30,14 +30,18 @@ export default {
       player: null,
     };
   },
-  mounted() {
-    this.initVideo();
+  watch: {
+    roomId() {
+      this.options.url = `rtmp://192.168.99.100:1935/stream/${this.roomId}`;
+      this.initVideo();
+    },
   },
   methods: {
     initVideo() {
       videojs.options.flash.swf = 'https://cdn.bootcss.com/videojs-swf/5.4.1/video-js.swf';
       this.player = videojs('my-player');
       this.player.play();
+      console.log(this.options.url);
     },
   },
 };

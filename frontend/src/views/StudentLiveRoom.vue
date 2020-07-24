@@ -178,7 +178,7 @@ export default {
 }
 
 .board {
-  background-color: #cfcece;
+  background-color: #f5f5f5;
 }
 
 .mainTitle {

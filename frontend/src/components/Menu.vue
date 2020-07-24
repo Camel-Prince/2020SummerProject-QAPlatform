@@ -251,8 +251,6 @@ export default class Menu extends Vue {
 
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    position: fixed;
     top: 0px;
     left: calc((100% - 314px)/2);
     width: (6 * @menu-button-size) + 14;

@@ -18,7 +18,9 @@ test:
     - pip install djangorestframework -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install mysqlclient -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install django-cors-headers -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    # # python 测试覆盖率宝
+    - pip install djangorestframework-jwt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    - pip install Pillow -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # # python 测试覆盖率
     # - pip install coverage --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     # # 腾讯云语音、短信通讯服务
     # - pip install qcloudsms-py --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com

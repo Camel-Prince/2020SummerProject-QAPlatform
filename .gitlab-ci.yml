@@ -1,3 +1,4 @@
+# docker镜像
 image: python:latest
 cache:
   paths:
@@ -17,19 +18,23 @@ test:
     - pip install djangorestframework -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install mysqlclient -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install django-cors-headers -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    # python 测试覆盖率宝
-    - pip install coverage --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    # 腾讯云语音、短信通讯服务
-    - pip install qcloudsms-py --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    # Extract data from Excel spreadsheets 
-    - pip install xlrd --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    - pip install xlwt --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    - pip install requests --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # # python 测试覆盖率宝
+    # - pip install coverage --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # # 腾讯云语音、短信通讯服务
+    # - pip install qcloudsms-py --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # # Extract data from Excel spreadsheets 
+    # - pip install xlrd --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # - pip install xlwt --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    # - pip install requests --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - cd backend/api
-    - python manage.py makemigrations --settings=backend.settings-gitlab
-    - python manage.py migrate --settings=backend.settings-gitlab
-    - python -m coverage run --source="." manage.py test apps.teacher apps.user apps.super apps.wechat apps.manager --settings=backend.settings-gitlab
+    - python manage.py makemigrations
+    - python manage.py migrate
+    - python -m coverage run --source="." manage.py test apps.QAplatform
+    # - python manage.py makemigrations --settings=api.settings-gitlab
+    # - python manage.py migrate --settings=api.settings-gitlab
+    # - python -m coverage run --source="." manage.py test apps.QAplatform --settings=backend.settings-gitlab
     - python -m coverage report
+    - python -m coverage html
 lint:
   tags:
     - backend
@@ -38,6 +43,6 @@ lint:
     - export PIP_CACHE_DIR="pip-cache"
     - pip install pylint==1.7.5 --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     - pip install pylint-django --quiet -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    - cd backend/backend
-    - pylint --rcfile=./.pylintrc backend apps --load-plugins=pylint_django --disable=all
+    - cd backend/api
+    - pylint --rcfile=./.pylintrc QAplatform apps --load-plugins=pylint_django --disable=all
   allow_failure: true

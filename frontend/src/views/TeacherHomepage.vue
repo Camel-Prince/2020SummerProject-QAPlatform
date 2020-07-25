@@ -198,12 +198,12 @@ export default {
     });
   },
   methods: {
-    enterLiveRoom(courseID) {
-      console.log(`Enter Live Room ${courseID}`);
+    enterLiveRoom(roomPk) {
+      console.log(`Enter Live Room ${roomPk}`);
       this.$router.push({
         name: 'TeacherLiveRoom',
         params: {
-          room: courseID,
+          room: roomPk,
         },
       });
     },
@@ -234,7 +234,7 @@ export default {
           if (response.data.status === 0) {
             alert('时间冲突，请重新设置');
           } else {
-            alert('设置成功～');
+            alert('设置成功, 自动刷新后可查看');
           }
           this.reload();
         });

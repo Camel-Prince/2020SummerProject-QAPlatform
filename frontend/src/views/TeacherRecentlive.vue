@@ -25,7 +25,7 @@
           </el-table-column>
           <el-table-column>
             <template slot-scope="scope">
-            <el-button @click="enterLiveRoom(scope.row.course_id)" type="success" plain>
+            <el-button @click="enterLiveRoom(scope.row.pk)" type="success" plain>
               进入直播间
             </el-button>
             </template>
@@ -72,6 +72,7 @@ export default {
           }
         }
         this.tableData.push({
+          pk: this.roomData[i].pk,
           course_id: this.roomData[i].course_id,
           name: this.roomData[i].name,
           desc: this.roomData[i].desc,
@@ -84,8 +85,14 @@ export default {
         });
       }
     },
-    enterLiveRoom(courseID) {
-      console.log(`Enter Live Room ${courseID}`);
+    enterLiveRoom(roomPk) {
+      this.$router.push({
+        name: 'TeacherLiveRoom',
+        params: {
+          room: roomPk,
+        },
+      });
+      console.log(`Enter Live Room ${roomPk}`);
     },
   },
   mounted() {
@@ -102,9 +109,7 @@ export default {
         this.roomData[i].img = `http://localhost:8000${this.roomData[i].img}`;
         i += 1;
       }
-      console.log(this.roomData);
       this.getRecentLive();
-      console.log(this.tableData);
     });
   },
 };

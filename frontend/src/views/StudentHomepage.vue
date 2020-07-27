@@ -6,26 +6,6 @@
       <el-main>
         <span class="table-title">{{studentName}}同学，你的课程如下</span>
         <el-form>
-          <!-- <el-form-item label="课程学期">
-            <el-button class="term-button" @click="selectTerm(202001)" type="text">
-              202001
-            </el-button>
-            <el-button class="term-button" @click="selectTerm(202002)" type="text">
-              202002
-            </el-button>
-            <el-button class="term-button" @click="selectTerm(202003)" type="text">
-              202003
-            </el-button>
-          </el-form-item> -->
-          <!-- <el-form-item label="课程分类">
-            <el-button class="term-button" @click="selectAllCourses" type="text">
-              全部
-            </el-button>
-            <el-button class="term-button"
-            @click="selectRecommandedCourse" type="text">
-              首页推荐
-            </el-button>
-          </el-form-item> -->
           <el-form-item label="课程状态">
             <el-button @click="selectAllCourses" class="term-button" type="text">
               全部课程
@@ -96,62 +76,7 @@ export default {
   data() {
     return {
       studentName: '马斓轩',
-      roomData: [
-        {
-          pk: '1',
-          courseID: '1001',
-          name: '计算机组成原理',
-          desc: '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课'
-           + '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程'
-           + '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程',
-          img: '../assets/lbj.png',
-          useTimeList: [
-            {
-              timePk: '1',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              timePk: '2',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              timePk: '3',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-          ],
-          fileList: [],
-        },
-        {
-          pk: '2',
-          courseID: '1001',
-          name: '计算机组成原理',
-          desc: '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课'
-           + '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程'
-           + '计算机方向专业的基础课程计算机方向专业的基础课程计算机方向专业的基础课程',
-          img: '../assets/lbj.png',
-          useTimeList: [
-            {
-              timePk: '4',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              timePk: '5',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-            {
-              timePk: '6',
-              startTime: '2020-08-13 10:00:00',
-              endTime: '2020-08-13 12:00:00',
-            },
-          ],
-          fileList: [],
-        },
-      ],
+      roomData: [],
       selectedData: [],
     };
   },
@@ -184,14 +109,14 @@ export default {
       });
   },
   methods: {
-    enterLiveRoom(courseID) {
+    enterLiveRoom(roomPk) {
       this.$router.push({
         name: 'StudentLiveRoom',
         params: {
-          room: courseID,
+          room: roomPk,
         },
       });
-      console.log(`进入课程：${courseID}`);
+      console.log(`进入课程：${roomPk}`);
     },
     selectAllCourses() {
       this.selectedData = this.roomData;

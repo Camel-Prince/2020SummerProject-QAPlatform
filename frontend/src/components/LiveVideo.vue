@@ -16,9 +16,7 @@ import 'vue-video-player/src/custom-theme.css';
 import 'videojs-flash';
 
 export default {
-  props: {
-    roomId: null,
-  },
+  props: ['roomId'],
   data() {
     return {
       name: 'video.js',
@@ -33,11 +31,19 @@ export default {
   mounted() {
     this.initVideo();
   },
+  watch: {
+    roomId() {
+      this.options.url = `rtmp://192.168.99.100:1935/stream/${this.roomId}`;
+      this.player.src(this.options.url);
+      this.player.load(this.options.url);
+    },
+  },
   methods: {
     initVideo() {
       videojs.options.flash.swf = 'https://cdn.bootcss.com/videojs-swf/5.4.1/video-js.swf';
       this.player = videojs('my-player');
       this.player.play();
+      console.log(this.options.url);
     },
   },
 };

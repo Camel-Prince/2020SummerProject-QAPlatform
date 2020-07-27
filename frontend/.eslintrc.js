@@ -16,7 +16,7 @@ module.exports = {
     },
     sourseType: 'module',
   },
-  // parser: "vue_eslint-parser",
+  // parser: "babel-eslint",
   rules: {
     'linebreak-style': [0, "error", "windows"],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

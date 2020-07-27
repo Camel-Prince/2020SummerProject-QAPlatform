@@ -213,8 +213,8 @@ export default {
       </div>
     </div>
     <div class="video-chat">
-      <live-video class="video" :roomId="this.courseName"></live-video>
-      <comment-area class="chat" :roomId="this.courseName"></comment-area>
+      <live-video class="video" :roomId="courseName"></live-video>
+      <comment-area class="chat" :roomId="courseName"></comment-area>
     </div>
     <div class="switch-barrage">
       <el-switch
@@ -224,7 +224,7 @@ export default {
       </el-switch>
     </div>
     <div class="barrage"  v-show="BarrageShow === true">
-      <barrage :roomId="this.courseName"></barrage>
+      <barrage :roomId="courseName"></barrage>
     </div>
     <div class="board"  v-show="whiteBoardShow === true">
       <h1 class="mainTitle">

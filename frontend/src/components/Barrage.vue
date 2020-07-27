@@ -29,7 +29,7 @@ Vue.use(vueBaberrage);
 export default {
   name: 'Barrages',
   props: {
-    roomId: null,
+    roomId: String,
   },
   data() {
     return {

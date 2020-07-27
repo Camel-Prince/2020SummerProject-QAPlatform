@@ -16,9 +16,7 @@ import 'vue-video-player/src/custom-theme.css';
 import 'videojs-flash';
 
 export default {
-  props: {
-    roomId: null,
-  },
+  props: ['roomId'],
   data() {
     return {
       name: 'video.js',

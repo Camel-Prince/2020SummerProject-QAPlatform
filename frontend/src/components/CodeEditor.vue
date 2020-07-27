@@ -96,7 +96,6 @@ export default {
       this.timer = setInterval(this.getCode, 500);
       this.aceEditor.setReadOnly(true);
     } else {
-      alert('你可以写了');
       this.aceEditor.getSession().on('change', this.change); // w+r
     }
   },
@@ -108,11 +107,9 @@ export default {
     Access(val) {
       if (val === false) {
         this.getCode();
-        console.log('教师变成false');
         this.timer = setInterval(this.getCode, 500);
         this.aceEditor.setReadOnly(true);
       } else {
-        alert('你可以写了');
         this.getCode();
         clearInterval(this.timer);
         this.timer = null;
@@ -126,8 +123,6 @@ export default {
       this.toggle = !this.toggle;
     },
     change() {
-      console.log('change!!!!!!!!!');
-      console.log(this.aceEditor.getSession().getValue());
       this.$emit('input', this.aceEditor.getSession().getValue());
       if (this.Access) {
         this.$http.post(`code/${this.roomId}/`, { // 115

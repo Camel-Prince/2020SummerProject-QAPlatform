@@ -37,9 +37,9 @@ export default {
   },
   watch: {
     roomPk() {
-      this.actionURL = `http://localhost:8000/QAplatform/office/room/${this.roomPk}/upload/`;
+      this.actionURL = `${this.$baseURL}office/room/${this.roomPk}/upload/`;
       this.$http.get(`office/room/${this.roomPk}/`).then((response) => {
-        this.fileList.push({ url: `http://localhost:8000/QAplatform${response.data.data.img}` });
+        this.fileList.push({ url: this.$baseURL + response.data.data.img });
       });
     },
   },

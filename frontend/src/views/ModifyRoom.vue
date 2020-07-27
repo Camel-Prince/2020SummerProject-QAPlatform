@@ -17,7 +17,7 @@
         <room-description :roomPk="roomNum"></room-description>
       </el-tab-pane>
       <el-tab-pane label="更改封面图片">
-        <room-picture :room_pk="roomNum"></room-picture>
+        <room-picture :roomPk="roomNum"></room-picture>
       </el-tab-pane>
     </el-tabs>
   </el-container>

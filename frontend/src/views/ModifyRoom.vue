@@ -13,9 +13,6 @@
       <el-tab-pane label="修改助教">
         <room-assistants :roomPk="roomNum"></room-assistants>
       </el-tab-pane>
-      <el-tab-pane label="修改时间">
-        <room-time :roomPk="roomNum"></room-time>
-      </el-tab-pane>
       <el-tab-pane label="更改描述">
         <room-description :roomPk="roomNum"></room-description>
       </el-tab-pane>
@@ -30,7 +27,6 @@
 import RoomStudents from '@/components/RoomStudents.vue';
 import RoomAssistants from '@/components/RoomAssistants.vue';
 import RoomTeacher from '../components/RoomTeacher.vue';
-import RoomTime from '../components/RoomTime.vue';
 import RoomDescription from '../components/RoomDescription.vue';
 import RoomPicture from '../components/RoomPicture.vue';
 
@@ -40,7 +36,6 @@ export default {
     RoomAssistants,
     RoomPicture,
     RoomDescription,
-    RoomTime,
     RoomTeacher,
     RoomStudents,
   },

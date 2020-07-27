@@ -12,7 +12,6 @@
         hasChecked: '${checked}/${total}'
       }"
       :data="students">
-      <!-- <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>  自定义列表项样式-->
       <el-button class="transfer-footer" slot="left-footer" size="small" @click="replace">
         重置
       </el-button>
@@ -27,7 +26,7 @@
 export default {
   name: 'RoomStudents',
   props: {
-    room_pk: null,
+    roomPk: String,
   },
   data() {
     return {
@@ -56,14 +55,7 @@ export default {
       return data;
     },
     studentPK() {
-      const data = [];
-      for (let i = 0; i < this.nowStudents.length; i += 1) {
-        data.push(this.nowStudents[i].pk);
-      }
-      for (let i = 0; i < this.exStudents.length; i += 1) {
-        data.push(this.exStudents[i].pk);
-      }
-      return data;
+      return this.nowStudents.concat(this.exStudents).map((student) => (student.pk));
     },
     initValue() {
       const data = [];
@@ -86,8 +78,8 @@ export default {
       for (let i = 0; i < this.value.length; i += 1) {
         pks.push(this.studentPK[this.value[i]]);
       }
-      this.$http.delete(`office/room/${this.room_pk}/`, { data: { pks: initPks } })
-        .then(() => this.$http.post(`office/room/${this.room_pk}/`, { choice: 2, pks })
+      this.$http.delete(`office/room/${this.roomPk}/`, { data: { pks: initPks } })
+        .then(() => this.$http.post(`office/room/${this.roomPk}/`, { choice: 2, pks })
           .then(() => this.$message({
             type: 'success',
             message: '更改成功!',
@@ -95,8 +87,8 @@ export default {
     },
   },
   watch: {
-    room_pk() {
-      this.$http.get(`office/room/${this.room_pk}/`)
+    roomPk() {
+      this.$http.get(`office/room/${this.roomPk}/`)
         .then((response) => {
           this.exStudents = response.data.data.user_list.ex_students;
           this.nowStudents = response.data.data.user_list.students;

@@ -5,19 +5,19 @@
     </el-header>
     <el-tabs tab-position="left">
       <el-tab-pane label="修改老师">
-        <room-teacher :room_pk="roomNum"></room-teacher>
+        <room-teacher :roomPk="roomNum"></room-teacher>
       </el-tab-pane>
       <el-tab-pane label="修改学生">
-        <room-students :room_pk="roomNum"></room-students>
+        <room-students :roomPk="roomNum"></room-students>
       </el-tab-pane>
       <el-tab-pane label="修改助教">
-        <room-assistants :room_pk="roomNum"></room-assistants>
+        <room-assistants :roomPk="roomNum"></room-assistants>
       </el-tab-pane>
       <el-tab-pane label="修改时间">
-        <room-time :room_pk="roomNum"></room-time>
+        <room-time :roomPk="roomNum"></room-time>
       </el-tab-pane>
       <el-tab-pane label="更改描述">
-        <room-description :room_pk="roomNum"></room-description>
+        <room-description :roomPk="roomNum"></room-description>
       </el-tab-pane>
       <el-tab-pane label="更改封面图片">
         <room-picture :room_pk="roomNum"></room-picture>

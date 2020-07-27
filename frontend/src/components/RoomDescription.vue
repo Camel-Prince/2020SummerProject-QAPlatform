@@ -17,7 +17,7 @@
 export default {
   name: 'RoomDescription',
   props: {
-    room_pk: null,
+    roomPk: String,
   },
   data() {
     return {
@@ -25,19 +25,19 @@ export default {
     };
   },
   watch: {
-    room_pk() {
+    roomPk() {
       this.initDesc();
     },
   },
   methods: {
     initDesc() {
-      this.$http.get(`office/room/${this.room_pk}/`)
+      this.$http.get(`office/room/${this.roomPk}/`)
         .then((response) => {
           this.description = response.data.data.desc;
         });
     },
     submit() {
-      this.$http.post(`office/room/${this.room_pk}/`, { choice: 3, desc: this.description })
+      this.$http.post(`office/room/${this.roomPk}/`, { choice: 3, desc: this.description })
         .then(() => this.$message({
           type: 'success',
           message: '更改成功!',

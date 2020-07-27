@@ -25,7 +25,7 @@
 export default {
   name: 'RoomPicture',
   props: {
-    room_pk: null,
+    roomPk: String,
   },
   data() {
     return {
@@ -36,9 +36,9 @@ export default {
     };
   },
   watch: {
-    room_pk() {
-      this.actionURL = `http://localhost:8000/QAplatform/office/room/${this.room_pk}/upload/`;
-      this.$http.get(`office/room/${this.room_pk}/`).then((response) => {
+    roomPk() {
+      this.actionURL = `http://localhost:8000/QAplatform/office/room/${this.roomPk}/upload/`;
+      this.$http.get(`office/room/${this.roomPk}/`).then((response) => {
         this.fileList.push({ url: `http://localhost:8000/QAplatform${response.data.data.img}` });
       });
     },

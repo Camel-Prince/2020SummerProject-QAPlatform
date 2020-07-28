@@ -1,7 +1,7 @@
 <template>
   <el-container
     class="container"
-    :style="codeEditorShow || whiteBoardShow || BarrageShow == true ?'heigth:100%':'height:754px'">
+    :style="codeEditorShow || whiteBoardShow || BarrageShow === true ?'heigth:100%':'height:754px'">
     <div class="homepage-header">
       <h1 class="mainTitle">
         教学直播间
@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="video-chat">
-      <live-video class="video" :roomId="this.courseName"></live-video>
-      <comment-area class="chat" :roomId="this.courseName"></comment-area>
+      <live-video class="video" :roomId="courseName"></live-video>
+      <comment-area class="chat" :roomId="courseName"></comment-area>
     </div>
     <div class="switch-barrage">
       <el-switch
@@ -22,20 +22,20 @@
         inactive-text="弹幕关闭">
       </el-switch>
     </div>
-    <div class="barrage"  v-show="BarrageShow == true">
-      <barrage :roomId="this.courseName"></barrage>
+    <div class="barrage"  v-show="BarrageShow === true">
+      <barrage :roomId="courseName"></barrage>
     </div>
-    <div class="board"  v-show="whiteBoardShow == true">
+    <div class="board"  v-show="whiteBoardShow === true">
       <h1 class="mainTitle">
         白板
       </h1>
       <white-board></white-board>
     </div>
-    <div  v-show="codeEditorShow == true">
+    <div  v-show="codeEditorShow === true">
       <h1 class="mainTitle">
         代码编辑器
       </h1>
-      <code-editor :roomId="this.courseName" :Access="this.Access"></code-editor>
+      <code-editor :roomId="courseName" :Access="Access"></code-editor>
     </div>
     <div>
     </div>
@@ -84,7 +84,6 @@ export default {
   mounted() {
     this.userId = window.sessionStorage.getItem('user_pk');
     this.courseName = this.$route.params.room;
-    console.log(`Successfully Enter Room: ${this.courseName}`);
     this.initWebsocket();
   },
   methods: {
@@ -178,7 +177,7 @@ export default {
 }
 
 .board {
-  background-color: #f5f5f5;
+  background-color: #cfcece;
 }
 
 .mainTitle {

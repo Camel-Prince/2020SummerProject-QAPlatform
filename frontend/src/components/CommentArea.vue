@@ -8,19 +8,19 @@
         <div class="user-message"
           v-for="(i,index) in list"
           :key="index"
-          :style="i.user_info.user_pk == userId?'flex-direction:row-reverse':''">
-          <div :style="i.user_info.user_pk == userId?'background-color:#DDA0DD':''"
+          :style="i.user_info.user_pk === userId?'flex-direction:row-reverse':''">
+          <div :style="i.user_info.user_pk === userId?'background-color:#DDA0DD':''"
             class="portrait">
-            <i :class="i.user_info.occupation == 2?'el-icon-user-solid':'el-icon-s-custom'">
+            <i :class="i.user_info.occupation === 2?'el-icon-user-solid':'el-icon-s-custom'">
             </i>
           </div>
           <div class="message-box">
             <div class="username"
-              v-show="i.user_info.user_pk != userId">
+              v-show="i.user_info.user_pk !== userId">
               {{ i.user_info.name }}
             </div>
             <div
-              :class="i.user_info.user_pk == userId?'bubble-right':'bubble-left'">{{ i.msg }}</div>
+              :class="i.user_info.user_pk === userId?'bubble-right':'bubble-left'">{{ i.msg }}</div>
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@ export default {
 .footer {
   background-color: white;
   height: 130px;
-  box-shadow: 0px -5px 5px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -5px 5px 0 rgba(0, 0, 0, 0.05);
   border-radius: 0 0 10px 10px;
   margin: 0;
   display: flex;
@@ -153,7 +153,6 @@ export default {
   display: flex;
   flex-direction: row;
   text-align: left;
-  margin: 0;
   margin: 15px 0;
   white-space: pre;
 }

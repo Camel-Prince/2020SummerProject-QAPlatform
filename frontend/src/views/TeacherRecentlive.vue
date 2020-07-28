@@ -103,7 +103,6 @@ export default {
         Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
       },
     }).then((response) => {
-      // console.log(response);
       this.roomData = response.data.room_data;
       for (let i = 0; i < this.roomData.length;) {
         this.roomData[i].img = `http://localhost:8000${this.roomData[i].img}`;

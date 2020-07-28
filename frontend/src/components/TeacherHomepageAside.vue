@@ -7,20 +7,14 @@
             教师首页
           </span>
       </el-menu-item>
-      <el-menu-item index="2" @click="toInformationPage">
-        <i class="el-icon-user"></i>
-          <span>
-           个人信息
-          </span>
-      </el-menu-item>
       <el-menu-item index="3" @click="toRecentLive">
         <i class="el-icon-video-camera"></i>
         <span>近期直播</span>
       </el-menu-item>
-      <el-menu-item index="4" @click="toLiveTime">
-        <i class="el-icon-notebook-2"></i>
+      <el-menu-item index="2" @click="toInformationPage">
+        <i class="el-icon-user"></i>
           <span>
-            直播时长
+           个人信息
           </span>
       </el-menu-item>
     </el-menu>
@@ -45,11 +39,6 @@ export default {
     toInformationPage() {
       this.$router.push({
         name: 'TeacherInformation',
-      });
-    },
-    toLiveTime() {
-      this.$router.push({
-        name: 'TeacherLivetime',
       });
     },
   },

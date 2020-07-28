@@ -41,7 +41,7 @@
     <el-row>
       <el-col :span="3" v-for="(value, index) in rooms" :key="index" :offset=2>
         <el-card class="card" :body-style="{ padding: '0px' }" shadow="hover">
-          <img :src="`http://localhost:8000/QAplatform${value.img}`" class="image">
+          <img :src="`http://localhost:8000/QAplatform${value.img}`" class="image" alt="">
           <div style="padding: 10px;">
             <span>{{ value.course_id }}</span>
             <br>
@@ -50,7 +50,6 @@
               更改
             </el-button>
             <div class="bottom">
-              <time class="time">{{  }}</time>
               <el-button type="warning" class="button" @click="deleteRoom(value.pk)">
                 删除
               </el-button>
@@ -168,18 +167,8 @@ export default {
   .card {
     text-align: left;
     width: 200px;
-    height: 265px;
+    height: 245px;
     margin: 10px 0;
-  }
-
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
-
-  .bottom {
-    margin-top: 10px;
-    line-height: 12px;
   }
 
   .button {

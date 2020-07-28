@@ -15,6 +15,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:8000/QAplatform/',
 });
+Vue.prototype.$baseURL = 'http://localhost:8000/QAplatform/';
 
 new Vue({
   router,

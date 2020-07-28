@@ -5,22 +5,19 @@
     </el-header>
     <el-tabs tab-position="left">
       <el-tab-pane label="修改老师">
-        <room-teacher :room_pk="roomNum"></room-teacher>
+        <room-teacher :roomPk="roomNum"></room-teacher>
       </el-tab-pane>
       <el-tab-pane label="修改学生">
-        <room-students :room_pk="roomNum"></room-students>
+        <room-students :roomPk="roomNum"></room-students>
       </el-tab-pane>
       <el-tab-pane label="修改助教">
-        <room-assistants :room_pk="roomNum"></room-assistants>
-      </el-tab-pane>
-      <el-tab-pane label="修改时间">
-        <room-time :room_pk="roomNum"></room-time>
+        <room-assistants :roomPk="roomNum"></room-assistants>
       </el-tab-pane>
       <el-tab-pane label="更改描述">
-        <room-description :room_pk="roomNum"></room-description>
+        <room-description :roomPk="roomNum"></room-description>
       </el-tab-pane>
       <el-tab-pane label="更改封面图片">
-        <room-picture :room_pk="roomNum"></room-picture>
+        <room-picture :roomPk="roomNum"></room-picture>
       </el-tab-pane>
     </el-tabs>
   </el-container>
@@ -30,7 +27,6 @@
 import RoomStudents from '@/components/RoomStudents.vue';
 import RoomAssistants from '@/components/RoomAssistants.vue';
 import RoomTeacher from '../components/RoomTeacher.vue';
-import RoomTime from '../components/RoomTime.vue';
 import RoomDescription from '../components/RoomDescription.vue';
 import RoomPicture from '../components/RoomPicture.vue';
 
@@ -40,7 +36,6 @@ export default {
     RoomAssistants,
     RoomPicture,
     RoomDescription,
-    RoomTime,
     RoomTeacher,
     RoomStudents,
   },

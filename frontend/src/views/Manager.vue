@@ -88,6 +88,15 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          for (let i = 0; i < this.rooms.length; i += 1) {
+            if (parseInt(this.rooms[i].course_id, 10) === this.addRoomData.course_id) {
+              this.$message({
+                type: 'error',
+                message: '课程ID重复，请重新输入！',
+              });
+              return false;
+            }
+          }
           this.$http.post('office/', {
             course_id: this.addRoomData.course_id,
             name: this.addRoomData.course_name,

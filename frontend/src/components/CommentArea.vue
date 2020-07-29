@@ -47,18 +47,18 @@
 <script>
 export default {
   props: {
-    roomId: null,
+    roomId: String,
   },
   data() {
     return {
-      userId: null,
+      userId: 0,
       textarea: '',
       list: [],
       timer: null,
     };
   },
   mounted() {
-    this.userId = window.sessionStorage.getItem('user_pk');
+    this.userId = parseInt(window.sessionStorage.getItem('user_pk'), 10);
     this.timer = setInterval(() => {
       this.getList();
     }, 1000);

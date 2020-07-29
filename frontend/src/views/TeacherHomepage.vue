@@ -199,7 +199,6 @@ export default {
   },
   methods: {
     enterLiveRoom(roomPk) {
-      console.log(`Enter Live Room ${roomPk}`);
       this.$router.push({
         name: 'TeacherLiveRoom',
         params: {

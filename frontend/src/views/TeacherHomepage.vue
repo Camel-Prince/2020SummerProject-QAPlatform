@@ -97,7 +97,7 @@
           </el-table-column>
           <el-table-column label="图像" width="200">
             <template slot-scope="scope">
-              <el-image class="courseImg" :src="scope.row.img"></el-image>
+              <el-image class="course-img" :src="scope.row.img"></el-image>
             </template>
           </el-table-column>
           <el-table-column label="课程信息" width="280">

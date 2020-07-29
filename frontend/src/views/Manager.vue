@@ -41,7 +41,7 @@
     <el-row>
       <el-col :span="3" v-for="(value, index) in rooms" :key="index" :offset=2>
         <el-card class="card" :body-style="{ padding: '0px' }" shadow="hover">
-          <img :src="`http://localhost:8000/QAplatform${value.img}`" class="image" alt="">
+          <img :src="`${$extraURL}/QAplatform${value.img}`" class="image" alt="">
           <div style="padding: 10px;">
             <span>{{ value.course_id }}</span>
             <br>

@@ -21,7 +21,7 @@ export default {
     return {
       name: 'video.js',
       options: {
-        url: `rtmp://localhost:1935/stream/${this.roomId}`, // 需要自行设定拉流地址
+        url: `${this.$videoURL}/stream/${this.roomId}`, // 需要自行设定拉流地址
         type: 'rtmp/flv',
       },
       isVideo: true,
@@ -33,7 +33,7 @@ export default {
   },
   watch: {
     roomId() {
-      this.options.url = `rtmp://localhost:1935/stream/${this.roomId}`;
+      this.options.url = `${this.$videoURL}/stream/${this.roomId}`;
       this.player.src(this.options.url);
       this.player.load(this.options.url);
     },

@@ -146,7 +146,7 @@ export default {
       formLabelWidth: '120px',
       dateQuickPickerOptions: {
         disabledDate(time) {
-          return time.getTime() < Date.now();
+          return time.getTime() < Date.now() - 8.64e7;
         },
         shortcuts: [{
           text: '今天',
@@ -218,26 +218,30 @@ export default {
       if (date < 10) {
         date = `0${date}`;
       }
-      axios({
-        method: 'post',
-        url: `${this.$baseURL}home/`,
-        headers: {
-          Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
-        },
-        data: {
-          room_pk: roomPk,
-          start_time: `${year}-${month}-${date} ${this.form.startTime}:00`,
-          end_time: `${year}-${month}-${date} ${this.form.endTime}:00`,
-        },
-      })
-        .then((response) => {
-          if (response.data.status === 0) {
-            alert('时间冲突，请重新设置');
-          } else {
-            alert('设置成功, 自动刷新后可查看');
-          }
-          this.reload();
-        });
+      if (new Date(`${year}-${month}-${date} ${this.form.startTime}:00`) > new Date()) {
+        axios({
+          method: 'post',
+          url: `${this.$baseURL}home/`,
+          headers: {
+            Authorization: `jwt ${window.sessionStorage.getItem('token')}`,
+          },
+          data: {
+            room_pk: roomPk,
+            start_time: `${year}-${month}-${date} ${this.form.startTime}:00`,
+            end_time: `${year}-${month}-${date} ${this.form.endTime}:00`,
+          },
+        })
+          .then((response) => {
+            if (response.data.status === 0) {
+              this.$message.error('时间有冲突，请重新设置！');
+            } else {
+              this.$message.success(`课程${roomPk}直播预定成功`);
+            }
+            this.reload();
+          });
+      } else {
+        this.$message.error('直播预定失败，时间已过期');
+      }
     },
     deleteLiveTime(timePk) {
       axios({

@@ -12,6 +12,7 @@ import TeacherLiveRoom from '../views/TeacherLiveRoom.vue';
 import StudentLiveRoom from '../views/StudentLiveRoom.vue';
 import Manager from '../views/Manager.vue';
 import ModifyRoom from '../views/ModifyRoom.vue';
+import Info from '../components/Info.vue';
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,7 @@ const routes: RouteConfig[] = [
   { path: '/', redirect: 'login' },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
+  { path: '/info', component: Info },
   {
     path: '/',
     name: 'Home',

@@ -206,6 +206,16 @@ class UserDetail(APIView):
             'data': serializers.UserSerializer(request.user.info).data
         })
 
+    def post(self, request, *args, **kwargs):
+        if request.data.get('id_card'):
+            models.UserAddition.objects.filter(user=request.user).update(id_card=request.data.get('id_card'))
+        if request.data.get('name'):
+            models.UserAddition.objects.filter(user=request.user).update(name=request.data.get('name'))
+        return Response({
+            'status': 200,
+            'msg': '信息修改成功'
+        })
+
 
 #  主界面的view，老师和学生可以看到自己的所有课（给老师和学生用）
 class HomeView(APIView):

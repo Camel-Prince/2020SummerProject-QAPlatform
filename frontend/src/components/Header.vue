@@ -7,7 +7,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item class="clearfix">
-            <el-button class="btn2">个人信息</el-button>
+            <el-button class="btn2" @click="toInfo">个人信息</el-button>
           </el-dropdown-item>
           <el-dropdown-item class="clearfix">
             <el-button class="btn2" @click="logout">退出账号</el-button>
@@ -34,6 +34,9 @@ export default {
       window.sessionStorage.clear();
       this.$router.push({ path: '/login' });
     },
+    toInfo() {
+      this.$router.push({ path: '/info' });
+    },
   },
   mounted() {
     axios({
@@ -58,6 +61,7 @@ export default {
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
   }
   .qalogo{
+    float: left;
     margin-top: -3px;
     margin-left: 125px;
   }

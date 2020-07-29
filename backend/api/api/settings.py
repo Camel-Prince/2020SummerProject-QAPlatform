@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'QAplatform',
         'USER': 'root',
         'PASSWORD': 'root-password',
-        'HOST': '172.17.0.4',
+        'HOST': '172.17.0.2',
         'PORT': 3306,
     }
 }

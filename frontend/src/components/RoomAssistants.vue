@@ -69,6 +69,13 @@ export default {
     replace() {
       this.value = this.initValue;
     },
+    getAssistants() {
+      this.$http.get(`office/room/${this.roomPk}/`)
+        .then((response) => {
+          this.exAssistants = response.data.data.user_list.ex_assistants;
+          this.nowAssistants = response.data.data.user_list.assistants;
+        });
+    },
     submit() {
       const initPks = [];
       for (let i = 0; i < this.initValue.length; i += 1) {
@@ -84,15 +91,12 @@ export default {
             type: 'success',
             message: '更改成功!',
           })));
+      this.getAssistants();
     },
   },
   watch: {
     roomPk() {
-      this.$http.get(`office/room/${this.roomPk}/`)
-        .then((response) => {
-          this.exAssistants = response.data.data.user_list.ex_assistants;
-          this.nowAssistants = response.data.data.user_list.assistants;
-        });
+      this.getAssistants();
     },
     initValue() {
       this.value = this.initValue;

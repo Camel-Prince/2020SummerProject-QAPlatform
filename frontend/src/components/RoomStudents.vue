@@ -69,6 +69,13 @@ export default {
     replace() {
       this.value = this.initValue;
     },
+    getStudents() {
+      this.$http.get(`office/room/${this.roomPk}/`)
+        .then((response) => {
+          this.exStudents = response.data.data.user_list.ex_students;
+          this.nowStudents = response.data.data.user_list.students;
+        });
+    },
     submit() {
       const initPks = [];
       for (let i = 0; i < this.initValue.length; i += 1) {
@@ -84,15 +91,12 @@ export default {
             type: 'success',
             message: '更改成功!',
           })));
+      this.getStudents();
     },
   },
   watch: {
     roomPk() {
-      this.$http.get(`office/room/${this.roomPk}/`)
-        .then((response) => {
-          this.exStudents = response.data.data.user_list.ex_students;
-          this.nowStudents = response.data.data.user_list.students;
-        });
+      this.getStudents();
     },
     initValue() {
       this.value = this.initValue;

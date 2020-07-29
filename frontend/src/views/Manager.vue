@@ -46,10 +46,10 @@
             <span>{{ value.course_id }}</span>
             <br>
             <span>{{ value.name }}</span>
-            <el-button type="primary" class="button" @click="modifyRoom(value.pk, value.name)">
-              更改
-            </el-button>
             <div class="bottom">
+              <el-button type="primary" class="button" @click="modifyRoom(value.pk, value.name)">
+                更改
+              </el-button>
               <el-button type="warning" class="button" @click="deleteRoom(value.pk)">
                 删除
               </el-button>
@@ -173,7 +173,6 @@ export default {
 
   .button {
     padding: 2px;
-    float: right;
   }
 
   .image {

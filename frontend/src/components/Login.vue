@@ -70,14 +70,15 @@ export default {
         await this.$http.post('login/', {
           username: this.loginForm.username,
           password: this.loginForm.password,
-        }).then((response) => {
-          if (response.data.status === 400) return this.$message.error('登陆失败，用户名或密码错误');
-          this.$message.success('登陆成功');
-          window.sessionStorage.setItem('token', response.data.token);
-          window.sessionStorage.setItem('user_pk', response.data.user_pk);
-          const urls = ['/manager', '/teacher/homepage', '/student/homepage'];
-          return this.$router.push({ path: urls[response.data.occupation] });
-        });
+        })
+          .then((response) => {
+            if (response.data.status === 400) return this.$message.error('登陆失败，用户名或密码错误');
+            this.$message.success('登陆成功');
+            window.sessionStorage.setItem('token', response.data.token);
+            window.sessionStorage.setItem('user_pk', response.data.user_pk);
+            const urls = ['/manager', '/teacher/homepage', '/student/homepage'];
+            return this.$router.push({ path: urls[response.data.occupation] });
+          });
       });
     },
     toRegister() {

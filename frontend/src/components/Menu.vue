@@ -56,7 +56,9 @@
             }]">
             <template v-if="toolName === tools.Rooms">
               <p class="menu-text">Join/create room: </p>
-              <input type="text" v-model="potentialRoomName"/>
+              <label>
+                <input type="text" v-model="potentialRoomName"/>
+              </label>
               <button @click="goToRoom">Go</button>
             </template>
 
@@ -120,7 +122,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Compact } from 'vue-color';
-import { Tools, ClipTools } from '../types';
+import { Tools, ClipTools } from '@/types';
 
 @Component({
   components: {
@@ -251,7 +253,7 @@ export default class Menu extends Vue {
 
     display: flex;
     flex-direction: row;
-    top: 0px;
+    top: 0;
     left: calc((100% - 314px)/2);
     width: (6 * @menu-button-size) + 14;
     z-index: 2;

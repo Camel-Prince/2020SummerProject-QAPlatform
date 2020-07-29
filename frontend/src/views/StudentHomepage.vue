@@ -41,7 +41,7 @@
           </el-table-column>
           <el-table-column width="380">
             <template slot-scope="scope">
-              <img :src="scope.row.img"/>
+              <img :src="scope.row.img" alt=""/>
             </template>
           </el-table-column>
           <el-table-column width="700">

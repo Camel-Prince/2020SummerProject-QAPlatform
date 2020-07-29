@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <img src="../assets/QAlogo.png" class="qalogo">
+    <img src="../assets/QAlogo.png" class="qalogo" alt="">
       <el-dropdown trigger="click" class="btn">
         <span class="el-dropdown-link">
           {{name}}<i class="el-icon-caret-bottom el-icon--right"></i>
@@ -14,7 +14,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-    <img :src=userlogo class="userlogo">
+    <img :src=userlogo class="userlogo" alt="">
   </div>
 </template>
 
@@ -55,7 +55,7 @@ export default {
   .header{
     height: 60px;
     background-color: white;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
   }
   .qalogo{
     margin-top: -3px;

@@ -142,11 +142,13 @@ export default {
       }
     },
     open() {
-      this.$alert(`<strong>URL</strong>:rtmp://192.168.99.100:1935/stream <br> <strong>密钥</strong>:${this.courseName}`,
-        '直播地址(打开直播软件按照如下地址推流)', {
-          confirmButtonText: '确定',
-          dangerouslyUseHTMLString: true,
-        });
+      this.$alert(`<strong>URL</strong>:rtmp://192.168.99.100:1935/stream
+      <br>
+      <strong>密钥</strong>:${this.courseName}`,
+      '直播地址(打开直播软件按照如下地址推流)', {
+        confirmButtonText: '确定',
+        dangerouslyUseHTMLString: true,
+      });
     },
   },
 };

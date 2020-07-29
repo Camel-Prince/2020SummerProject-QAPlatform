@@ -32,7 +32,7 @@ import 'mathlive/dist/mathlive.core.css';
 import 'mathlive/dist/mathlive.css';
 import domtoimage from 'dom-to-image';
 import Menu from './Menu.vue';
-import { Tools, ClipTools } from '../types';
+import { Tools, ClipTools } from '@/types';
 
 @Component({
   components: {

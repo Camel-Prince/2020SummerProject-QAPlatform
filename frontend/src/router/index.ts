@@ -1,11 +1,8 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-// import axios from 'axios';
 import Home from '../views/Home.vue';
 import Login from '../components/Login.vue';
 import Register from '../components/Register.vue';
-import Student from '../components/Student.vue';
-import Teacher from '../components/Teacher.vue';
 import TeacherHomepage from '../views/TeacherHomepage.vue';
 import TeacherRecentlive from '../views/TeacherRecentlive.vue';
 import TeacherInformation from '../views/TeacherInformation.vue';
@@ -22,8 +19,6 @@ const routes: RouteConfig[] = [
   { path: '/', redirect: 'login' },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
-  { path: '/student', component: Student },
-  { path: '/teacher', component: Teacher },
   {
     path: '/',
     name: 'Home',

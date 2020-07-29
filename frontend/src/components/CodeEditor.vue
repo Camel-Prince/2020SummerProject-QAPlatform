@@ -92,7 +92,6 @@ export default {
     });
     setTimeout(this.getCode, 1000);
     if (this.Access === false) {
-      // this.aceEditor.getSession().on('change', this.change);
       this.timer = setInterval(this.getCode, 500);
       this.aceEditor.setReadOnly(true);
     } else {
